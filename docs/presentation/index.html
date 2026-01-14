@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+    <head>
+        <title>My first presentation</title>
+        <!--<script
+            type="module"
+            src="https://cdn.jsdelivr.net/gh/impress/impress.js@2.0.0/js/impress.js"
+        ></script>-->
+        <!--
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/impress/impress.js@2.0.0/css/impress-common.css"
+        />
+        -->
+
+        <!--Leave out, if you don't use impress-common.css-->
+        <link rel="stylesheet" href="/impress-common.css" />
+    </head>
+    <body class="impress-not-supported">
+        <div class="fallback-message">
+            <p>
+                Your browser <b>doesn't support the features required</b> by
+                impress.js, so you are presented with a simplified version of
+                this presentation.
+            </p>
+            <p>
+                For the best experience please use the latest <b>Chrome</b>,
+                <b>Safari</b> or <b>Firefox</b> browser.
+            </p>
+        </div>
+
+        <div id="impress">
+            <div id="myFirstSlide" class="step">
+                <h1>My first Slide</h1>
+            </div>
+            <div class="step">Hello World</div>
+        </div>
+
+        <script src="/impress.js"></script>
+        <script>
+            // window.impress ||
+            //     document.write(
+            //         '\x3C/script>',
+            //     );
+        </script>
+        <script>
+            // import { impress } from "https://cdn.jsdelivr.net/gh/impress/impress.js@2.0.0/js/impress.js";
+            impress().init();
+        </script>
+    </body>
+</html>

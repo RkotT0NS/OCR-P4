@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  # Application (PHP-FPM)
+  app:
+    user: "1000:1000"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: laravel-tus-app
+    container_name: laravel_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./laravel:/var/www
+      - ./uploads:/var/www/storage/app/public/uploads # Persistence for uploads
+    depends_on:
+      - db
+      - redis
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+
+  # Web Server (Nginx)
+  nginx:
+    image: nginx:alpine
+    container_name: laravel_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./laravel:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./uploads:/var/www/storage/app/public/uploads
+    depends_on:
+      - app
+
+  # Database (PostgreSQL)
+  db:
+    image: postgres:15-alpine
+    container_name: laravel_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-laravel}
+      POSTGRES_USER: ${DB_USERNAME:-laravel}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  # Cache/Queue (Redis) - Required by Tus-PHP for state
+  redis:
+    image: redis:alpine
+    container_name: laravel_redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+
+volumes:
+  db_data:
+  redis_data:
