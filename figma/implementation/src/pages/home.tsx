@@ -17,7 +17,7 @@ function Header() {
   );
 }
 
-export default function GeminiChooseAFile() {
+export default function Home() {
   return (
     <div className="relative w-full h-screen" style={{ backgroundImage: "linear-gradient(174.9deg, #FFB88C 2.29%, #DE6262 97.71%)" }}>
       <Header />
