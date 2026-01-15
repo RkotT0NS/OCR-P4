@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import DownloadWithPasswordFilledPage from '../pages/download-with-password-filled';
 
 const meta = {
-  title: 'Example/Page',
+  title: 'Example/Page/Download',
   component: DownloadWithPasswordFilledPage,
   parameters: {
     layout: 'fullscreen',

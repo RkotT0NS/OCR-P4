@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import NoDownloadAvailablePage from '../pages/no-download-available';
 
 const meta = {
-  title: 'Example/Page/NoDownloadAvailablePage',
+  title: 'Example/Page/Download',
   component: NoDownloadAvailablePage,
-  tags: ['autodocs'],
+  tags: ['!autodocs'],
   parameters: {
     layout: 'fullscreen',
   },
@@ -13,4 +13,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const NoDownloadAvailable: Story = {};

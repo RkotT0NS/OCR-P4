@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import FileChoosed from '../pages/file-choosed';
 
 const meta = {
-  title: 'Example/Page',
+  title: 'Example/Page/FileUpload',
   component: FileChoosed,
   parameters: {
     layout: 'fullscreen',
