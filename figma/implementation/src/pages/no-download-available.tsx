@@ -1,21 +1,7 @@
-import React from 'react';
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 
 const errorIcon = "https://www.figma.com/api/mcp/asset/c8952fa5-228b-4803-b7a1-0a358c35a5e6";
-
-function Header() {
-  return (
-    <header className="absolute top-0 left-0 right-0 z-10">
-      <div className="max-w-[1280px] mx-auto flex items-center justify-between p-4">
-        <h1 className="text-3xl font-bold text-black">
-          DataShare
-        </h1>
-        <button className="bg-[#2c2c2c] text-white px-4 py-3 rounded-lg text-sm">
-          Se connecter
-        </button>
-      </div>
-    </header>
-  );
-}
 
 function Callout({label}: {label: string}) {
     return (
@@ -38,11 +24,7 @@ function NoDownloadAvailablePage() {
                     <Callout label="Ce fichier n'est plus disponible en téléchargement car il a expiré." />
                 </div>
             </main>
-            <footer className="absolute bottom-0 left-0 right-0">
-                <div className="max-w-[1280px] mx-auto p-4 text-white">
-                    <p>Copyright DataShare© 2025</p>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

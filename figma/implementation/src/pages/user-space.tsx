@@ -1,5 +1,3 @@
-import React from 'react';
-
 const logoutIcon = "https://www.figma.com/api/mcp/asset/4bef1d54-5946-4cc2-bbbb-2b969174b1af";
 const fileIcon = "https://www.figma.com/api/mcp/asset/0d70d109-ac9b-467d-9be7-7e79e7381986";
 const deleteIcon = "https://www.figma.com/api/mcp/asset/b71745e9-ee6e-4591-a2ef-738c33acab31";

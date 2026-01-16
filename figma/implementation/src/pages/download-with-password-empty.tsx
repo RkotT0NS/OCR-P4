@@ -1,23 +1,9 @@
-import React from 'react';
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 
 const infoIcon = "https://www.figma.com/api/mcp/asset/6b26e605-76d3-4bf6-a3cd-0e74e8970122";
 const fileIcon = "https://www.figma.com/api/mcp/asset/3f659ec6-9ab2-472a-be74-6070ec90b58a";
 const downloadIcon = "https://www.figma.com/api/mcp/asset/a8cdcab2-70fd-4bee-b4f9-d569968832b1";
-
-function Header() {
-  return (
-    <header className="absolute top-0 left-0 right-0 z-10">
-      <div className="max-w-[1280px] mx-auto flex items-center justify-between p-4">
-        <h1 className="text-3xl font-bold text-black">
-          DataShare
-        </h1>
-        <button className="bg-[#2c2c2c] text-white px-4 py-3 rounded-lg text-sm">
-          Se connecter
-        </button>
-      </div>
-    </header>
-  );
-}
 
 function FileInfo() {
     return (
@@ -73,11 +59,7 @@ function DownloadWithPasswordEmptyPage() {
                     </button>
                 </div>
             </main>
-            <footer className="absolute bottom-0 left-0 right-0">
-                <div className="max-w-[1280px] mx-auto p-4 text-white">
-                    <p>Copyright DataShare© 2025</p>
-                </div>
-            </footer>
+            <Footer/>  
         </div>
     );
 }
