@@ -1,0 +1,26 @@
+{
+  "name": "datashare-webapp",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/RkotT0NS/OCR-P4#readme",
+  "bugs": {
+    "url": "https://github.com/RkotT0NS/OCR-P4/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RkotT0NS/OCR-P4.git"
+  },
+  "workspaces": [
+    "laravel",
+    "figma/implementation"
+  ],
+  "license": "ISC",
+  "author": "tetedacier",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

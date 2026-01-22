@@ -14,8 +14,10 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
+    "clsx": "^2.1.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
@@ -32,6 +34,7 @@
     "@vitejs/plugin-react": "^5.1.1",
     "@vitest/browser-playwright": "^4.0.17",
     "@vitest/coverage-v8": "^4.0.17",
+    "autoprefixer": "^10.4.23",
     "chromatic": "^13.3.5",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
