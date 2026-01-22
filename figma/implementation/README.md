@@ -71,3 +71,7 @@ export default defineConfig([
   },
 ])
 ```
+
+## Icons
+
+Some default icons are provided in the `Icons` context. You will need to provide your own icons or use the default ones provided by the `Icons` context from your own path (which can be be a raw copy of the public folder). You can use them in your components by importing the `Icons` context and using the `useContext` hook or the Consumer component.
