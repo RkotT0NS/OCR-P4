@@ -10,6 +10,7 @@ import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 import { Form, Head } from '@inertiajs/react';
+import LoginPage from 'show-case/src/pages/login.tsx';
 
 interface LoginProps {
     status?: string;
@@ -18,6 +19,143 @@ interface LoginProps {
 }
 
 export default function Login({
+    status,
+    canResetPassword,
+    canRegister,
+}: LoginProps) {
+    console.log({
+        reset: request().url,
+        status,
+        canResetPassword,
+        canRegister,
+        unstyled: new URLSearchParams(location.search).has('unstyled'),
+    });
+    if (new URLSearchParams(location.search).has('unstyled')) {
+        return (
+            <OriginalLogin
+                {...{
+                    status,
+                    canResetPassword,
+                    canRegister,
+                }}
+            />
+        );
+    }
+    return (
+        <LoginPage>
+            <Form
+                {...store.form()}
+                resetOnSuccess={['password']}
+                className="flex w-full bg-white"
+            >
+                {({ processing, errors }) => (
+                    <>
+                        <div className="flex w-full flex-col gap-4">
+                            <div className="w-ful flex flex-col gap-2">
+                                <Label
+                                    className="text-base text-gray-800"
+                                    htmlFor="email"
+                                >
+                                    Email
+                                </Label>
+                                <input
+                                    className="w-full rounded-lg border border-gray-300 bg-white p-3"
+                                    id="email"
+                                    type="email"
+                                    name="email"
+                                    required
+                                    autoFocus
+                                    tabIndex={1}
+                                    autoComplete="email"
+                                    placeholder="Saisissez votre email..."
+                                />
+                                <InputError message={errors.email} />
+                            </div>
+
+                            <div className="flex w-full flex-col gap-2">
+                                <div className="flex items-center">
+                                    <Label
+                                        className="text-base text-gray-800"
+                                        htmlFor="password"
+                                    >
+                                        Mot de passe
+                                    </Label>
+                                    {/*
+                                        Missing design
+                                        {canResetPassword && (
+                                        <TextLink
+                                            href={request()}
+                                            className="ml-auto text-sm"
+                                            tabIndex={5}
+                                        >
+                                            Forgot password?
+                                        </TextLink>
+                                    )}*/}
+                                </div>
+                                <input
+                                    className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-800"
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    required
+                                    tabIndex={2}
+                                    autoComplete="current-password"
+                                    placeholder="Saisissez votre mot de passe..."
+                                />
+                                <InputError message={errors.password} />
+                            </div>
+
+                            {/*
+                                Missing remember me design
+                                <div className="flex items-center space-x-3">
+                                    <Checkbox
+                                        id="remember"
+                                        name="remember"
+                                        tabIndex={3}
+                                    />
+                                    <Label htmlFor="remember">Remember me</Label>
+                                </div>
+                                */}
+
+                            <div className="flex w-full flex-col gap-2">
+                                {canRegister && (
+                                    <button
+                                        onClick={(event) => {
+                                            event.preventDefault();
+                                        }}
+                                        className="w-full rounded-lg p-3 text-center text-orange-600"
+                                        tabIndex={5}
+                                    >
+                                        <span
+                                            onClick={(event) => {
+                                                event.preventDefault();
+                                                location.href = register().url;
+                                            }}
+                                            className="hover:cursor-pointer"
+                                        >
+                                            Créer un compte
+                                        </span>
+                                    </button>
+                                )}
+                                <button
+                                    type="submit"
+                                    className="w-full rounded-lg border border-[#cd5e14]/50 bg-[#ff812d]/13 p-3 text-[#ba681f]"
+                                    tabIndex={4}
+                                    disabled={processing}
+                                    data-test="login-button"
+                                >
+                                    {processing && <Spinner />}
+                                    Connexion
+                                </button>
+                            </div>
+                        </div>
+                    </>
+                )}
+            </Form>
+        </LoginPage>
+    );
+}
+export function OriginalLogin({
     status,
     canResetPassword,
     canRegister,
@@ -99,7 +237,7 @@ export default function Login({
                         </div>
 
                         {canRegister && (
-                            <div className="text-center text-sm text-muted-foreground">
+                            <div className="text-muted-foreground text-center text-sm">
                                 Don't have an account?{' '}
                                 <TextLink href={register()} tabIndex={5}>
                                     Sign up
