@@ -4,11 +4,5 @@
       "httpUrl": "http://localhost:6006/mcp",
       "args": []
     }
-  },
-  "allowedTools": [
-    "write_file",
-    "filesystem.write_file",
-    "storybook.get-ui-building-instructions",
-    "storybook.get-story-urls"
-  ]
+  }
 }
