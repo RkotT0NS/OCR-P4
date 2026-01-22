@@ -7,3 +7,4 @@ laravel/resources/js/figma
 # Icons sync path
 !laravel/public/ui/.gitkeep
 laravel/public/ui
+figma/implementation/build-storybook.log
