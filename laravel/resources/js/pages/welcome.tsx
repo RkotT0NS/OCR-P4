@@ -1,13 +1,13 @@
 import { dashboard, login, register } from '@/routes';
 import { type SharedData } from '@/types';
+import { HomePage } from '../../../../figma/implementation/src';
 import { Link, usePage } from '@inertiajs/react';
-import Home from 'show-case/src/pages/home.tsx';
 
 export default function Welcome(props: { canRegister?: boolean }) {
     const { auth } = usePage<SharedData>().props;
     console.log(auth, props);
     /*<OriginalHome canRegister />*/
-    return <Home user={auth.user} />;
+    return <HomePage user={auth.user} />;
 }
 export function OriginalHome({
     canRegister = true,

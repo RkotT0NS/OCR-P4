@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
-import RegisterPage from 'show-case/src/pages/register.tsx';
+import { RegisterPage } from '../../../../../figma/implementation/src';
 
 export default function Register() {
     return (

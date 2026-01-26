@@ -9,8 +9,8 @@ import AuthLayout from '@/layouts/auth-layout';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
+import { LoginPage } from '../../../../../figma/implementation/src';
 import { Form, Head } from '@inertiajs/react';
-import LoginPage from 'show-case/src/pages/login.tsx';
 
 interface LoginProps {
     status?: string;

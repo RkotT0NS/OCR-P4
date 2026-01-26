@@ -3,9 +3,8 @@ import UploadComponents from '@/components/upload-component';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
+import { Icons, UserSpacePage } from '../../../../figma/implementation/src';
 import { Head } from '@inertiajs/react';
-import { Icons } from 'show-case/src/contexts/Icons.tsx';
-import UserSpace from 'show-case/src/pages/user-space.tsx';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -26,7 +25,7 @@ export default function Dashboard() {
                 lockIcon: '/ui/lockIcon.png',
             }}
         >
-            <UserSpace />
+            <UserSpacePage />
         </Icons.Provider>
     );
 }
