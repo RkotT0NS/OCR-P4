@@ -5,7 +5,7 @@ import { cn } from "../lib/utils";
 const uploadIcon =
   "https://www.figma.com/api/mcp/asset/9245b9ba-0864-4552-9150-7f03c11d928b";
 
-export default function Home({user}: {user:unknown}) {
+export default function HomePage({user}: {user:unknown}) {
   console.log({ user });
   return (
     <div

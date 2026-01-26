@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import UploadFilter from '../components/UploadFilter';
+import {UploadFilter} from '../components/UploadFilter';
 
 const meta = {
   title: 'Example/Component/UploadFilter',

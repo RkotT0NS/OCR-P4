@@ -39,7 +39,7 @@ function InputField({ label, placeholder, type = 'text' }: { label: string; plac
     );
 }
 
-function DownloadWithPasswordEmptyPage() {
+export default function DownloadWithPasswordEmptyPage() {
     return (
         <div className="relative w-full h-screen" style={{ backgroundImage: "linear-gradient(174.9deg, #FFB88C 2.29%, #DE6262 97.71%)" }}>
             <Header/>
@@ -59,9 +59,7 @@ function DownloadWithPasswordEmptyPage() {
                     </button>
                 </div>
             </main>
-            <Footer/>  
+            <Footer/>
         </div>
     );
 }
-
-export default DownloadWithPasswordEmptyPage;

@@ -41,7 +41,7 @@ function FileEntry({
   );
 }
 
-function MobileUserSpace() {
+export default function MobileUserSpacePage() {
   return (
     <div className="bg-[#fff7f7] w-[393px] h-[852px] mx-auto my-8 shadow-2xl rounded-3xl overflow-hidden">
       <header className="bg-[#ffeee3] border-b border-orange-200/50 px-6 py-4 flex items-center justify-between">
@@ -89,5 +89,3 @@ function MobileUserSpace() {
     </div>
   );
 }
-
-export default MobileUserSpace;
