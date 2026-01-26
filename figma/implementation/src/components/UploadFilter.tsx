@@ -9,7 +9,7 @@ export interface UploadFilterProps {
   onSelect?: (state: UploadFilterState) => void;
 }
 
-export default function UploadFilter({
+export function UploadFilter({
   className,
   selected = "All",
   onSelect,

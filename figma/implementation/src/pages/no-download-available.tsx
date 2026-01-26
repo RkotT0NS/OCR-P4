@@ -12,7 +12,7 @@ function Callout({label}: {label: string}) {
     )
 }
 
-function NoDownloadAvailablePage() {
+export default function NoDownloadAvailablePage() {
     return (
         <div className="relative w-full h-screen" style={{ backgroundImage: "linear-gradient(174.9deg, #FFB88C 2.29%, #DE6262 97.71%)" }}>
             <Header/>
@@ -28,5 +28,3 @@ function NoDownloadAvailablePage() {
         </div>
     );
 }
-
-export default NoDownloadAvailablePage;
