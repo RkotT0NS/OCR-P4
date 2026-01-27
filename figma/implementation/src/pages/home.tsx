@@ -1,15 +1,103 @@
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "../lib/utils";
 import { Icons } from "../contexts/Icons";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import { UploadDetails } from "../components/UploadDetails";
+function preventDefaultDragEvents(event: Event) {
+  event.preventDefault();
+  // event.stopPropagation();
+}
+const inertClasses = [
+  "opacity-50",
+  "grayscale",
+  // "pointer-events-none",
+  // "select-none",
+];
+function showDragInteractionOn(
+  domElement: React.RefObject<HTMLDivElement | null>,
+) {
+  return () => {
+    if (domElement.current === null) return;
+    inertClasses.forEach((className) => {
+      domElement.current.classList.add(cn(className));
+    });
+    // domElement.current.classList.add(cn("highlight"));
+  };
+}
+function hideDragInteractionOn(
+  domElement: React.RefObject<HTMLDivElement | null>,
+) {
+  return () => {
+    if (domElement.current === null) return;
 
-const uploadIcon =
-  "https://www.figma.com/api/mcp/asset/9245b9ba-0864-4552-9150-7f03c11d928b";
+    inertClasses.forEach((className) => {
+      domElement.current.classList.remove(cn(className));
+    });
+    // domElement.current.classList.remove(cn("highlight"));
+  };
+}
+function handleDrop() {
+  console.log("handleDrop construction");
+  return (event: DragEvent) => {
+    const droppedFiles = event.dataTransfer?.files; // Access the files
+    console.log(event);
+    console.log(event.dataTransfer);
+    if (droppedFiles?.length) {
+      console.log(droppedFiles); // Sync dropped files to the input
+      // we should disply the file chooser component here
+    }
+  };
+}
 
 export default function HomePage({ user }: { user: unknown }) {
   console.log({ user });
+  const [file, setFile] = useState<File | null>(null);
+  const pageRef = useRef(null);
+  const fileInputRef = useRef(null);
+  useEffect(() => {
+    // we should use a ref here
+    // const fileInput = document.getElementById("fileUpload");
+    const showInteraction = showDragInteractionOn(pageRef);
+    const hideInteraction = hideDragInteractionOn(pageRef);
+    const updateFileStatus = handleDrop();
+    // 1. Prevent default drag behaviors
+    ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+      document.addEventListener(eventName, preventDefaultDragEvents, false);
+    });
+
+    // 2. Toggle a visual "active" state
+    ["dragenter", "dragover"].forEach((eventName) => {
+      document.addEventListener(eventName, showInteraction, false);
+    });
+
+    ["dragleave", "drop"].forEach((eventName) => {
+      document.addEventListener(eventName, hideInteraction, false);
+    });
+
+    // 3. Handle the drop
+    document.addEventListener("drop", updateFileStatus);
+    return () => {
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+        document.removeEventListener(
+          eventName,
+          preventDefaultDragEvents,
+          false,
+        );
+      });
+      ["dragenter", "dragover"].forEach((eventName) => {
+        document.removeEventListener(eventName, showInteraction, false);
+      });
+      ["dragleave", "drop"].forEach((eventName) => {
+        document.removeEventListener(eventName, hideInteraction, false);
+      });
+      document.removeEventListener("drop", updateFileStatus);
+    };
+  }, []);
+
   return (
     <div
+      ref={pageRef}
       className={cn("relative w-full h-screen bg-amber-50")}
       style={{
         // below style allow accessibility testing since gradients with multiple colors are not handled
@@ -25,20 +113,44 @@ export default function HomePage({ user }: { user: unknown }) {
           "w-full h-full flex flex-col items-center justify-center",
         )}
       >
-        <div className={cn("flex flex-col items-center gap-6 text-center")}>
-          <p className={cn("text-3xl font-light text-black")}>
-            Tu veux partager un fichier ?
-          </p>
-          <div className={cn("p-6 bg-black/15 rounded-full")}>
-            <div className={cn("p-6 bg-[#100218] rounded-full")}>
-              <Icons.Consumer>
-                {({ DatashareLightLogo }) => (
-                  <DatashareLightLogo className={cn("w-12 h-12")} />
-                )}
-              </Icons.Consumer>
-            </div>
-          </div>
-        </div>
+        {file === null ? (
+          <>
+            <label
+              htmlFor="fileInput"
+              className={cn("flex flex-col items-center gap-6 text-center")}
+            >
+              <p className={cn("text-3xl font-light text-black")}>
+                Tu veux partager un fichier ?
+              </p>
+              <div className={cn("p-6 bg-black/15 rounded-full")}>
+                <div className={cn("p-6 bg-[#100218] rounded-full")}>
+                  <Icons.Consumer>
+                    {({ DatashareLightLogo }) => (
+                      <DatashareLightLogo
+                        classes="w-12 h-12"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </Icons.Consumer>
+                </div>
+              </div>
+            </label>
+            <input
+              ref={fileInputRef}
+              type="file"
+              onChange={(event) => {
+                const droppedFiles = event.target.files;
+                if (droppedFiles?.length) {
+                  console.log(droppedFiles[0]); // Sync dropped files to the input
+                }
+              }}
+              id="fileInput"
+              className={cn("hidden")}
+            />
+          </>
+        ) : (
+          <UploadDetails file={file} />
+        )}
       </main>
       <Footer />
     </div>
