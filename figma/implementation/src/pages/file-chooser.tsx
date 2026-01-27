@@ -19,7 +19,9 @@ export default function FileChooser() {
           "w-full h-full flex flex-col items-center justify-center",
         )}
       >
-        <UploadDetails />
+        <UploadDetails
+          file={new File([""], "quoicoubé.txt", { type: "text/plain" })}
+        />
       </main>
       <Footer />
     </div>

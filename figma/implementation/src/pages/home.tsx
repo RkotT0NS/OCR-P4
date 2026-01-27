@@ -37,15 +37,19 @@ function hideDragInteractionOn(
     // domElement.current.classList.remove(cn("highlight"));
   };
 }
-function handleDrop() {
+function handleDrop(
+  updateFileStatus: React.Dispatch<React.SetStateAction<File | null>>,
+) {
   console.log("handleDrop construction");
   return (event: DragEvent) => {
     const droppedFiles = event.dataTransfer?.files; // Access the files
     console.log(event);
     console.log(event.dataTransfer);
     if (droppedFiles?.length) {
-      console.log(droppedFiles); // Sync dropped files to the input
-      // we should disply the file chooser component here
+      if (droppedFiles?.length > 1) {
+        console.log("Only one file can be dropped at a time");
+      }
+      updateFileStatus(droppedFiles[0]);
     }
   };
 }
@@ -60,7 +64,7 @@ export default function HomePage({ user }: { user: unknown }) {
     // const fileInput = document.getElementById("fileUpload");
     const showInteraction = showDragInteractionOn(pageRef);
     const hideInteraction = hideDragInteractionOn(pageRef);
-    const updateFileStatus = handleDrop();
+    const updateFileStatus = handleDrop(setFile);
     // 1. Prevent default drag behaviors
     ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
       document.addEventListener(eventName, preventDefaultDragEvents, false);
@@ -93,7 +97,7 @@ export default function HomePage({ user }: { user: unknown }) {
       });
       document.removeEventListener("drop", updateFileStatus);
     };
-  }, []);
+  }, [setFile]);
 
   return (
     <div
@@ -139,9 +143,12 @@ export default function HomePage({ user }: { user: unknown }) {
               ref={fileInputRef}
               type="file"
               onChange={(event) => {
-                const droppedFiles = event.target.files;
-                if (droppedFiles?.length) {
-                  console.log(droppedFiles[0]); // Sync dropped files to the input
+                const selectedFiles = event.target.files;
+                if (selectedFiles?.length) {
+                  if (selectedFiles?.length > 1) {
+                    console.log("Only one file can be dropped at a time");
+                  }
+                  setFile(selectedFiles[0]);
                 }
               }}
               id="fileInput"
