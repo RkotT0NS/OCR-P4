@@ -1,3 +1,4 @@
+import { humanFileSize } from "../lib/size-format";
 import { cn } from "../lib/utils";
 const chevronDownIcon =
   "https://www.figma.com/api/mcp/asset/55ce0c05-6733-444a-9f51-1d95ba2feae2";
@@ -73,9 +74,9 @@ export function UploadDetails({ file }: { file: File }) {
               "text-base text-ellipsis overflow-hidden whitespace-nowrap",
             )}
           >
-            IMG_9210_123123131313213231.jpg
+            {file.name}
           </p>
-          <p className={cn("text-sm")}>2,6 Mo</p>
+          <p className={cn("text-sm")}>{humanFileSize(file.size)}</p>
         </div>
         <button
           className={cn(
