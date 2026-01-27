@@ -1,11 +1,12 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { cn } from "../lib/utils";
+import { Icons } from "../contexts/Icons";
 
 const uploadIcon =
   "https://www.figma.com/api/mcp/asset/9245b9ba-0864-4552-9150-7f03c11d928b";
 
-export default function HomePage({user}: {user:unknown}) {
+export default function HomePage({ user }: { user: unknown }) {
   console.log({ user });
   return (
     <div
@@ -19,18 +20,22 @@ export default function HomePage({user}: {user:unknown}) {
       }}
     >
       <Header login={user === null ? "Anonymous" : "User"} />
-      <main className={cn("w-full h-full flex flex-col items-center justify-center")}>
+      <main
+        className={cn(
+          "w-full h-full flex flex-col items-center justify-center",
+        )}
+      >
         <div className={cn("flex flex-col items-center gap-6 text-center")}>
           <p className={cn("text-3xl font-light text-black")}>
             Tu veux partager un fichier ?
           </p>
           <div className={cn("p-6 bg-black/15 rounded-full")}>
             <div className={cn("p-6 bg-[#100218] rounded-full")}>
-              <img
-                alt="Upload cloud icon"
-                className={cn("w-12 h-12")}
-                src={uploadIcon}
-              />
+              <Icons.Consumer>
+                {({ DatashareLightLogo }) => (
+                  <DatashareLightLogo className={cn("w-12 h-12")} />
+                )}
+              </Icons.Consumer>
             </div>
           </div>
         </div>

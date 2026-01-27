@@ -14,10 +14,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+    Route::get('/upload', function () {
+        return Inertia::render('upload');
+    })->name('upload');
+    Route::any('/tus/upload/{any?}', function () {
+        return app('tus-server')->serve();
+    })->where('any', '.*')->name('tus.upload');
 });
 
-Route::any('/tus/upload/{any?}', function () {
-    return app('tus-server')->serve();
-})->where('any', '.*')->name('tus.upload');
 
 require __DIR__.'/settings.php';

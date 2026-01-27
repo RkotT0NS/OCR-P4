@@ -4,7 +4,9 @@ import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Icons, UserSpacePage } from '../../../../figma/implementation/src';
+import { logout, upload } from '@/routes';
 import { Head } from '@inertiajs/react';
+import { useContext } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -13,9 +15,11 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 export default function Dashboard() {
+    const initialIcons = useContext(Icons);
     return (
         <Icons.Provider
             value={{
+                ...initialIcons,
                 logoutIcon: '/ui/logoutIcon.png',
                 fileIcon: '/ui/fileIcon.png',
                 deleteIcon: '/ui/deleteIcon.png',
@@ -25,7 +29,7 @@ export default function Dashboard() {
                 lockIcon: '/ui/lockIcon.png',
             }}
         >
-            <UserSpacePage />
+            <UserSpacePage actions={{logout, upload}} />
         </Icons.Provider>
     );
 }
