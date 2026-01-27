@@ -1,13 +1,28 @@
 import { dashboard, login, register } from '@/routes';
 import { type SharedData } from '@/types';
-import { HomePage } from '../../../../figma/implementation/src';
+import { HomePage, Icons } from '../../../../figma/implementation/src';
 import { Link, usePage } from '@inertiajs/react';
+import { useContext } from 'react';
 
-export default function Welcome(props: { canRegister?: boolean }) {
+export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
-    console.log(auth, props);
-    /*<OriginalHome canRegister />*/
-    return <HomePage user={auth.user} />;
+    const initialIcons = useContext(Icons);
+    return (
+        <Icons.Provider
+            value={{
+                ...initialIcons,
+                logoutIcon: '/ui/logoutIcon.png',
+                fileIcon: '/ui/fileIcon.png',
+                deleteIcon: '/ui/deleteIcon.png',
+                accessIcon: '/ui/accessIcon.png',
+                audioIcon: '/ui/audioIcon.png',
+                videoIcon: '/ui/videoIcon.png',
+                lockIcon: '/ui/lockIcon.png',
+            }}
+        >
+            <HomePage user={auth.user} />
+        </Icons.Provider>
+    );
 }
 export function OriginalHome({
     canRegister = true,
