@@ -1,6 +1,7 @@
 import { humanFileSize } from "../lib/size-format";
 import { cn } from "../lib/utils";
 import { Icons } from "../contexts/Icons";
+import inputFileSelectionChange from "../lib/file-selection-handler";
 
 const chevronDownIcon =
   "https://www.figma.com/api/mcp/asset/55ce0c05-6733-444a-9f51-1d95ba2feae2";
@@ -41,8 +42,13 @@ function InputField({
     </div>
   );
 }
-export function UploadDetails({ file }: { file: File }) {
-  console.log(file);
+export function UploadDetails({
+  file,
+  setFile,
+}: {
+  file: File;
+  setFile: React.Dispatch<React.SetStateAction<File | null>>;
+}) {
   return (
     <div
       className={cn(
@@ -85,11 +91,6 @@ export function UploadDetails({ file }: { file: File }) {
                 );
               }}
             </Icons.Consumer>
-            {/*<img
-              alt="File Image Icon"
-              className={cn("w-full h-full")}
-              src={fileImageIcon}
-            />*/}
           </div>
         </div>
         <div
@@ -106,13 +107,20 @@ export function UploadDetails({ file }: { file: File }) {
           </p>
           <p className={cn("text-sm")}>{humanFileSize(file.size, true)}</p>
         </div>
-        <button
+        <label
+          htmlFor="fileInput"
           className={cn(
             "flex-initial border border-[#ffa569] text-[#794310] px-3 py-2 rounded-lg text-base",
           )}
         >
           Changer
-        </button>
+        </label>
+        <input
+          className={cn("hidden")}
+          id="fileInput"
+          type="file"
+          onChange={inputFileSelectionChange(setFile)}
+        />
       </div>
       <div className={cn("flex flex-col gap-4 w-full")}>
         <InputField label="Mot de passe" placeholder="Optionnel" />

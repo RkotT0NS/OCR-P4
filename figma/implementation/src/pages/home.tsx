@@ -4,6 +4,7 @@ import { Icons } from "../contexts/Icons";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { UploadDetails } from "../components/UploadDetails";
+import inputFileSelectionChange from "../lib/file-selection-handler";
 function preventDefaultDragEvents(event: Event) {
   event.preventDefault();
   // event.stopPropagation();
@@ -142,21 +143,13 @@ export default function HomePage({ user }: { user: unknown }) {
             <input
               ref={fileInputRef}
               type="file"
-              onChange={(event) => {
-                const selectedFiles = event.target.files;
-                if (selectedFiles?.length) {
-                  if (selectedFiles?.length > 1) {
-                    console.log("Only one file can be dropped at a time");
-                  }
-                  setFile(selectedFiles[0]);
-                }
-              }}
+              onChange={inputFileSelectionChange(setFile)}
               id="fileInput"
               className={cn("hidden")}
             />
           </>
         ) : (
-          <UploadDetails file={file} />
+          <UploadDetails {...{ file, setFile }} />
         )}
       </main>
       <Footer />
