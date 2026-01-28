@@ -3,8 +3,12 @@ import { cn } from "../lib/utils";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { UploadDetails } from "../components/UploadDetails";
+import { useState } from "react";
 
 export default function FileChooser() {
+  const [file, setFile] = useState<File>(
+    new File([""], "quoicoubé.txt", { type: "text/plain" }),
+  );
   return (
     <div
       className={cn("relative w-full h-screen")}
@@ -19,9 +23,7 @@ export default function FileChooser() {
           "w-full h-full flex flex-col items-center justify-center",
         )}
       >
-        <UploadDetails
-          file={new File([""], "quoicoubé.txt", { type: "text/plain" })}
-        />
+        <UploadDetails {...{ file, setFile }} />
       </main>
       <Footer />
     </div>
