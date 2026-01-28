@@ -2,7 +2,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-
+import svgr from "vite-plugin-svgr";
 // https://vite.dev/config/
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -15,7 +15,17 @@ const dirname =
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
-  plugins: [tailwindcss(), react()],
+  plugins: [
+    tailwindcss(),
+    react(),
+    svgr({
+      include: "**/*.svg",
+      svgrOptions: {
+        exportType: "default",
+        ref: true,
+      },
+    }),
+  ],
   test: {
     projects: [
       {

@@ -1,11 +1,9 @@
 import { humanFileSize } from "../lib/size-format";
 import { cn } from "../lib/utils";
+import { Icons } from "../contexts/Icons";
+
 const chevronDownIcon =
   "https://www.figma.com/api/mcp/asset/55ce0c05-6733-444a-9f51-1d95ba2feae2";
-const fileImageIcon =
-  "https://www.figma.com/api/mcp/asset/9e17eb71-acf4-4781-a4c1-c77be700cc33";
-const uploadIcon =
-  "https://www.figma.com/api/mcp/asset/5ac24ffb-a08f-4526-b847-9b4561417aff";
 
 function ChevronDown({ className }: { className?: string }) {
   return (
@@ -57,11 +55,41 @@ export function UploadDetails({ file }: { file: File }) {
       <div className={cn("flex flex-1 items-center w-full gap-4")}>
         <div className={cn("flex flex-0 items-center")}>
           <div className={cn("w-6 h-6 relative")}>
-            <img
+            <Icons.Consumer>
+              {({
+                UnknownFileTypeIcon,
+                MusicFileTypeIcon,
+                VideoFileTypeIcon,
+                ImageFileTypeIcon,
+              }) => {
+                console.log({ UnknownFileTypeIcon });
+                let IconComponent;
+                switch (file.type) {
+                  case "audio/mpeg":
+                    IconComponent = MusicFileTypeIcon;
+                    break;
+                  case "video/mp4":
+                    IconComponent = VideoFileTypeIcon;
+                    break;
+                  case "image/jpeg":
+                  case "image/png":
+                    IconComponent = ImageFileTypeIcon;
+                    break;
+                  default:
+                    IconComponent = UnknownFileTypeIcon;
+                }
+                return typeof IconComponent === "string" ? (
+                  "?"
+                ) : (
+                  <IconComponent fill="black" className={cn("w-full h-full")} />
+                );
+              }}
+            </Icons.Consumer>
+            {/*<img
               alt="File Image Icon"
               className={cn("w-full h-full")}
               src={fileImageIcon}
-            />
+            />*/}
           </div>
         </div>
         <div
@@ -76,7 +104,7 @@ export function UploadDetails({ file }: { file: File }) {
           >
             {file.name}
           </p>
-          <p className={cn("text-sm")}>{humanFileSize(file.size)}</p>
+          <p className={cn("text-sm")}>{humanFileSize(file.size, true)}</p>
         </div>
         <button
           className={cn(
@@ -106,11 +134,7 @@ export function UploadDetails({ file }: { file: File }) {
         )}
       >
         <div className={cn("w-4 h-4 relative")}>
-          <img
-            alt="Upload Icon"
-            className={cn("w-full h-full")}
-            src={uploadIcon}
-          />
+          <Icons.Consumer>{({ UploadIcon }) => <UploadIcon />}</Icons.Consumer>
         </div>
         <p className={cn("text-base")}>Téléverser</p>
       </button>
