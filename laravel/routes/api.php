@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UserUploadController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,8 @@ Route::group([
 Route::middleware('auth:api')->get('/user', function () {
     return auth()->user();
 });
+
+Route::middleware('auth:api')->get('/uploads', [UserUploadController::class, 'index']);
 
 // TUS Upload Route
 Route::middleware('auth:api')->any('/upload/{any?}', function () {
