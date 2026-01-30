@@ -55,7 +55,13 @@ function handleDrop(
   };
 }
 
-export default function HomePage({ user }: { user: unknown }) {
+export default function HomePage({
+  user,
+  uploader,
+}: {
+  user: unknown;
+  uploader: (file: File) => void;
+}) {
   console.log({ user });
   const [file, setFile] = useState<File | null>(null);
   const pageRef = useRef(null);
@@ -149,7 +155,7 @@ export default function HomePage({ user }: { user: unknown }) {
             />
           </>
         ) : (
-          <UploadDetails {...{ file, setFile }} />
+          <UploadDetails {...{ file, setFile, uploader }} />
         )}
       </main>
       <Footer />
