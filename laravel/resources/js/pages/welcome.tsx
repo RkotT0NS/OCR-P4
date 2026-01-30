@@ -31,6 +31,9 @@ export default function Welcome() {
                     uppy.use(Tus, {
                         endpoint: '/api/upload', // Points to your Laravel route
                         chunkSize: 500 * 1024, // 500KB chunks
+                        headers: {
+                            Authorization: `Bearer ${auth.token}`,
+                        },
                     });
                     uppy.on('complete', (result) => {
                         console.log('Upload complete!', result);
