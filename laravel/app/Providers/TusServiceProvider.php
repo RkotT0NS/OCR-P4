@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Upload;
 use Illuminate\Support\ServiceProvider;
+use TusPhp\Events\UploadComplete;
 use TusPhp\Tus\Server as TusServer;
 
 class TusServiceProvider extends ServiceProvider
@@ -25,6 +27,29 @@ class TusServiceProvider extends ServiceProvider
                 'port' => env('REDIS_PORT', 6379),
                 'database' => env('REDIS_DB', 0),
             ]);
+
+            // Listen for upload complete event
+            $server->event()->addListener('tus-server.upload.complete', function (UploadComplete $event) {
+                $file = $event->getFile();
+                $user = auth('api')->user();
+
+                if ($user) {
+                    $details = $file->details();
+                    $metadata = $details['metadata'];
+                    $originalName = $metadata['filename'] ?? $file->getName();
+                    $mimeType = $metadata['filetype'] ?? null;
+
+                    Upload::create([
+                        'uuid' => $file->getKey(),
+                        'user_id' => $user->id,
+                        'path' => 'uploads/'.$file->getKey(),
+                        'original_name' => $originalName,
+                        'mime_type' => $mimeType,
+                        'size' => $file->getFileSize(),
+                        'expires_at' => now()->addDays((int) env('UPLOAD_EXPIRATION_DAYS', 7)),
+                    ]);
+                }
+            });
 
             return $server;
         });
