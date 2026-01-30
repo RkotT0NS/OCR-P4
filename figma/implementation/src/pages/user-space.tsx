@@ -80,14 +80,17 @@ function FileEntry({
 }
 
 export default function UserSpacePage({
+  uploads,
   actions,
 }: {
+  uploads: unknown;
   actions: {
     logout: () => { url: string; method: "post" };
     upload: () => { url: string; method: "get" };
   };
 }) {
   console.log(actions.logout());
+  console.log(uploads);
   return (
     <Icons.Consumer>
       {({ logoutIcon, fileIcon, audioIcon, videoIcon }) => (
