@@ -3,20 +3,20 @@ import { cn } from "../lib/utils";
 import { Icons } from "../contexts/Icons";
 import inputFileSelectionChange from "../lib/file-selection-handler";
 
-const chevronDownIcon =
-  "https://www.figma.com/api/mcp/asset/55ce0c05-6733-444a-9f51-1d95ba2feae2";
-
 function ChevronDown({ className }: { className?: string }) {
   return (
     <div className={cn(className)}>
       <div
         className={cn("absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]")}
       >
-        <img
-          className={cn("w-full h-full")}
-          alt="Chevron Down Icon"
-          src={chevronDownIcon}
-        />
+        <Icons.Consumer>
+          {({ SelectTrigger }) => (
+            <SelectTrigger
+              className={cn("w-full h-full")}
+              title="Chevron Down Icon"
+            />
+          )}
+        </Icons.Consumer>
       </div>
     </div>
   );
