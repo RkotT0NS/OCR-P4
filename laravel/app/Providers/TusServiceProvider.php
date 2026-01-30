@@ -45,16 +45,28 @@ class TusServiceProvider extends ServiceProvider
                     $originalName = $metadata['filename'] ?? $file->getName();
                     $mimeType = $metadata['filetype'] ?? null;
 
+                    // Calculate SHA512 hash of the file
+                    $hash = hash_file('sha512', $file->getFilePath());
+                    $blobPath = 'uploads/'.$hash;
+                    $absoluteBlobPath = storage_path('app/public/'.$blobPath);
+
+                    // Ensure blobs directory exists
+                    if (! file_exists(dirname($absoluteBlobPath))) {
+                        mkdir(dirname($absoluteBlobPath), 0755, true);
+                    }
+
+                    // Move file to blobs directory if it doesn't exist, otherwise delete duplicate
+                    if (! file_exists($absoluteBlobPath)) {
+                        rename($file->getFilePath(), $absoluteBlobPath);
+                    } else {
+                        unlink($file->getFilePath());
+                    }
+
                     Upload::create([
-
                         'uuid' => $file->getKey(),
-
                         'user_id' => $user->id,
-
-                        'path' => 'uploads/'.basename($file->getFilePath()),
-
+                        'path' => $blobPath,
                         'original_name' => $originalName,
-
                         'mime_type' => $mimeType,
                         'size' => $file->getFileSize(),
                         'expires_at' => now()->addDays((int) env('UPLOAD_EXPIRATION_DAYS', 7)),
