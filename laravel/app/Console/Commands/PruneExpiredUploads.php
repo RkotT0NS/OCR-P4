@@ -33,15 +33,23 @@ class PruneExpiredUploads extends Command
         $count = 0;
 
         foreach ($expiredUploads as $upload) {
-            // Delete file from storage
-            if (Storage::disk('public')->exists($upload->path)) {
-                Storage::disk('public')->delete($upload->path);
-            } else {
-                $this->warn("File not found for upload ID {$upload->id}: {$upload->path}");
+            $path = $upload->path;
+
+            // Delete record (Soft Delete)
+            $upload->delete();
+
+            // Check if any active uploads still use this file
+            $usageCount = Upload::where('path', $path)->whereNull('deleted_at')->count();
+
+            if ($usageCount === 0) {
+                // Delete file from storage
+                if (Storage::disk('public')->exists($path)) {
+                    Storage::disk('public')->delete($path);
+                } else {
+                    $this->warn("File not found for upload ID {$upload->id}: {$path}");
+                }
             }
 
-            // Delete record
-            $upload->delete();
             $count++;
         }
 
