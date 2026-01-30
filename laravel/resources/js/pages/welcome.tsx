@@ -3,6 +3,8 @@ import { type SharedData } from '@/types';
 import { HomePage, Icons } from '../../../../figma/implementation/src';
 import { Link, usePage } from '@inertiajs/react';
 import { useContext } from 'react';
+import Uppy from '@uppy/core';
+import Tus from '@uppy/tus';
 
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
@@ -20,7 +22,24 @@ export default function Welcome() {
                 lockIcon: '/ui/lockIcon.png',
             }}
         >
-            <HomePage user={auth.user} />
+            <HomePage user={auth.user} uploader={async (file: File) => {
+                if (file) {
+                    console.log("Uploader le fichier", file);
+                    const uppy = new Uppy();
+                    uppy.addFile(file);
+
+                    uppy.use(Tus, {
+                        endpoint: '/tus/upload', // Points to your Laravel route
+                        chunkSize: 500 * 1024, // 500KB chunks
+                    });
+                    uppy.on('complete', (result) => {
+                        console.log('Upload complete!', result);
+                    });
+                    uppy.upload().then((result) => {
+                        console.log('Upload complete!', result);
+                    });
+                }
+            }} />
         </Icons.Provider>
     );
 }

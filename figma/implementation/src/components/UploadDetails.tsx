@@ -45,9 +45,11 @@ function InputField({
 export function UploadDetails({
   file,
   setFile,
+  uploader,
 }: {
   file: File;
   setFile: React.Dispatch<React.SetStateAction<File | null>>;
+  uploader: (file: File) => void;
 }) {
   return (
     <div
@@ -140,6 +142,10 @@ export function UploadDetails({
         className={cn(
           "bg-[#ff812d]/13 border border-[#cd5e14]/50 text-[#794310] px-4 py-3 rounded-lg flex items-center justify-center gap-2",
         )}
+        onClick={() => {
+          console.log("Uploader le fichier");
+          uploader(file);
+        }}
       >
         <div className={cn("w-4 h-4 relative")}>
           <Icons.Consumer>{({ UploadIcon }) => <UploadIcon />}</Icons.Consumer>
