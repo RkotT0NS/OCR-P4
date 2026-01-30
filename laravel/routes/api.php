@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Route;
 
 // GROUP 1: Public Routes
 Route::group(['prefix' => 'auth'], function () {
@@ -13,7 +13,7 @@ Route::group(['prefix' => 'auth'], function () {
 // The 'auth:api' middleware verifies the JWT before allowing access.
 Route::group([
     'middleware' => 'auth:api',
-    'prefix' => 'auth'
+    'prefix' => 'auth',
 ], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
@@ -24,3 +24,8 @@ Route::group([
 Route::middleware('auth:api')->get('/user', function () {
     return auth()->user();
 });
+
+// TUS Upload Route
+Route::middleware('auth:api')->any('/upload/{any?}', function () {
+    return app('tus-server')->serve();
+})->where('any', '.*');

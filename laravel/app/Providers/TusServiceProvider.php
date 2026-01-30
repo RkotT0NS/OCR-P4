@@ -14,7 +14,7 @@ class TusServiceProvider extends ServiceProvider
             $server = new TusServer('redis');
 
             // Set the API path (must match your route)
-            $server->setApiPath('/tus/upload');
+            $server->setApiPath('/api/upload');
 
             // Set the absolute path for uploads (mapped in docker-compose)
             $server->setUploadDir(storage_path('app/public/uploads'));

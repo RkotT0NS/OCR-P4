@@ -14,7 +14,7 @@ export default function UploadComponent() {
         new Uppy()
             .use(Dashboard, { inline: true, target: '#drag-drop-area' })
             .use(Tus, {
-                endpoint: '/tus/upload', // Points to your Laravel route
+                endpoint: '/api/upload', // Points to your Laravel route
                 chunkSize: 5 * 1024 * 1024, // 5MB chunks
             });
     });
