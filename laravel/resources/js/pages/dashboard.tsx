@@ -1,12 +1,11 @@
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import UploadComponents from '@/components/upload-component';
 import AppLayout from '@/layouts/app-layout';
-import { dashboard } from '@/routes';
-import { type BreadcrumbItem } from '@/types';
-import { Icons, UserSpacePage } from '../../../../figma/implementation/src';
-import { logout, upload } from '@/routes';
-import { Head } from '@inertiajs/react';
+import { dashboard, logout, upload } from '@/routes';
+import { type BreadcrumbItem, type SharedData } from '@/types';
+import { Head, usePage } from '@inertiajs/react';
 import { useContext } from 'react';
+import { Icons, UserSpacePage } from '../../../../figma/implementation/src';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -14,7 +13,16 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: dashboard().url,
     },
 ];
+
+function listUpload(token) {
+    return fetch('/api/uploads', {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+}
 export default function Dashboard() {
+    const { auth } = usePage<SharedData>().props;
     const initialIcons = useContext(Icons);
     return (
         <Icons.Provider
@@ -29,7 +37,10 @@ export default function Dashboard() {
                 lockIcon: '/ui/lockIcon.png',
             }}
         >
-            <UserSpacePage actions={{logout, upload}} />
+            <UserSpacePage
+                uploads={listUpload(auth.token)}
+                actions={{ logout, upload }}
+            />
         </Icons.Provider>
     );
 }
