@@ -4,9 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Upload;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class UploadController extends Controller
 {
+    /**
+     * Show the file details.
+     */
+    public function show(string $uuid)
+    {
+        $upload = Upload::withTrashed()->where('uuid', $uuid)->firstOrFail();
+
+        return Inertia::render('file/show', [
+            'upload' => [
+                'uuid' => $upload->uuid,
+                'original_name' => $upload->original_name,
+                'mime_type' => $upload->mime_type,
+                'size' => $upload->size,
+                'expires_at' => $upload->expires_at,
+                'deleted_at' => $upload->deleted_at,
+                'download_url' => $upload->deleted_at ? null : route('file.download', $upload->uuid),
+            ],
+        ]);
+    }
+
     /**
      * Download the file associated with the given UUID.
      */
