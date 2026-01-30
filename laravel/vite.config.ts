@@ -22,14 +22,25 @@ export default defineConfig({
             formVariants: true,
         }),
         svgr({
-          include: "**/*.svg",
-          svgrOptions: {
-            exportType: "default",
-            ref: true,
-          },
+            include: '**/*.svg',
+            svgrOptions: {
+                exportType: 'default',
+                ref: true,
+            },
         }),
     ],
     esbuild: {
         jsx: 'automatic',
+    },
+    server: {
+        // The Proxy Configuration
+        proxy: {
+            '/api': {
+                target: 'http://127.0.0.1:8000', // The Laravel Server
+                changeOrigin: true,
+                secure: false,
+                // Optional: rewrite path if needed, but standard Laravel uses /api prefix
+            },
+        },
     },
 });
