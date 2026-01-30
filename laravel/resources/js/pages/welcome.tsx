@@ -29,7 +29,7 @@ export default function Welcome() {
                     uppy.addFile(file);
 
                     uppy.use(Tus, {
-                        endpoint: '/tus/upload', // Points to your Laravel route
+                        endpoint: '/api/upload', // Points to your Laravel route
                         chunkSize: 500 * 1024, // 500KB chunks
                     });
                     uppy.on('complete', (result) => {
