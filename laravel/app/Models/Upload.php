@@ -17,7 +17,20 @@ class Upload extends Model
         'original_name',
         'mime_type',
         'size',
+        'expires_at',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'expires_at' => 'datetime',
+        ];
+    }
 
     /**
      * Get the route key for the model.
