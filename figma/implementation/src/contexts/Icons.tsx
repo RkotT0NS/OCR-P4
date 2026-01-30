@@ -4,6 +4,7 @@ import UnknownFileTypeIcon from "../icons/file-unknow-line.svg";
 import MusicFileTypeIcon from "../icons/file-music-line.svg";
 import VideoFileTypeIcon from "../icons/file-video-line.svg";
 import ImageFileTypeIcon from "../icons/file-image-line.svg";
+import SelectTrigger from "../icons/select-trigger.svg";
 
 function UploadIcon({ classes, ...additionalSvgProps }: { classes?: string }) {
   return (
@@ -92,6 +93,7 @@ export const Icons = createContext<{
   MusicFileTypeIcon: FC<React.SVGProps<SVGSVGElement>>;
   VideoFileTypeIcon: FC<React.SVGProps<SVGSVGElement>>;
   ImageFileTypeIcon: FC<React.SVGProps<SVGSVGElement>>;
+  SelectTrigger: FC<React.SVGProps<SVGSVGElement>>;
 }>({
   logoutIcon: "/logoutIcon.png",
   fileIcon: "/fileIcon.png",
@@ -106,4 +108,5 @@ export const Icons = createContext<{
   MusicFileTypeIcon,
   VideoFileTypeIcon,
   ImageFileTypeIcon,
+  SelectTrigger,
 });
