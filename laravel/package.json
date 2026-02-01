@@ -27,6 +27,8 @@
         "vite-plugin-svgr": "^4.5.0"
     },
     "dependencies": {
+        "@datashare/ui": "*",
+        "@datashare/types": "*",
         "@headlessui/react": "^2.2.0",
         "@inertiajs/react": "^2.3.7",
         "@radix-ui/react-avatar": "^1.1.3",

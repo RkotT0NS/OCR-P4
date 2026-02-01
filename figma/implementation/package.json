@@ -1,7 +1,7 @@
 {
-  "name": "show-case",
+  "name": "@datashare/ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "lint": "eslint .",
@@ -11,8 +11,10 @@
     "chromatic": "npx chromatic"
   },
   "dependencies": {
+    "@datashare/types": "*",
     "@tailwindcss/vite": "^4.1.18",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-select": "^5.10.2",

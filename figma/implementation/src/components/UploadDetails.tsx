@@ -1,5 +1,6 @@
 import { humanFileSize } from "../lib/size-format";
 import { cn } from "../lib/utils";
+import MimeTypeIcon from "./MimeTypeIcon";
 import { Icons } from "../contexts/Icons";
 import inputFileSelectionChange from "../lib/file-selection-handler";
 
@@ -42,6 +43,7 @@ function InputField({
     </div>
   );
 }
+
 export function UploadDetails({
   file,
   setFile,
@@ -63,36 +65,7 @@ export function UploadDetails({
       <div className={cn("flex flex-1 items-center w-full gap-4")}>
         <div className={cn("flex flex-0 items-center")}>
           <div className={cn("w-6 h-6 relative")}>
-            <Icons.Consumer>
-              {({
-                UnknownFileTypeIcon,
-                MusicFileTypeIcon,
-                VideoFileTypeIcon,
-                ImageFileTypeIcon,
-              }) => {
-                console.log({ UnknownFileTypeIcon });
-                let IconComponent;
-                switch (file.type) {
-                  case "audio/mpeg":
-                    IconComponent = MusicFileTypeIcon;
-                    break;
-                  case "video/mp4":
-                    IconComponent = VideoFileTypeIcon;
-                    break;
-                  case "image/jpeg":
-                  case "image/png":
-                    IconComponent = ImageFileTypeIcon;
-                    break;
-                  default:
-                    IconComponent = UnknownFileTypeIcon;
-                }
-                return typeof IconComponent === "string" ? (
-                  "?"
-                ) : (
-                  <IconComponent fill="black" className={cn("w-full h-full")} />
-                );
-              }}
-            </Icons.Consumer>
+            <MimeTypeIcon mimeType={file.type} classes="w-full h-full" />
           </div>
         </div>
         <div

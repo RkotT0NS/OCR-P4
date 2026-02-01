@@ -12,7 +12,8 @@
   },
   "workspaces": [
     "laravel",
-    "figma/implementation"
+    "figma/implementation",
+    "types"
   ],
   "license": "ISC",
   "author": "tetedacier",
