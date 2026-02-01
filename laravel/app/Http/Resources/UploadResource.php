@@ -23,7 +23,7 @@ class UploadResource extends JsonResource
             'deleted_at' => $this->deleted_at,
             'created_at' => $this->created_at,
             // Provide download URL only if not deleted
-            'url' => $this->deleted_at ? null : route('file.download', $this->uuid),
+            'url' => $this->deleted_at ? null : route('file.show', $this->uuid),
         ];
     }
 }

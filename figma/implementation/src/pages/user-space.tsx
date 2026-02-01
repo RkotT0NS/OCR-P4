@@ -2,19 +2,25 @@ import { Icons } from "../contexts/Icons";
 import { cn } from "../lib/utils";
 import { Copyright } from "../components/Copyright";
 import axios from "axios";
-
+import { Suspense, use } from "react";
+import MimeTypeIcon from "../components/MimeTypeIcon";
+import { type UploadDetail } from "@datashare/types";
+import { formatDistance } from "date-fns";
+import { fr } from "date-fns/locale";
 function FileEntry({
-  icon,
+  mimeType,
   fileName,
   expiration,
   isExpired,
   isLocked,
+  downloadLink,
 }: {
-  icon: string;
+  mimeType: string;
   fileName: string;
   expiration: string;
   isExpired?: boolean;
   isLocked?: boolean;
+  downloadLink: string;
 }) {
   return (
     <Icons.Consumer>
@@ -24,7 +30,7 @@ function FileEntry({
             "bg-orange-50/5 border border-orange-200/50 rounded-lg flex items-center p-3 gap-4 w-full",
           )}
         >
-          <img src={icon} alt="file icon" className={cn("w-6 h-6")} />
+          <MimeTypeIcon mimeType={mimeType} classes={cn("w-6 h-6")} />
           <div className={cn("flex-1")}>
             <p className={cn("font-semibold text-black truncate")}>
               {fileName}
@@ -59,7 +65,8 @@ function FileEntry({
                 />
                 <span>Supprimer</span>
               </button>
-              <button
+              <a
+                href={downloadLink}
                 className={cn(
                   "flex items-center gap-2 p-2 border border-orange-300 rounded-md",
                 )}
@@ -70,7 +77,7 @@ function FileEntry({
                   alt="access icon"
                   className={cn("w-4 h-4")}
                 />
-              </button>
+              </a>
             </div>
           )}
         </div>
@@ -79,11 +86,42 @@ function FileEntry({
   );
 }
 
+function UploadsJSON({ uploads }: { uploads: Promise<UploadDetail[]> }) {
+  const resolved = use(uploads);
+
+  return (
+    <>
+      {resolved.map((upload) => {
+        console.log(upload);
+        return (
+          <FileEntry
+            key={upload.uuid}
+            mimeType={upload.mime_type}
+            fileName={upload.original_name}
+            expiration={`Expire ${formatDistance(
+              new Date(upload.expires_at),
+              new Date(),
+              {
+                locale: fr,
+                addSuffix: true,
+              },
+            )}`}
+            downloadLink={upload.url}
+            // isLocked
+          />
+        );
+      })}{" "}
+    </>
+  );
+}
+
 export default function UserSpacePage({
   uploads,
   actions,
 }: {
-  uploads: unknown;
+  uploads: Promise<{
+    data: UploadDetail[];
+  }>;
   actions: {
     logout: () => { url: string; method: "post" };
     upload: () => { url: string; method: "get" };
@@ -93,7 +131,7 @@ export default function UserSpacePage({
   console.log(uploads);
   return (
     <Icons.Consumer>
-      {({ logoutIcon, fileIcon, audioIcon, videoIcon }) => (
+      {({ logoutIcon }) => (
         <div className={cn("flex h-screen bg-[#fff8f3]")}>
           <aside
             className={cn("w-64 flex flex-col")}
@@ -177,7 +215,10 @@ export default function UserSpacePage({
                 <button className={cn("py-2 px-4 text-black")}>Expiré</button>
               </div>
               <div className={cn("flex flex-col gap-4")}>
-                <FileEntry
+                <Suspense fallback={<div>Loading...</div>}>
+                  <UploadsJSON uploads={uploads} />
+                </Suspense>
+                {/*<FileEntry
                   icon={fileIcon}
                   fileName="IMG_9210_123123131313213231.jpg"
                   expiration="Expire dans 2 jours"
@@ -193,7 +234,7 @@ export default function UserSpacePage({
                   fileName="vacances_ardeche.mp4"
                   expiration="Expiré"
                   isExpired
-                />
+                />*/}
               </div>
             </main>
           </div>

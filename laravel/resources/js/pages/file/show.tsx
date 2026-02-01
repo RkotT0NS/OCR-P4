@@ -1,17 +1,13 @@
 import AuthLayout from '@/layouts/auth-layout';
+import { Upload } from '@datashare/types';
 import { Head } from '@inertiajs/react';
-
-interface Upload {
-    uuid: string;
-    original_name: string;
-    mime_type: string;
-    size: number;
-    expires_at: string;
-    deleted_at: string | null;
-    download_url: string | null;
-}
+import { DownloadWithoutPasswordPage } from '../../../../../figma/implementation/src';
 
 export default function Show({ upload }: { upload: Upload }) {
+    return <DownloadWithoutPasswordPage fileDetails={upload} />;
+}
+
+export function OriginalShowPage({ upload }: { upload: Upload }) {
     const formatBytes = (bytes: number, decimals = 2) => {
         if (!+bytes) return '0 Bytes';
         const k = 1024;
@@ -30,7 +26,10 @@ export default function Show({ upload }: { upload: Upload }) {
 
             <div className="flex flex-col gap-6">
                 <div className="grid gap-2 text-center">
-                    <h1 className="text-2xl font-bold truncate" title={upload.original_name}>
+                    <h1
+                        className="truncate text-2xl font-bold"
+                        title={upload.original_name}
+                    >
                         {upload.original_name}
                     </h1>
                     <p className="text-muted-foreground">
@@ -43,7 +42,7 @@ export default function Show({ upload }: { upload: Upload }) {
                         <span className="font-medium text-gray-500 dark:text-gray-400">
                             Type:
                         </span>
-                        <span className="truncate max-w-[200px]">
+                        <span className="max-w-[200px] truncate">
                             {upload.mime_type || 'Unknown'}
                         </span>
                     </div>
@@ -65,14 +64,14 @@ export default function Show({ upload }: { upload: Upload }) {
                 {upload.download_url ? (
                     <a
                         href={upload.download_url}
-                        className="inline-flex w-full items-center justify-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+                        className="inline-flex w-full items-center justify-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-800 focus:ring-2 focus:ring-black focus:ring-offset-2 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-gray-200"
                     >
                         Download File
                     </a>
                 ) : (
                     <button
                         disabled
-                        className="w-full rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 cursor-not-allowed dark:bg-gray-800 dark:text-gray-600"
+                        className="w-full cursor-not-allowed rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 dark:bg-gray-800 dark:text-gray-600"
                     >
                         Download Unavailable
                     </button>

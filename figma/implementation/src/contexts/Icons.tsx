@@ -5,6 +5,10 @@ import MusicFileTypeIcon from "../icons/file-music-line.svg";
 import VideoFileTypeIcon from "../icons/file-video-line.svg";
 import ImageFileTypeIcon from "../icons/file-image-line.svg";
 import SelectTrigger from "../icons/select-trigger.svg";
+import PdfFileTypeIcon from "../icons/file-pdf-2-line.svg";
+import CalloutAlertIcon from "../icons/alert-line.svg";
+import CalloutInfoIcon from "../icons/information-line.svg";
+import CalloutStopIcon from "../icons/spam-2-line.svg";
 
 function UploadIcon({ classes, ...additionalSvgProps }: { classes?: string }) {
   return (
@@ -94,6 +98,10 @@ export const Icons = createContext<{
   VideoFileTypeIcon: FC<React.SVGProps<SVGSVGElement>>;
   ImageFileTypeIcon: FC<React.SVGProps<SVGSVGElement>>;
   SelectTrigger: FC<React.SVGProps<SVGSVGElement>>;
+  PdfFileTypeIcon: FC<React.SVGProps<SVGSVGElement>>;
+  CalloutAlertIcon: FC<React.SVGProps<SVGSVGElement>>;
+  CalloutInfoIcon: FC<React.SVGProps<SVGSVGElement>>;
+  CalloutStopIcon: FC<React.SVGProps<SVGSVGElement>>;
 }>({
   logoutIcon: "/logoutIcon.png",
   fileIcon: "/fileIcon.png",
@@ -109,4 +117,8 @@ export const Icons = createContext<{
   VideoFileTypeIcon,
   ImageFileTypeIcon,
   SelectTrigger,
+  PdfFileTypeIcon,
+  CalloutAlertIcon,
+  CalloutInfoIcon,
+  CalloutStopIcon,
 });
