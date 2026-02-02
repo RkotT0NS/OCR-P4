@@ -58,9 +58,19 @@ function handleDrop(
 export default function HomePage({
   user,
   uploader,
+  progress,
+  isPaused,
+  isUploading,
+  onPause,
+  onResume,
 }: {
   user: unknown;
   uploader: (file: File) => void;
+  progress?: number;
+  isPaused?: boolean;
+  isUploading?: boolean;
+  onPause?: () => void;
+  onResume?: () => void;
 }) {
   console.log({ user });
   const [file, setFile] = useState<File | null>(null);
@@ -155,7 +165,18 @@ export default function HomePage({
             />
           </>
         ) : (
-          <UploadDetails {...{ file, setFile, uploader }} />
+          <UploadDetails
+            {...{
+              file,
+              setFile,
+              uploader,
+              progress,
+              isPaused,
+              isUploading,
+              onPause,
+              onResume,
+            }}
+          />
         )}
       </main>
       <Footer />

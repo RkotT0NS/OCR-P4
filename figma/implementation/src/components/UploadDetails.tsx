@@ -26,12 +26,14 @@ function ChevronDown({ className }: { className?: string }) {
 function InputField({
   label,
   placeholder,
+  disabled = false,
 }: {
   label: string;
   placeholder: string;
+  disabled?: boolean;
 }) {
   return (
-    <div className={cn("flex flex-col gap-2 w-full")}>
+    <div className={cn("flex flex-col gap-2 w-full", disabled && "opacity-50")}>
       <p className={cn("text-base text-gray-800")}>{label}</p>
       <div
         className={cn(
@@ -48,10 +50,20 @@ export function UploadDetails({
   file,
   setFile,
   uploader,
+  progress = 0,
+  isPaused = false,
+  isUploading = false,
+  onPause,
+  onResume,
 }: {
   file: File;
   setFile: React.Dispatch<React.SetStateAction<File | null>>;
   uploader: (file: File) => void;
+  progress?: number;
+  isPaused?: boolean;
+  isUploading?: boolean;
+  onPause?: () => void;
+  onResume?: () => void;
 }) {
   return (
     <div
@@ -85,7 +97,8 @@ export function UploadDetails({
         <label
           htmlFor="fileInput"
           className={cn(
-            "flex-initial border border-[#ffa569] text-[#794310] px-3 py-2 rounded-lg text-base",
+            "flex-initial border border-[#ffa569] text-[#794310] px-3 py-2 rounded-lg text-base cursor-pointer",
+            isUploading && "opacity-50",
           )}
         >
           Changer
@@ -94,12 +107,22 @@ export function UploadDetails({
           className={cn("hidden")}
           id="fileInput"
           type="file"
+          disabled={isUploading}
           onChange={inputFileSelectionChange(setFile)}
         />
       </div>
       <div className={cn("flex flex-col gap-4 w-full")}>
-        <InputField label="Mot de passe" placeholder="Optionnel" />
-        <div className={cn("flex flex-col gap-2 w-full")}>
+        <InputField
+          label="Mot de passe"
+          placeholder="Optionnel"
+          disabled={isUploading}
+        />
+        <div
+          className={cn(
+            "flex flex-col gap-2 w-full",
+            isUploading && "opacity-50",
+          )}
+        >
           <p className={cn("text-base text-gray-800")}>Expiration</p>
           <div
             className={cn(
@@ -111,20 +134,42 @@ export function UploadDetails({
           </div>
         </div>
       </div>
-      <button
-        className={cn(
-          "bg-[#ff812d]/13 border border-[#cd5e14]/50 text-[#794310] px-4 py-3 rounded-lg flex items-center justify-center gap-2",
-        )}
-        onClick={() => {
-          console.log("Uploader le fichier");
-          uploader(file);
-        }}
-      >
-        <div className={cn("w-4 h-4 relative")}>
-          <Icons.Consumer>{({ UploadIcon }) => <UploadIcon />}</Icons.Consumer>
+      {isUploading ? (
+        <div className="w-full flex flex-col gap-2">
+          <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-[#ff812d] transition-all duration-300 ease-out"
+              style={{ width: `${Math.max(5, progress)}%` }}
+            />
+          </div>
+          <div className="flex items-center justify-between text-[#794310] font-medium">
+            <span className="text-sm">{Math.round(progress)}%</span>
+            <button
+              onClick={isPaused ? onResume : onPause}
+              className="text-sm hover:underline focus:outline-none"
+            >
+              {isPaused ? "Reprendre" : "Pause"}
+            </button>
+          </div>
         </div>
-        <p className={cn("text-base")}>Téléverser</p>
-      </button>
+      ) : (
+        <button
+          className={cn(
+            "bg-[#ff812d]/13 border border-[#cd5e14]/50 text-[#794310] px-4 py-3 rounded-lg flex items-center justify-center gap-2",
+          )}
+          onClick={() => {
+            console.log("Uploader le fichier");
+            uploader(file);
+          }}
+        >
+          <div className={cn("w-4 h-4 relative")}>
+            <Icons.Consumer>
+              {({ UploadIcon }) => <UploadIcon />}
+            </Icons.Consumer>
+          </div>
+          <p className={cn("text-base")}>Téléverser</p>
+        </button>
+      )}
     </div>
   );
 }
