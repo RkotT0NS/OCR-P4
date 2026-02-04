@@ -20,10 +20,11 @@ function showDragInteractionOn(
 ) {
   return () => {
     if (domElement.current === null) return;
+    const currentElement = domElement.current;
+
     inertClasses.forEach((className) => {
-      domElement.current.classList.add(cn(className));
+      currentElement.classList.add(cn(className));
     });
-    // domElement.current.classList.add(cn("highlight"));
   };
 }
 function hideDragInteractionOn(
@@ -31,11 +32,11 @@ function hideDragInteractionOn(
 ) {
   return () => {
     if (domElement.current === null) return;
+    const currentElement = domElement.current;
 
     inertClasses.forEach((className) => {
-      domElement.current.classList.remove(cn(className));
+      currentElement.classList.remove(cn(className));
     });
-    // domElement.current.classList.remove(cn("highlight"));
   };
 }
 function handleDrop(
