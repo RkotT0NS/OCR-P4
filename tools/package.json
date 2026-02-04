@@ -1,0 +1,24 @@
+{
+  "name": "@datashare/tools",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "datashare-tools": "./dist/index.js"
+  },
+  "main": "dist/fonts.js",
+  "types": "dist/fonts.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/fonts.d.ts",
+      "import": "./dist/fonts.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+}
