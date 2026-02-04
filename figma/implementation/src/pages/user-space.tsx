@@ -27,11 +27,17 @@ function FileEntry({
       {({ deleteIcon, accessIcon, lockIcon }) => (
         <div
           className={cn(
-            "bg-orange-50/5 border border-orange-200/50 rounded-lg flex items-center p-3 gap-4 w-full",
+            "bg-orange-50/5 border border-orange-200/50 rounded-lg flex items-center p-3 gap-4 w-full overflow-hidden",
           )}
         >
-          <MimeTypeIcon mimeType={mimeType} classes={cn("w-6 h-6")} />
-          <div className={cn("flex-1")}>
+          <div className={cn("flex flex-0 items-center")}>
+            <MimeTypeIcon mimeType={mimeType} classes={cn("w-6 h-6")} />
+          </div>
+          <div
+            className={cn(
+              "flex flex-11 flex-col overflow-hidden text-ellipsis w-full",
+            )}
+          >
             <p className={cn("font-semibold text-black truncate")}>
               {fileName}
             </p>
@@ -49,7 +55,7 @@ function FileEntry({
               Ce fichier à expiré, il n’est plus stocké chez nous
             </p>
           ) : (
-            <div className={cn("flex items-center gap-2")}>
+            <div className={cn("flex-initial flex items-center gap-2")}>
               {isLocked && (
                 <img src={lockIcon} alt="lock icon" className={cn("w-4 h-4")} />
               )}
@@ -119,16 +125,12 @@ export default function UserSpacePage({
   uploads,
   actions,
 }: {
-  uploads: Promise<{
-    data: UploadDetail[];
-  }>;
+  uploads: Promise<UploadDetail[]>;
   actions: {
     logout: () => { url: string; method: "post" };
     upload: () => { url: string; method: "get" };
   };
 }) {
-  console.log(actions.logout());
-  console.log(uploads);
   return (
     <Icons.Consumer>
       {({ logoutIcon }) => (
@@ -160,7 +162,7 @@ export default function UserSpacePage({
             </div>
           </aside>
 
-          <div className={cn("flex-1 flex flex-col")}>
+          <div className={cn("flex-1 flex flex-col overflow-hidden")}>
             <header
               className={cn(
                 "bg-[#ffeee3] border-b border-orange-200/50 flex justify-end items-center p-4",
@@ -195,7 +197,7 @@ export default function UserSpacePage({
               </div>
             </header>
 
-            <main className={cn("p-6 flex flex-col gap-6")}>
+            <main className={cn("p-6 flex flex-col gap-6  overflow-hidden")}>
               <h2 className={cn("text-3xl font-bold text-black")}>
                 Mes fichiers
               </h2>
@@ -214,7 +216,7 @@ export default function UserSpacePage({
                 <button className={cn("py-2 px-4 text-black")}>Actifs</button>
                 <button className={cn("py-2 px-4 text-black")}>Expiré</button>
               </div>
-              <div className={cn("flex flex-col gap-4")}>
+              <div className={cn("flex flex-col gap-4  overflow-hidden")}>
                 <Suspense fallback={<div>Loading...</div>}>
                   <UploadsJSON uploads={uploads} />
                 </Suspense>
