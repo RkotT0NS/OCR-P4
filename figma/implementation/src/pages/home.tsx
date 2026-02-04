@@ -1,4 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type RefObject,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { cn } from "../lib/utils";
 import { Icons } from "../contexts/Icons";
 import { Header } from "../components/Header";
@@ -15,9 +23,7 @@ const inertClasses = [
   // "pointer-events-none",
   // "select-none",
 ];
-function showDragInteractionOn(
-  domElement: React.RefObject<HTMLDivElement | null>,
-) {
+function showDragInteractionOn(domElement: RefObject<HTMLDivElement | null>) {
   return () => {
     if (domElement.current === null) return;
     const currentElement = domElement.current;
@@ -27,9 +33,7 @@ function showDragInteractionOn(
     });
   };
 }
-function hideDragInteractionOn(
-  domElement: React.RefObject<HTMLDivElement | null>,
-) {
+function hideDragInteractionOn(domElement: RefObject<HTMLDivElement | null>) {
   return () => {
     if (domElement.current === null) return;
     const currentElement = domElement.current;
@@ -39,9 +43,7 @@ function hideDragInteractionOn(
     });
   };
 }
-function handleDrop(
-  updateFileStatus: React.Dispatch<React.SetStateAction<File | null>>,
-) {
+function handleDrop(updateFileStatus: Dispatch<SetStateAction<File | null>>) {
   console.log("handleDrop construction");
   return (event: DragEvent) => {
     const droppedFiles = event.dataTransfer?.files; // Access the files
