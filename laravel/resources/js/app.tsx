@@ -8,12 +8,6 @@ import { initializeTheme } from './hooks/use-appearance';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
-function generateFontUrl(name: string, size: number[]): string {
-    // return `family=${name}:wght@0,100;0,300;0,700;0,900`; //&amp;family=Inter:wght@0,100..900;1,100..900`; //${size.join(';')}`;
-    return `family=${name}:ital,wght@0,100..900;1,100..900&subset=latin`;
-    //&amp;family=Inter:wght@0,100..900;1,100..900`; //${size.join(';')}`;
-    // return `family=${name}:wght@1,100..900`; //${size.join(';')}`;
-}
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
     resolve: (name) =>
@@ -26,15 +20,6 @@ createInertiaApp({
 
         root.render(
             <StrictMode>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link
-                    href={`https://fonts.googleapis.com/css?${generateFontUrl('DM Sans', [100, 300, 700])}`}
-                    rel="stylesheet"
-                />
-                <link
-                    href={`https://fonts.googleapis.com/css?${generateFontUrl('Inter', [100, 300, 700])}`}
-                    rel="stylesheet"
-                />
                 <App {...props} />
             </StrictMode>,
         );

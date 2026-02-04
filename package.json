@@ -13,7 +13,8 @@
   "workspaces": [
     "laravel",
     "figma/implementation",
-    "types"
+    "types",
+    "tools"
   ],
   "license": "ISC",
   "author": "tetedacier",
