@@ -57,7 +57,42 @@ function handleDrop(updateFileStatus: Dispatch<SetStateAction<File | null>>) {
     }
   };
 }
+function UserAction({
+  user,
+  children,
+  setFile,
+}: {
+  user: unknown;
+  children: ReactNode;
+  setFile: Dispatch<SetStateAction<File | null>>;
+}) {
+  const fileInputRef = useRef(null);
 
+  return user === null ? (
+    <a
+      href="/login"
+      className={cn("flex flex-col items-center gap-6 text-center")}
+    >
+      {children}
+    </a>
+  ) : (
+    <>
+      <label
+        htmlFor="fileInput"
+        className={cn("flex flex-col items-center gap-6 text-center")}
+      >
+        {children}
+      </label>
+      <input
+        ref={fileInputRef}
+        type="file"
+        onChange={inputFileSelectionChange(setFile)}
+        id="fileInput"
+        className={cn("hidden")}
+      />
+    </>
+  );
+}
 export default function HomePage({
   user,
   uploader,
@@ -78,7 +113,6 @@ export default function HomePage({
   console.log({ user });
   const [file, setFile] = useState<File | null>(null);
   const pageRef = useRef(null);
-  const fileInputRef = useRef(null);
   useEffect(() => {
     // we should use a ref here
     // const fileInput = document.getElementById("fileUpload");
@@ -138,35 +172,23 @@ export default function HomePage({
         )}
       >
         {file === null ? (
-          <>
-            <label
-              htmlFor="fileInput"
-              className={cn("flex flex-col items-center gap-6 text-center")}
-            >
-              <p className={cn("text-3xl font-light text-black")}>
-                Tu veux partager un fichier ?
-              </p>
-              <div className={cn("p-6 bg-black/15 rounded-full")}>
-                <div className={cn("p-6 bg-[#100218] rounded-full")}>
-                  <Icons.Consumer>
-                    {({ DatashareLightLogo }) => (
-                      <DatashareLightLogo
-                        classes="w-12 h-12"
-                        aria-hidden="true"
-                      />
-                    )}
-                  </Icons.Consumer>
-                </div>
+          <UserAction {...{ user, setFile }}>
+            <p className={cn("text-3xl font-light text-black")}>
+              Tu veux partager un fichier ?
+            </p>
+            <div className={cn("p-6 bg-black/15 rounded-full")}>
+              <div className={cn("p-6 bg-[#100218] rounded-full")}>
+                <Icons.Consumer>
+                  {({ DatashareLightLogo }) => (
+                    <DatashareLightLogo
+                      classes="w-12 h-12"
+                      aria-hidden="true"
+                    />
+                  )}
+                </Icons.Consumer>
               </div>
-            </label>
-            <input
-              ref={fileInputRef}
-              type="file"
-              onChange={inputFileSelectionChange(setFile)}
-              id="fileInput"
-              className={cn("hidden")}
-            />
-          </>
+            </div>
+          </UserAction>
         ) : (
           <UploadDetails
             {...{
