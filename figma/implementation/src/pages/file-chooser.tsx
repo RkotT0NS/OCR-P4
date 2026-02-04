@@ -7,7 +7,11 @@ import { useState } from "react";
 
 export default function FileChooser() {
   const [file, setFile] = useState<File>(
-    new File([""], "quoicoubé.txt", { type: "text/plain" }),
+    new File(
+      [""],
+      "sampe_______________________________________________________________.txt",
+      { type: "text/plain" },
+    ),
   );
   return (
     <div
