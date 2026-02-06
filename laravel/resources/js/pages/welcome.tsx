@@ -2,7 +2,7 @@ import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import Uppy from '@uppy/core';
 import Tus from '@uppy/tus';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { HomePage, Icons } from '../../../../figma/implementation/src';
 
 export default function Welcome() {
@@ -12,6 +12,11 @@ export default function Welcome() {
     const [progress, setProgress] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
+
+    const pendingOptions = useRef<{
+        password?: string;
+        expiresAt?: number;
+    } | null>(null);
 
     const [uppy] = useState(
         () =>
@@ -37,9 +42,55 @@ export default function Welcome() {
             setProgress(progress);
         };
 
-        const onSuccess = () => {
+        const onSuccess = (file: any, response: any) => {
+            const uploadUrl = response.uploadURL;
+            const uuid = uploadUrl.split('/').pop();
+
+            if (
+                pendingOptions.current &&
+                (pendingOptions.current.password ||
+                    pendingOptions.current.expiresAt)
+            ) {
+                const { password, expiresAt } = pendingOptions.current;
+                const payload: any = {};
+                if (password && password.trim() !== '') {
+                    payload.password = password;
+                }
+                if (expiresAt) {
+                    const date = new Date();
+                    date.setDate(date.getDate() + expiresAt);
+                    payload.expires_at = date.toISOString();
+                }
+
+                if (Object.keys(payload).length > 0) {
+                    fetch(`/api/uploads/${uuid}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${auth.token}`,
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                        body: JSON.stringify(payload),
+                    })
+                        .then((res) => {
+                            if (!res.ok) {
+                                console.error(
+                                    'Failed to patch upload metadata',
+                                );
+                            }
+                        })
+                        .catch((err) => {
+                            console.error(
+                                'Error patching upload metadata:',
+                                err,
+                            );
+                        });
+                }
+            }
+
             setProgress(100);
             setIsUploading(false);
+            pendingOptions.current = null;
         };
 
         uppy.on('progress', onProgress);
@@ -51,8 +102,12 @@ export default function Welcome() {
         };
     }, [uppy, auth.token]);
 
-    const handleUpload = (file: File) => {
+    const handleUpload = (
+        file: File,
+        options?: { password?: string; expiresAt?: number },
+    ) => {
         uppy.cancelAll();
+        pendingOptions.current = options || null;
         try {
             uppy.addFile({
                 name: file.name,

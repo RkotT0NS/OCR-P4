@@ -19,6 +19,16 @@ class Upload extends Model
         'mime_type',
         'size',
         'expires_at',
+        'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
     ];
 
     /**

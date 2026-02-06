@@ -9,11 +9,13 @@ export interface UploadDetail {
   deleted_at: string | null;
   created_at: string;
   url: string;
+  locked: boolean;
 }
 
 export interface Upload {
   uuid: string;
   original_name: string;
+  has_password: boolean;
   mime_type: string;
   size: number;
   expires_at: string;

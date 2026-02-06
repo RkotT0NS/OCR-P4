@@ -103,7 +103,10 @@ export default function HomePage({
   onResume,
 }: {
   user: unknown;
-  uploader: (file: File) => void;
+  uploader: (
+    file: File,
+    options?: { password?: string; expiresAt?: number },
+  ) => void;
   progress?: number;
   isPaused?: boolean;
   isUploading?: boolean;

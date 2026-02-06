@@ -22,6 +22,7 @@ class UploadResource extends JsonResource
             'expires_at' => $this->expires_at,
             'deleted_at' => $this->deleted_at,
             'created_at' => $this->created_at,
+            'locked' => ! empty($this->password),
             // Provide download URL only if not deleted
             'url' => $this->deleted_at ? null : route('file.show', $this->uuid),
         ];
