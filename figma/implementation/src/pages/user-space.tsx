@@ -7,6 +7,7 @@ import MimeTypeIcon from "../components/MimeTypeIcon";
 import { type UploadDetail } from "@datashare/types";
 import { formatDistance } from "date-fns";
 import { fr } from "date-fns/locale";
+import { UploadFilter } from "../components/UploadFilter";
 function FileEntry({
   mimeType,
   fileName,
@@ -201,42 +202,11 @@ export default function UserSpacePage({
               <h2 className={cn("text-3xl font-bold text-black")}>
                 Mes fichiers
               </h2>
-              <div
-                className={cn(
-                  "bg-orange-100/30 border border-orange-200/50 rounded-full flex text-center text-sm font-medium self-start",
-                )}
-              >
-                <button
-                  className={cn(
-                    "py-2 px-4 bg-[#e77a6e] text-white rounded-full",
-                  )}
-                >
-                  Tous
-                </button>
-                <button className={cn("py-2 px-4 text-black")}>Actifs</button>
-                <button className={cn("py-2 px-4 text-black")}>Expiré</button>
-              </div>
+              <UploadFilter />
               <div className={cn("flex flex-col gap-4  overflow-hidden")}>
                 <Suspense fallback={<div>Loading...</div>}>
                   <UploadsJSON uploads={uploads} />
                 </Suspense>
-                {/*<FileEntry
-                  icon={fileIcon}
-                  fileName="IMG_9210_123123131313213231.jpg"
-                  expiration="Expire dans 2 jours"
-                  isLocked
-                />
-                <FileEntry
-                  icon={audioIcon}
-                  fileName="compo2.mp3"
-                  expiration="Expire demain"
-                />
-                <FileEntry
-                  icon={videoIcon}
-                  fileName="vacances_ardeche.mp4"
-                  expiration="Expiré"
-                  isExpired
-                />*/}
               </div>
             </main>
           </div>
