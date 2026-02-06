@@ -100,19 +100,25 @@ function UploadsJSON({ uploads }: { uploads: Promise<UploadDetail[]> }) {
     <>
       {resolved.map((upload) => {
         console.log(upload);
+        const hasExpired = new Date(upload.expires_at) < new Date();
         return (
           <FileEntry
             key={upload.uuid}
+            isExpired={hasExpired}
             mimeType={upload.mime_type}
             fileName={upload.original_name}
-            expiration={`Expire ${formatDistance(
-              new Date(upload.expires_at),
-              new Date(),
-              {
-                locale: fr,
-                addSuffix: true,
-              },
-            )}`}
+            expiration={
+              hasExpired
+                ? "Expiré"
+                : `Expire ${formatDistance(
+                    new Date(upload.expires_at),
+                    new Date(),
+                    {
+                      locale: fr,
+                      addSuffix: true,
+                    },
+                  )}`
+            }
             downloadLink={upload.url}
             // isLocked
           />
@@ -204,7 +210,7 @@ export default function UserSpacePage({
               </h2>
               <UploadFilter />
               <div className={cn("flex flex-col gap-4  overflow-hidden")}>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<div>Chargement ...</div>}>
                   <UploadsJSON uploads={uploads} />
                 </Suspense>
               </div>
