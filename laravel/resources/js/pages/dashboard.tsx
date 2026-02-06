@@ -1,16 +1,9 @@
-import { dashboard, logout, upload } from '@/routes';
-import { type BreadcrumbItem, type SharedData } from '@/types';
+import { logout, upload } from '@/routes';
+import { type SharedData } from '@/types';
 import { UploadDetail } from '@datashare/types';
 import { usePage } from '@inertiajs/react';
 import { useContext } from 'react';
 import { Icons, UserSpacePage } from '../../../../figma/implementation/src';
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard().url,
-    },
-];
 
 async function listUpload(token: string): Promise<UploadDetail[]> {
     return (
