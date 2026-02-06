@@ -1,23 +1,47 @@
 #!/usr/bin/env node
-import { readFileSync } from "node:fs";
+import { Command } from "commander";
+import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import fontsSetup from "./fonts.js";
+import fontsSetup, { FontsSetupSchema } from "./fonts.js";
 
-const args = process.argv.slice(2);
+const program = new Command();
 
-if (args.length === 0) {
-  console.error("Please provide a path to the definitions file.");
-  process.exit(1);
-}
+program
+  .name("datashare-tools")
+  .description("CLI tools for DataShare")
+  .version("1.0.0");
 
-const filePath = resolve(process.cwd(), args[0]);
+program
+  .command("fonts")
+  .description("Generate fonts HTML fragment from a JSON definition file")
+  .argument("<source>", "Path to the fonts definition JSON file")
+  .argument("<output>", "Path to save the generated HTML fragment")
+  .action((source, output) => {
+    try {
+      const sourcePath = resolve(process.cwd(), source);
+      const outputPath = resolve(process.cwd(), output);
 
-try {
-  const content = readFileSync(filePath, "utf-8");
-  const options = JSON.parse(content);
-  const result = fontsSetup(options);
-  console.log(result);
-} catch (error) {
-  console.error("Error processing file:", error);
-  process.exit(1);
-}
+      const content = readFileSync(sourcePath, "utf-8");
+      const options = JSON.parse(content);
+
+      // Strict validation
+      const result = FontsSetupSchema.safeParse(options);
+
+      if (!result.success) {
+        console.error("Validation failed:");
+        result.error.issues.forEach((issue) => {
+          console.error(`- ${issue.path.join(".")}: ${issue.message}`);
+        });
+        process.exit(1);
+      }
+
+      const htmlFragment = fontsSetup(options);
+      writeFileSync(outputPath, htmlFragment);
+      console.log(`Successfully generated fonts fragment at ${outputPath}`);
+    } catch (error) {
+      console.error("Error processing fonts:", error);
+      process.exit(1);
+    }
+  });
+
+program.parse();

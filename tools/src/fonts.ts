@@ -1,18 +1,48 @@
-type FontFeaturesVariants<L extends string[]> = {
-  namedFeatures: [string, ...L];
-  variants: [[string, ...L], ...[string, ...L][]];
-  display?: string;
-};
+import { z } from "zod";
+
+const FontFeaturesSchema = z
+  .object({
+    namedFeatures: z.array(z.string()),
+    variants: z.array(z.array(z.string())),
+    display: z.string().optional(),
+  })
+  .superRefine((data, ctx) => {
+    data.variants.forEach((variant, index) => {
+      if (variant.length !== data.namedFeatures.length) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `Variant at index ${index} must have ${data.namedFeatures.length} items to match namedFeatures.`,
+          path: ["variants", index],
+        });
+      }
+    });
+  });
+
+const FontDefinitionSchema = z.object({
+  name: z.string(),
+  features: FontFeaturesSchema.optional(),
+});
+
+const FontsSetupSchema = z.object({
+  definitions: z.array(FontDefinitionSchema),
+  domain: z.string(),
+  apiPath: z.string(),
+});
+
+export { FontsSetupSchema };
+
+export type FontSetupOptions = z.infer<typeof FontsSetupSchema>;
+type FontFeaturesVariants = z.infer<typeof FontFeaturesSchema>;
 
 /**
  *
  * @param {string} name
- * @param {FontFeaturesVariants<string[]>} features
+ * @param {FontFeaturesVariants} features
  * @returns
  */
 function generateFontUrl(
   name: string,
-  features?: FontFeaturesVariants<string[]>,
+  features?: FontFeaturesVariants,
 ): string {
   const display = features?.display ?? "swap";
 
@@ -26,20 +56,24 @@ function generateFontUrl(
   return `family=${fontFamilyVariants}&display=${display}`;
 }
 
-type FontDefinitions = {
-  name: string;
-  features?: FontFeaturesVariants<string[]>;
-}[];
+export default function fontsSetup(options: unknown) {
+  // Validate input at runtime
+  const result = FontsSetupSchema.safeParse(options);
 
-export default function fontsSetup(options: {
-  definitions: FontDefinitions;
-  domain: string;
-  apiPath: string;
-}) {
-  return `<link rel="preconnect" href="${options.domain}" />
-${options.definitions
+  if (!result.success) {
+    const errorMessage = result.error.issues.map((e) => e.message).join("\\n");
+    console.error("Font Setup Validation Error:", result.error.format());
+
+    // Return a safe string that won't break the HTML but logs the error in the browser
+    return `<script>console.error("Font Setup Error: ${errorMessage}");</script><!-- Font Setup Error: ${errorMessage} -->`;
+  }
+
+  const validatedOptions = result.data;
+
+  return `<link rel="preconnect" href="${validatedOptions.domain}" />
+${validatedOptions.definitions
   .map(({ name, features }) => {
-    return `<link href="${options.domain}/${options.apiPath}?${generateFontUrl(name, features)}" rel="stylesheet" />`;
+    return `<link href="${validatedOptions.domain}/${validatedOptions.apiPath}?${generateFontUrl(name, features)}" rel="stylesheet" />`;
   })
   .join("\n")}\n`;
 }
