@@ -120,7 +120,7 @@ function UploadsJSON({ uploads }: { uploads: Promise<UploadDetail[]> }) {
                   )}`
             }
             downloadLink={upload.url}
-            // isLocked
+            isLocked={upload.locked}
           />
         );
       })}{" "}

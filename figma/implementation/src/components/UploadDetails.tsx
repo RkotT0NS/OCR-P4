@@ -3,6 +3,7 @@ import { cn } from "../lib/utils";
 import MimeTypeIcon from "./MimeTypeIcon";
 import { Icons } from "../contexts/Icons";
 import inputFileSelectionChange from "../lib/file-selection-handler";
+import { InputField } from "./InputField";
 
 function ChevronDown({ className }: { className?: string }) {
   return (
@@ -19,37 +20,7 @@ function ChevronDown({ className }: { className?: string }) {
   );
 }
 
-import React, { useId } from "react";
-
-function InputField({
-  label,
-  placeholder,
-  disabled = false,
-  type = "text",
-}: {
-  label: string;
-  placeholder: string;
-  disabled?: boolean;
-  type?: string;
-}) {
-  const id = useId();
-  return (
-    <div className={cn("flex flex-col gap-2 w-full", disabled && "opacity-50")}>
-      <label htmlFor={id} className={cn("text-base text-gray-800 font-main")}>
-        {label}
-      </label>
-      <input
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        disabled={disabled}
-        className={cn(
-          "bg-white border border-[#d9d9d9] rounded-lg p-3 w-full text-base text-gray-800 font-main placeholder:text-[#b3b3b3] focus:outline-none focus:border-[#ffa569] transition-colors",
-        )}
-      />
-    </div>
-  );
-}
+import React, { useId, useState } from "react";
 
 import ReactSelect, {
   components,
@@ -154,13 +125,19 @@ export function UploadDetails({
 }: {
   file: File;
   setFile: React.Dispatch<React.SetStateAction<File | null>>;
-  uploader: (file: File) => void;
+  uploader: (
+    file: File,
+    options?: { password?: string; expiresAt?: number },
+  ) => void;
   progress?: number;
   isPaused?: boolean;
   isUploading?: boolean;
   onPause?: () => void;
   onResume?: () => void;
 }) {
+  const [password, setPassword] = useState("");
+  const [expiresAt, setExpiresAt] = useState(1);
+
   return (
     <div
       className={cn(
@@ -212,8 +189,14 @@ export function UploadDetails({
           label="Mot de passe"
           placeholder="Optionnel"
           disabled={isUploading}
+          // type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        <ExpirationDays isDisabled={isUploading} />
+        <ExpirationDays
+          isDisabled={isUploading}
+          onChange={(val) => setExpiresAt(val)}
+        />
       </div>
       {isUploading ? (
         <div className={cn("w-full flex flex-col gap-2")}>
@@ -249,8 +232,8 @@ export function UploadDetails({
             "bg-[#ff812d]/13 border border-[#cd5e14]/50 text-[#794310] px-4 py-3 rounded-lg flex items-center justify-center gap-2",
           )}
           onClick={() => {
-            console.log("Uploader le fichier");
-            uploader(file);
+            console.log("Uploader le fichier", { password, expiresAt });
+            uploader(file, { password, expiresAt });
           }}
         >
           <div className={cn("w-4 h-4 relative")}>

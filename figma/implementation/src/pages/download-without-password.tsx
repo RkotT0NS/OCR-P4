@@ -8,6 +8,8 @@ import { cn } from "../lib/utils";
 import { humanFileSize } from "../lib/size-format";
 import { Callout } from "../components/Callout";
 import { Icons } from "../contexts/Icons";
+import { useState } from "react";
+import { InputField } from "../components/InputField";
 
 function FileInfo({ fileDetails }: { fileDetails: Upload }) {
   return (
@@ -21,7 +23,7 @@ function FileInfo({ fileDetails }: { fileDetails: Upload }) {
       <div className={cn("flex-1  overflow-hidden")}>
         <p
           className={cn(
-            "text-base text-ellipsis overflow-hidden whitespace-nowrap font-medium text-ellipsis ",
+            "text-base text-ellipsis overflow-hidden whitespace-nowrap font-medium",
           )}
         >
           {fileDetails.original_name}
@@ -39,6 +41,41 @@ export default function DownloadWithoutPasswordPage({
 }: {
   fileDetails: Upload;
 }) {
+  console.log({ fileDetails });
+  const [password, setPassword] = useState("");
+
+  const handleDownload = async (e: React.MouseEvent) => {
+    if (fileDetails.has_password && fileDetails.download_url) {
+      e.preventDefault();
+      try {
+        const response = await fetch(fileDetails.download_url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ password }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Download failed");
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = fileDetails.original_name;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } catch (error) {
+        console.error("Error downloading file:", error);
+        // Ideally show an error message to the user
+      }
+    }
+  };
+
   return (
     <div
       className={cn("relative w-full h-screen")}
@@ -75,11 +112,21 @@ export default function DownloadWithoutPasswordPage({
                 },
               )}.`}
             />
+            {fileDetails.has_password && (
+              <InputField
+                label="Mot de passe"
+                placeholder="Saisissez le mot de passe..."
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            )}
           </div>
           <a
-            href={fileDetails.download_url}
+            href={fileDetails.download_url || "#"}
+            onClick={handleDownload}
             className={cn(
-              "bg-[#ff812d]/13 border border-[#cd5e14]/50 text-[#ba681f] p-3 rounded-lg w-full flex items-center justify-center gap-2",
+              "bg-[#ff812d]/13 border border-[#cd5e14]/50 text-[#ba681f] p-3 rounded-lg w-full flex items-center justify-center gap-2 cursor-pointer",
             )}
           >
             <span className={cn("w-4 h-4")}>

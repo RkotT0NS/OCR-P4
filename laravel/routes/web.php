@@ -12,7 +12,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/file/{uuid}', [UploadController::class, 'show'])->name('file.show');
-Route::get('/file/{uuid}/download', [UploadController::class, 'download'])->name('file.download');
+Route::match(['get', 'post'], '/file/{uuid}/download', [UploadController::class, 'download'])->name('file.download');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {

@@ -27,6 +27,7 @@ Route::middleware('auth:api')->get('/user', function () {
 });
 
 Route::middleware('auth:api')->get('/uploads', [UserUploadController::class, 'index']);
+Route::middleware('auth:api')->patch('/uploads/{upload}', [UserUploadController::class, 'update']);
 
 // TUS Upload Route
 Route::middleware('auth:api')->any('/upload/{any?}', function () {
