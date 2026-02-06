@@ -7,41 +7,137 @@ import inputFileSelectionChange from "../lib/file-selection-handler";
 function ChevronDown({ className }: { className?: string }) {
   return (
     <div className={cn(className)}>
-      <div
-        className={cn("absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]")}
-      >
-        <Icons.Consumer>
-          {({ SelectTrigger }) => (
-            <SelectTrigger
-              className={cn("w-full h-full")}
-              title="Chevron Down Icon"
-            />
-          )}
-        </Icons.Consumer>
-      </div>
+      <Icons.Consumer>
+        {({ SelectTrigger }) => (
+          <SelectTrigger
+            className={cn("w-full h-full")}
+            title="Chevron Down Icon"
+          />
+        )}
+      </Icons.Consumer>
     </div>
   );
 }
+
+import React, { useId } from "react";
 
 function InputField({
   label,
   placeholder,
   disabled = false,
+  type = "text",
 }: {
   label: string;
   placeholder: string;
   disabled?: boolean;
+  type?: string;
 }) {
+  const id = useId();
   return (
     <div className={cn("flex flex-col gap-2 w-full", disabled && "opacity-50")}>
-      <p className={cn("text-base text-gray-800")}>{label}</p>
-      <div
+      <label htmlFor={id} className={cn("text-base text-gray-800 font-main")}>
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        disabled={disabled}
         className={cn(
-          "bg-white border border-gray-300 rounded-lg flex items-center p-3 w-full",
+          "bg-white border border-[#d9d9d9] rounded-lg p-3 w-full text-base text-gray-800 font-main placeholder:text-[#b3b3b3] focus:outline-none focus:border-[#ffa569] transition-colors",
         )}
-      >
-        <p className={cn("flex-1 text-base text-gray-400")}>{placeholder}</p>
-      </div>
+      />
+    </div>
+  );
+}
+
+import ReactSelect, {
+  components,
+  type DropdownIndicatorProps,
+} from "react-select";
+
+const expirationOptions = [
+  { value: 1, label: "Une journée" },
+  { value: 2, label: "2 jours" },
+  { value: 3, label: "3 jours" },
+  { value: 4, label: "4 jours" },
+  { value: 5, label: "5 jours" },
+  { value: 6, label: "6 jours" },
+  { value: 7, label: "Une semaine" },
+];
+
+function ExpirationDays({
+  onChange,
+  isDisabled,
+}: {
+  onChange?: (value: number) => void;
+  isDisabled?: boolean;
+}) {
+  const DropdownIndicator = (
+    props: DropdownIndicatorProps<(typeof expirationOptions)[0]>,
+  ) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        <ChevronDown className={cn("w-4 h-4 relative")} />
+      </components.DropdownIndicator>
+    );
+  };
+
+  return (
+    <div
+      className={cn("flex flex-col gap-2 w-full", isDisabled && "opacity-50")}
+    >
+      <p className={cn("text-base text-gray-800")}>Expiration</p>
+      <ReactSelect
+        options={expirationOptions}
+        defaultValue={expirationOptions[0]}
+        isDisabled={isDisabled}
+        onChange={(option) => {
+          if (option && onChange) {
+            onChange(option.value);
+          }
+        }}
+        components={{ DropdownIndicator, IndicatorSeparator: null }}
+        styles={{
+          control: (base) => ({
+            ...base,
+            borderColor: "#d9d9d9",
+            borderRadius: "8px",
+            padding: "2px",
+            boxShadow: "none",
+            "&:hover": {
+              borderColor: "#d9d9d9",
+            },
+          }),
+          valueContainer: (base) => ({
+            ...base,
+            paddingLeft: "8px",
+          }),
+          singleValue: (base) => ({
+            ...base,
+            color: "#1e1e1e",
+            fontSize: "16px",
+            fontFamily: "Inter, sans-serif",
+          }),
+          menu: (base) => ({
+            ...base,
+            borderRadius: "8px",
+            marginTop: "4px",
+          }),
+          option: (base, state) => ({
+            ...base,
+            backgroundColor: state.isSelected ? "#f3f4f6" : "white",
+            color: "#1e1e1e",
+            "&:hover": {
+              backgroundColor: "#f9fafb",
+            },
+          }),
+        }}
+        classNames={{
+          control: () => cn("h-[54px]"),
+        }}
+        isSearchable={false}
+      />
     </div>
   );
 }
@@ -117,32 +213,27 @@ export function UploadDetails({
           placeholder="Optionnel"
           disabled={isUploading}
         />
-        <div
-          className={cn(
-            "flex flex-col gap-2 w-full",
-            isUploading && "opacity-50",
-          )}
-        >
-          <p className={cn("text-base text-gray-800")}>Expiration</p>
-          <div
-            className={cn(
-              "bg-white border border-gray-300 rounded-lg flex items-center justify-between pl-4 pr-3 py-3 w-full",
-            )}
-          >
-            <p className={cn("flex-1 text-base text-gray-800")}>Une journée</p>
-            <ChevronDown className={cn("w-4 h-4 relative")} />
-          </div>
-        </div>
+        <ExpirationDays isDisabled={isUploading} />
       </div>
       {isUploading ? (
         <div className={cn("w-full flex flex-col gap-2")}>
-          <div className={cn("w-full h-2 bg-gray-100 rounded-full overflow-hidden")}>
+          <div
+            className={cn(
+              "w-full h-2 bg-gray-100 rounded-full overflow-hidden",
+            )}
+          >
             <div
-              className={cn("h-full bg-[#ff812d] transition-all duration-300 ease-out")}
+              className={cn(
+                "h-full bg-[#ff812d] transition-all duration-300 ease-out",
+              )}
               style={{ width: `${Math.max(5, progress)}%` }}
             />
           </div>
-          <div className={cn("flex items-center justify-between text-[#794310] font-medium")}>
+          <div
+            className={cn(
+              "flex items-center justify-between text-[#794310] font-medium",
+            )}
+          >
             <span className={cn("text-sm")}>{Math.round(progress)}%</span>
             <button
               onClick={isPaused ? onResume : onPause}
