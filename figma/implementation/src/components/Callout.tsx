@@ -18,7 +18,7 @@ export function Callout({
 
   return (
     <Icons.Consumer>
-      {({ CalloutAlertIcon, CalloutStopIcon, CalloutInfoIcon }) => (
+      {({ AlertOctagonIcon, AlertTriangleIcon, InformationIcon }) => (
         <div
           className={cn(
             "border border-solid flex gap-[8px] items-center p-[8px] relative rounded-[8px] w-full",
@@ -30,42 +30,68 @@ export function Callout({
         >
           {isInfo && (
             <>
-              <div className="relative shrink-0 w-[16px] h-[16px]">
-                <div className="absolute inset-[8.33%]">
-                  <div className="absolute inset-[-6%]">
-                    <CalloutInfoIcon className="block w-full h-full" />
+              <div className={cn("relative shrink-0 w-[16px] h-[16px]")}>
+                <div className={cn("absolute inset-[8.33%]")}>
+                  <div className={cn("absolute inset-[-6%]")}>
+                    <InformationIcon
+                      className={cn("block w-full h-full text-[#2a3f72]")}
+                    >
+                      <title>information icon</title>
+                    </InformationIcon>
                   </div>
                 </div>
               </div>
-              <p className="flex-[1_0_0] font-main font-normal leading-[16px] text-[#2a3f72] text-[14px] whitespace-pre-wrap">
+              <p
+                className={cn(
+                  "flex-[1_0_0] font-main font-normal leading-[16px] text-[#2a3f72] text-[14px] whitespace-pre-wrap",
+                )}
+              >
                 {label}
               </p>
             </>
           )}
           {isAlert && (
             <>
-              <div className="relative shrink-0 w-[16px] h-[16px]">
-                <div className="absolute inset-[12.07%_6.47%_12.5%_6.47%]">
-                  <div className="absolute inset-[-6.63%_-5.74%]">
-                    <CalloutAlertIcon className="block w-full h-full" />
+              <div className={cn("relative shrink-0 w-[16px] h-[16px]")}>
+                <div
+                  className={cn("absolute inset-[12.07%_6.47%_12.5%_6.47%]")}
+                >
+                  <div className={cn("absolute inset-[-6.63%_-5.74%]")}>
+                    <AlertTriangleIcon
+                      className={cn("block w-full h-full text-[#aa642b] ")}
+                    >
+                      <title>alert icon</title>
+                    </AlertTriangleIcon>
                   </div>
                 </div>
               </div>
-              <p className="flex-[1_0_0] font-main font-normal leading-[16px] text-[#aa642b] text-[14px] whitespace-pre-wrap">
+              <p
+                className={cn(
+                  "flex-[1_0_0] font-main font-normal leading-[16px] text-[#aa642b] text-[14px] whitespace-pre-wrap",
+                )}
+              >
                 {label}
               </p>
             </>
           )}
           {isError && (
             <>
-              <div className="relative shrink-0 w-[16px] h-[16px]">
-                <div className="absolute inset-[8.33%]">
-                  <div className="absolute inset-[-6%]">
-                    <CalloutStopIcon className="block w-full h-full" />
+              <div className={cn("relative shrink-0 w-[16px] h-[16px]")}>
+                <div className={cn("absolute inset-[8.33%]")}>
+                  <div className={cn("absolute inset-[-6%]")}>
+                    <AlertOctagonIcon
+                      className={cn("block w-full h-full text-[#9c3333] ")}
+                    >
+                      <title>alert icon</title>
+                    </AlertOctagonIcon>
                   </div>
                 </div>
               </div>
-              <p className="flex-[1_0_0] font-main font-normal leading-[16px] text-[#9c3333] text-[14px] whitespace-pre-wrap">
+              <p
+                className={cn(
+                  "flex-[1_0_0] font-main font-normal leading-[16px] text-[#9c3333] text-[14px] whitespace-pre-wrap",
+                )}
+              >
                 {label}
               </p>
             </>

@@ -1,4 +1,4 @@
-import { createContext, type JSX, type FC } from "react";
+import { createContext, type JSX, type FC, type SVGProps } from "react";
 import { cn } from "../lib/utils";
 import UnknownFileTypeIcon from "../icons/file-unknow-line.svg";
 import MusicFileTypeIcon from "../icons/file-music-line.svg";
@@ -10,6 +10,11 @@ import CalloutAlertIcon from "../icons/alert-line.svg";
 import CalloutInfoIcon from "../icons/information-line.svg";
 import CalloutStopIcon from "../icons/spam-2-line.svg";
 
+import DownloadCloudIcon from "./Icons/DownloadCloudIcon";
+import AlertTriangleIcon from "./Icons/AlertTriangleIcon";
+import AlertOctagonIcon from "./Icons/AlertOctagonIcon";
+import InformationIcon from "./Icons/InformationIcon";
+import CopyIcon from "./Icons/CopyIcon";
 function UploadIcon({ classes, ...additionalSvgProps }: { classes?: string }) {
   return (
     <svg
@@ -93,15 +98,20 @@ export const Icons = createContext<{
   }: {
     classes?: string | undefined;
   }) => JSX.Element;
-  UnknownFileTypeIcon: FC<React.SVGProps<SVGSVGElement>>;
-  MusicFileTypeIcon: FC<React.SVGProps<SVGSVGElement>>;
-  VideoFileTypeIcon: FC<React.SVGProps<SVGSVGElement>>;
-  ImageFileTypeIcon: FC<React.SVGProps<SVGSVGElement>>;
-  SelectTrigger: FC<React.SVGProps<SVGSVGElement>>;
-  PdfFileTypeIcon: FC<React.SVGProps<SVGSVGElement>>;
-  CalloutAlertIcon: FC<React.SVGProps<SVGSVGElement>>;
-  CalloutInfoIcon: FC<React.SVGProps<SVGSVGElement>>;
-  CalloutStopIcon: FC<React.SVGProps<SVGSVGElement>>;
+  UnknownFileTypeIcon: FC<SVGProps<SVGSVGElement>>;
+  MusicFileTypeIcon: FC<SVGProps<SVGSVGElement>>;
+  VideoFileTypeIcon: FC<SVGProps<SVGSVGElement>>;
+  ImageFileTypeIcon: FC<SVGProps<SVGSVGElement>>;
+  SelectTrigger: FC<SVGProps<SVGSVGElement>>;
+  PdfFileTypeIcon: FC<SVGProps<SVGSVGElement>>;
+  CalloutAlertIcon: FC<SVGProps<SVGSVGElement>>;
+  CalloutInfoIcon: FC<SVGProps<SVGSVGElement>>;
+  CalloutStopIcon: FC<SVGProps<SVGSVGElement>>;
+  DownloadCloudIcon: JSX.Element;
+  AlertTriangleIcon: JSX.Element;
+  AlertOctagonIcon: JSX.Element;
+  InformationIcon: JSX.Element;
+  CopyIcon: JSX.Element;
 }>({
   logoutIcon: "/logoutIcon.png",
   fileIcon: "/fileIcon.png",
@@ -121,4 +131,9 @@ export const Icons = createContext<{
   CalloutAlertIcon,
   CalloutInfoIcon,
   CalloutStopIcon,
+  DownloadCloudIcon,
+  AlertOctagonIcon,
+  AlertTriangleIcon,
+  InformationIcon,
+  CopyIcon,
 });

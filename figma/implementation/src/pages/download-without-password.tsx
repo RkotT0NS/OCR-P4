@@ -7,16 +7,18 @@ import { fr } from "date-fns/locale";
 import { cn } from "../lib/utils";
 import { humanFileSize } from "../lib/size-format";
 import { Callout } from "../components/Callout";
-const alertIcon =
-  "https://www.figma.com/api/mcp/asset/38a7ba09-95e2-4753-b5e3-b0b749adc97a";
-const downloadIcon =
-  "https://www.figma.com/api/mcp/asset/754b191c-9ff8-4765-a865-b3361e097f73";
+import { Icons } from "../contexts/Icons";
 
 function FileInfo({ fileDetails }: { fileDetails: Upload }) {
   return (
-    <div className={cn("flex items-center w-full gap-4 p-2")}>
-      <MimeTypeIcon mimeType={fileDetails.mime_type} classes="w-6 h-6" />
-      <div className={cn("flex-1")}>
+    <div className={cn("flex items-center w-full gap-4 p-2 overflow-hidden")}>
+      <div className={cn("flex flex-0 items-center")}>
+        <MimeTypeIcon
+          mimeType={fileDetails.mime_type}
+          classes={cn("w-6 h-6")}
+        />
+      </div>
+      <div className={cn("flex-1  overflow-hidden")}>
         <p
           className={cn(
             "text-base text-ellipsis overflow-hidden whitespace-nowrap font-medium text-ellipsis ",
@@ -32,20 +34,11 @@ function FileInfo({ fileDetails }: { fileDetails: Upload }) {
   );
 }
 
-export function LocalCallout({ label }: { label: string }) {
-  return (
-    <div
-      className={cn(
-        "bg-[#fff5ed] border border-[#e6cbb5] rounded-lg flex items-center gap-2 p-2 w-full",
-      )}
-    >
-      <img src={alertIcon} alt="alert icon" className={cn("w-4 h-4")} />
-      <p className={cn("text-[#aa642b] text-sm")}>{label}</p>
-    </div>
-  );
-}
-
-function DownloadWithoutPasswordPage({ fileDetails }: { fileDetails: Upload }) {
+export default function DownloadWithoutPasswordPage({
+  fileDetails,
+}: {
+  fileDetails: Upload;
+}) {
   return (
     <div
       className={cn("relative w-full h-screen")}
@@ -89,11 +82,17 @@ function DownloadWithoutPasswordPage({ fileDetails }: { fileDetails: Upload }) {
               "bg-[#ff812d]/13 border border-[#cd5e14]/50 text-[#ba681f] p-3 rounded-lg w-full flex items-center justify-center gap-2",
             )}
           >
-            <img
-              src={downloadIcon}
-              alt="download icon"
-              className={cn("w-4 h-4")}
-            />
+            <span className={cn("w-4 h-4")}>
+              <Icons.Consumer>
+                {({ DownloadCloudIcon }) => (
+                  <DownloadCloudIcon
+                    className={cn("w-full h-full stroke-[#ba681f]")}
+                  >
+                    <title>download icon</title>
+                  </DownloadCloudIcon>
+                )}
+              </Icons.Consumer>
+            </span>
             <span>Télécharger</span>
           </a>
         </div>
@@ -102,5 +101,3 @@ function DownloadWithoutPasswordPage({ fileDetails }: { fileDetails: Upload }) {
     </div>
   );
 }
-
-export default DownloadWithoutPasswordPage;

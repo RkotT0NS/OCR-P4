@@ -1,0 +1,36 @@
+[23:21:28.380] [INFO] storybook v10.2.6
+[23:21:28.521] [ERROR] [38;2;241;97;97mSB_CORE-SERVER_0007 (MainFileEvaluationError): Storybook couldn't evaluate your [33m.storybook/main.ts[39m file.
+
+Original error:
+[37mError: Transform failed with 1 error:
+<stdin>:56:1: ERROR: Expected "}" but found ";"
+    at failureErrorWithLog (/home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/esbuild/lib/main.js:1467:15)
+    at /home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/esbuild/lib/main.js:736:50
+    at responseCallbacks.<computed> (/home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)[39m[39m
+    at loadMainConfig (file:///home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/storybook/dist/_node-chunks/chunk-7TARJQRJ.js:11709:11)
+    at async buildDevStandalone (file:///home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/storybook/dist/core-server/index.js:7518:16)
+    at async withTelemetry (file:///home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/storybook/dist/_node-chunks/chunk-AYHC7DAM.js:218:12)
+    at async dev (file:///home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/storybook/dist/bin/core.js:2734:3)
+    at async _Command.<anonymous> (file:///home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/storybook/dist/bin/core.js:2801:92)
+[23:21:28.525] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.
+[23:21:28.530] [WARN]   Failed to load preset: "/home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/figma/implementation/.storybook/main.ts"
+[23:21:28.530] [ERROR] [38;2;241;97;97mError: Transform failed with 1 error:
+<stdin>:56:1: ERROR: Expected "}" but found ";"[39m
+    at failureErrorWithLog (/home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/esbuild/lib/main.js:1467:15)
+    at /home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/esbuild/lib/main.js:736:50
+    at responseCallbacks.<computed> (/home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/home/fjacq/PersonalProjects/OpenClassRooms/p4-laravel/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)

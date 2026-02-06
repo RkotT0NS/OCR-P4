@@ -135,18 +135,18 @@ export function UploadDetails({
         </div>
       </div>
       {isUploading ? (
-        <div className="w-full flex flex-col gap-2">
-          <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+        <div className={cn("w-full flex flex-col gap-2")}>
+          <div className={cn("w-full h-2 bg-gray-100 rounded-full overflow-hidden")}>
             <div
-              className="h-full bg-[#ff812d] transition-all duration-300 ease-out"
+              className={cn("h-full bg-[#ff812d] transition-all duration-300 ease-out")}
               style={{ width: `${Math.max(5, progress)}%` }}
             />
           </div>
-          <div className="flex items-center justify-between text-[#794310] font-medium">
-            <span className="text-sm">{Math.round(progress)}%</span>
+          <div className={cn("flex items-center justify-between text-[#794310] font-medium")}>
+            <span className={cn("text-sm")}>{Math.round(progress)}%</span>
             <button
               onClick={isPaused ? onResume : onPause}
-              className="text-sm hover:underline focus:outline-none"
+              className={cn("text-sm hover:underline focus:outline-none")}
             >
               {isPaused ? "Reprendre" : "Pause"}
             </button>
