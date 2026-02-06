@@ -1,7 +1,11 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 import fontsSetup from "@datashare/tools";
-import fontsDefinition from "../fontsDefinition.json" with { type: "json" };
-
+import initialFontsDefinition from "../fontsDefinition.json" with { type: "json" };
+import { readFileSync } from "fs";
+let fontsDefinition = {
+  ...initialFontsDefinition,
+};
+const monitoredFontDefinitionsPath = `${process.cwd()}/fontsDefinition.json`;
 const config: StorybookConfig = {
   previewHead: (head) => `
     ${head}
@@ -17,5 +21,23 @@ const config: StorybookConfig = {
   ],
 
   framework: "@storybook/react-vite",
+  viteFinal: async (config) => {
+    config.plugins?.push({
+      name: "watch-json-hmr",
+      handleHotUpdate({ file, server }) {
+        if (file === monitoredFontDefinitionsPath) {
+          fontsDefinition = JSON.parse(
+            readFileSync(monitoredFontDefinitionsPath).toString(),
+          );
+
+          server.ws.send({
+            type: "full-reload",
+            path: "*",
+          });
+        }
+      },
+    });
+    return config;
+  },
 };
 export default config;

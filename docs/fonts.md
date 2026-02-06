@@ -49,3 +49,49 @@ npx datashare-tools fonts figma/implementation/fontsDefinition.json laravel/reso
 ```
 
 This command parses the JSON definition and writes the corresponding HTML `<link>` tags directly to the specified output file.
+
+## Usage in Storybook
+
+The UI library (`@datashare/ui`) also consumes `fontsDefinition.json` directly to ensure components are rendered with the correct fonts during development and testing.
+
+In `figma/implementation/.storybook/main.ts`, the `fontsSetup` utility from `@datashare/tools` is used to inject the font tags into the Storybook preview head.
+
+Additionally, a custom Vite plugin is configured to watch for changes in `fontsDefinition.json`. When this file is modified, the configuration is reloaded and the Storybook preview triggers a full reload, ensuring that font changes are reflected immediately without restarting the server.
+
+```typescript
+// figma/implementation/.storybook/main.ts
+import fontsSetup from "@datashare/tools";
+import initialFontsDefinition from "../fontsDefinition.json" with { type: "json" };
+import { readFileSync } from "fs";
+
+let fontsDefinition = {
+  ...initialFontsDefinition,
+};
+const monitoredFontDefinitionsPath = `${process.cwd()}/fontsDefinition.json`;
+
+const config: StorybookConfig = {
+  previewHead: (head) => `
+    ${head}
+    ${fontsSetup(fontsDefinition)}
+  `,
+  // ...
+  viteFinal: async (config) => {
+    config.plugins?.push({
+      name: "watch-json-hmr",
+      handleHotUpdate({ file, server }) {
+        if (file === monitoredFontDefinitionsPath) {
+          fontsDefinition = JSON.parse(
+            readFileSync(monitoredFontDefinitionsPath).toString(),
+          );
+
+          server.ws.send({
+            type: "full-reload",
+            path: "*",
+          });
+        }
+      },
+    });
+    return config;
+  },
+};
+```
