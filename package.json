@@ -14,7 +14,8 @@
     "laravel",
     "figma/implementation",
     "types",
-    "tools"
+    "tools",
+    "e2e"
   ],
   "license": "ISC",
   "author": "tetedacier",
