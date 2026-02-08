@@ -2,9 +2,6 @@ uploads/*
 node_modules/
 dist
 
-# Initial build path
-laravel/resources/js/figma
-
 # Icons sync path
 !laravel/public/ui/.gitkeep
 laravel/public/ui
