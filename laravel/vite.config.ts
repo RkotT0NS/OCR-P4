@@ -29,9 +29,12 @@ export default defineConfig({
             },
         }),
     ],
-    esbuild: {
-        jsx: 'automatic',
-    },
+    // esbuild: false,
+    // esbuild: {
+    //     jsx: 'automatic',
+    // },
+    build: { sourcemap: true },
+    oxc: false,
     server: {
         // The Proxy Configuration
         proxy: {
