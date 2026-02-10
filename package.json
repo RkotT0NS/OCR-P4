@@ -29,6 +29,7 @@
     "dev:laravel": "npm run dev -w @datashare/webapp",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:laravel": "cd laravel && php artisan test",
+    "build:laravel": "npm run build -w @datashare/webapp",
     "build:types": "npm run build -w @datashare/types",
     "build:tools": "npm run build -w @datashare/tools",
     "watch:types": "npm run watch -w @datashare/types"
