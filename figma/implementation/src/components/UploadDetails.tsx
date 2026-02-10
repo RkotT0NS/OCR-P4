@@ -4,6 +4,7 @@ import MimeTypeIcon from "./MimeTypeIcon";
 import { Icons } from "../contexts/Icons";
 import inputFileSelectionChange from "../lib/file-selection-handler";
 import { InputField } from "./InputField";
+import { Callout } from "./Callout";
 
 function ChevronDown({ className }: { className?: string }) {
   return (
@@ -26,6 +27,7 @@ import ReactSelect, {
   components,
   type DropdownIndicatorProps,
 } from "react-select";
+import FileChoosed from "../pages/file-choosed";
 
 const expirationOptions = [
   { value: 1, label: "Une journée" },
@@ -120,6 +122,7 @@ export function UploadDetails({
   progress = 0,
   isPaused = false,
   isUploading = false,
+  uploadedFileUrl,
   onPause,
   onResume,
 }: {
@@ -132,13 +135,18 @@ export function UploadDetails({
   progress?: number;
   isPaused?: boolean;
   isUploading?: boolean;
+  uploadedFileUrl: string;
   onPause?: () => void;
   onResume?: () => void;
 }) {
   const [password, setPassword] = useState("");
   const [expiresAt, setExpiresAt] = useState(1);
+  // const fileMeta=null;
+  const isTooLarge = file.size > 1_000_000_000;
 
-  return (
+  return progress === 100 && isUploading === false ? (
+    <FileChoosed fileDetails={file} fileUrl={uploadedFileUrl} />
+  ) : (
     <div
       className={cn(
         "bg-white flex flex-col gap-6 items-center max-w-lg w-full p-8 rounded-2xl shadow-lg",
@@ -165,7 +173,9 @@ export function UploadDetails({
           >
             {file.name}
           </p>
-          <p className={cn("text-sm")}>{humanFileSize(file.size, true)}</p>
+          <p className={cn("text-sm", isTooLarge && "text-red-600 font-bold")}>
+            {humanFileSize(file.size, true)}
+          </p>
         </div>
         <label
           htmlFor="fileInput"
@@ -198,6 +208,13 @@ export function UploadDetails({
           onChange={(val) => setExpiresAt(val)}
         />
       </div>
+      {isTooLarge && (
+        <Callout
+          type="Error"
+          label="La taille des fichiers est limitée à 1 Go"
+          className={cn("w-full")}
+        />
+      )}
       {isUploading ? (
         <div className={cn("w-full flex flex-col gap-2")}>
           <div
@@ -228,8 +245,10 @@ export function UploadDetails({
         </div>
       ) : (
         <button
+          disabled={isTooLarge}
           className={cn(
-            "bg-[#ff812d]/13 border border-[#cd5e14]/50 text-[#794310] px-4 py-3 rounded-lg flex items-center justify-center gap-2",
+            "bg-[#ff812d]/13 border border-[#cd5e14]/50 text-[#794310] px-4 py-3 rounded-lg flex items-center justify-center gap-2 transition-all",
+            isTooLarge && "opacity-50 cursor-not-allowed grayscale",
           )}
           onClick={() => {
             console.log("Uploader le fichier", { password, expiresAt });

@@ -8,7 +8,7 @@ import { HomePage, Icons } from '../../../../figma/implementation/src';
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
     const initialIcons = useContext(Icons);
-
+    const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null);
     const [progress, setProgress] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
@@ -78,6 +78,9 @@ export default function Welcome() {
                                     'Failed to patch upload metadata',
                                 );
                             }
+                            return res.json().then((jsonResponse) => {
+                                setUploadedFileUrl(jsonResponse.data.url);
+                            });
                         })
                         .catch((err) => {
                             console.error(
@@ -137,6 +140,7 @@ export default function Welcome() {
         >
             <HomePage
                 user={auth.user}
+                uploadedFileUrl={uploadedFileUrl}
                 uploader={handleUpload}
                 progress={progress}
                 isPaused={isPaused}

@@ -3,6 +3,11 @@
     "name": "@datashare/webapp",
     "private": true,
     "type": "module",
+    "exports": {
+        "./types": {
+            "types": "./resources/js/types/index.d.ts"
+        }
+    },
     "scripts": {
         "build": "vite build",
         "build:ssr": "vite build && vite build --ssr",

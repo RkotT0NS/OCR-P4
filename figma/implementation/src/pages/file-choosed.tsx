@@ -3,8 +3,15 @@ import { Footer } from "../components/Footer";
 import { cn } from "../lib/utils";
 import MimeTypeIcon from "../components/MimeTypeIcon";
 import { Icons } from "../contexts/Icons";
+import { PageConsumer } from "../contexts/Page";
 
-export default function FileChoosed() {
+export default function FileChoosed({
+  fileDetails,
+  fileUrl,
+}: {
+  fileDetails: File;
+  fileUrl: string;
+}) {
   return (
     <div
       className={cn("relative w-full h-screen")}
@@ -13,7 +20,9 @@ export default function FileChoosed() {
           "linear-gradient(174.9deg, #FFB88C 2.29%, #DE6262 97.71%)",
       }}
     >
-      <Header />
+      <PageConsumer>
+        {({ auth }) => <Header login={auth.user ?? "Anonymous"} />}
+      </PageConsumer>
       <main
         className={cn(
           "w-full h-full flex flex-col items-center justify-center",
@@ -37,7 +46,10 @@ export default function FileChoosed() {
               className={cn("flex flex-1 items-center gap-4 overflow-hidden")}
             >
               <div className={cn("flex flex-0 items-center")}>
-                <MimeTypeIcon mimeType="image/jpeg" classes={cn("w-6 h-6")} />
+                <MimeTypeIcon
+                  mimeType={fileDetails.type}
+                  classes={cn("w-6 h-6")}
+                />
               </div>
               <div
                 className={cn(
@@ -48,9 +60,9 @@ export default function FileChoosed() {
                   className={cn(
                     "text-base text-ellipsis overflow-hidden whitespace-nowrap",
                   )}
-                  title="IMG_9210_123123131323123131313213231132132312312313131321323123123131313213231.jpg"
+                  title={fileDetails.name}
                 >
-                  IMG_9210_123123131323123131313213231132132312312313131321323123123131313213231.jpg
+                  {fileDetails.name}
                 </p>
                 <p className={cn("text-sm")}>2,6 Mo</p>
               </div>
@@ -68,11 +80,14 @@ export default function FileChoosed() {
               )}
             >
               <p className={cn("text-base text-[#d8640b] underline")}>
-                https://datashare.fr/UhGyr
+                {fileUrl}
               </p>
             </div>
           </div>
           <button
+            onClick={() => {
+              navigator.clipboard.writeText(fileUrl);
+            }}
             className={cn(
               "bg-[#ff812d]/13 border border-[#cd5e14]/50 text-[#ba681f] px-4 py-3 rounded-lg flex items-center justify-center gap-2",
             )}

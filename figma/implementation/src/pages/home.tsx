@@ -12,7 +12,10 @@ import { Icons } from "../contexts/Icons";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { UploadDetails } from "../components/UploadDetails";
+import FileChoosedPage from "./file-choosed";
 import inputFileSelectionChange from "../lib/file-selection-handler";
+import UserInterfacePage from "../contexts/Page";
+import type { User } from "@datashare/webapp/types";
 function preventDefaultDragEvents(event: Event) {
   event.preventDefault();
   // event.stopPropagation();
@@ -99,10 +102,11 @@ export default function HomePage({
   progress,
   isPaused,
   isUploading,
+  uploadedFileUrl,
   onPause,
   onResume,
 }: {
-  user: unknown;
+  user: User;
   uploader: (
     file: File,
     options?: { password?: string; expiresAt?: number },
@@ -110,10 +114,10 @@ export default function HomePage({
   progress?: number;
   isPaused?: boolean;
   isUploading?: boolean;
+  uploadedFileUrl: string | null;
   onPause?: () => void;
   onResume?: () => void;
 }) {
-  console.log({ user });
   const [file, setFile] = useState<File | null>(null);
   const pageRef = useRef(null);
   useEffect(() => {
@@ -157,57 +161,60 @@ export default function HomePage({
   }, [setFile]);
 
   return (
-    <div
-      ref={pageRef}
-      className={cn("relative w-full h-screen bg-amber-50")}
-      style={{
-        // below style allow accessibility testing since gradients with multiple colors are not handled
-        // backgroundColor: "#DE6262",
-        // backgroundColor: "#FFB88C",
-        backgroundImage:
-          "linear-gradient(174.9deg, #FFB88C 2.29%, #DE6262 97.71%)",
-      }}
-    >
-      <Header login={user === null ? "Anonymous" : "User"} />
-      <main
-        className={cn(
-          "w-full h-full flex flex-col items-center justify-center",
-        )}
+    <UserInterfacePage auth={{ user, token: "unknown" }}>
+      <div
+        ref={pageRef}
+        className={cn("relative w-full h-screen bg-amber-50")}
+        style={{
+          // below style allow accessibility testing since gradients with multiple colors are not handled
+          // backgroundColor: "#DE6262",
+          // backgroundColor: "#FFB88C",
+          backgroundImage:
+            "linear-gradient(174.9deg, #FFB88C 2.29%, #DE6262 97.71%)",
+        }}
       >
-        {file === null ? (
-          <UserAction {...{ user, setFile }}>
-            <p className={cn("text-3xl font-light text-black")}>
-              Tu veux partager un fichier ?
-            </p>
-            <div className={cn("p-6 bg-black/15 rounded-full")}>
-              <div className={cn("p-6 bg-[#100218] rounded-full")}>
-                <Icons.Consumer>
-                  {({ DatashareLightLogo }) => (
-                    <DatashareLightLogo
-                      classes="w-12 h-12"
-                      aria-hidden="true"
-                    />
-                  )}
-                </Icons.Consumer>
+        <Header login={user === null ? "Anonymous" : "User"} />
+        <main
+          className={cn(
+            "w-full h-full flex flex-col items-center justify-center",
+          )}
+        >
+          {file === null ? (
+            <UserAction {...{ user, setFile }}>
+              <p className={cn("text-3xl font-light text-black")}>
+                Tu veux partager un fichier ?
+              </p>
+              <div className={cn("p-6 bg-black/15 rounded-full")}>
+                <div className={cn("p-6 bg-[#100218] rounded-full")}>
+                  <Icons.Consumer>
+                    {({ DatashareLightLogo }) => (
+                      <DatashareLightLogo
+                        classes="w-12 h-12"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </Icons.Consumer>
+                </div>
               </div>
-            </div>
-          </UserAction>
-        ) : (
-          <UploadDetails
-            {...{
-              file,
-              setFile,
-              uploader,
-              progress,
-              isPaused,
-              isUploading,
-              onPause,
-              onResume,
-            }}
-          />
-        )}
-      </main>
-      <Footer />
-    </div>
+            </UserAction>
+          ) : (
+            <UploadDetails
+              {...{
+                file,
+                setFile,
+                uploader,
+                progress,
+                isPaused,
+                isUploading,
+                onPause,
+                onResume,
+                uploadedFileUrl: uploadedFileUrl ?? "",
+              }}
+            />
+          )}
+        </main>
+        <Footer />
+      </div>
+    </UserInterfacePage>
   );
 }
