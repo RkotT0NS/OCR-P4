@@ -25,7 +25,8 @@ const FontDefinitionSchema = z.object({
 
 const FontsSetupSchema = z.object({
   definitions: z.array(FontDefinitionSchema),
-  domain: z.string(),
+  definitionDomain: z.string(),
+  sourceDomain: z.string(),
   apiPath: z.string(),
 });
 
@@ -70,10 +71,11 @@ export default function fontsSetup(options: unknown) {
 
   const validatedOptions = result.data;
 
-  return `<link rel="preconnect" href="${validatedOptions.domain}" />
+  return `<link rel="preconnect" href="${validatedOptions.definitionDomain}" />
+<link rel="preconnect" href="${validatedOptions.sourceDomain}" />
 ${validatedOptions.definitions
   .map(({ name, features }) => {
-    return `<link href="${validatedOptions.domain}/${validatedOptions.apiPath}?${generateFontUrl(name, features)}" rel="stylesheet" />`;
+    return `<link href="${validatedOptions.definitionDomain}/${validatedOptions.apiPath}?${generateFontUrl(name, features)}" rel="stylesheet" />`;
   })
   .join("\n")}\n`;
 }

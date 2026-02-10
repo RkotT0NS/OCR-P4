@@ -1,5 +1,6 @@
 {
-  "domain": "https://fonts.googleapis.com",
+  "definitionDomain": "https://fonts.googleapis.com",
+  "sourceDomain": "https://fonts.gstatic.com",
   "apiPath": "css2",
   "definitions": [
     {
