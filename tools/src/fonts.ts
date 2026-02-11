@@ -41,7 +41,7 @@ type FontFeaturesVariants = z.infer<typeof FontFeaturesSchema>;
  * @param {FontFeaturesVariants} features
  * @returns
  */
-function generateFontUrl(
+export function generateFontUrl(
   name: string,
   features?: FontFeaturesVariants,
 ): string {
