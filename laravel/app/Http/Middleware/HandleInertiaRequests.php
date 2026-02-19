@@ -42,6 +42,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'token' => $request->user() ? auth('api')->login($request->user()) : null,
             ],
+            'features' => \Laravel\Pennant\Feature::all(),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }

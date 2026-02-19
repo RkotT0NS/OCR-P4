@@ -26,6 +26,7 @@ export interface NavItem {
 export interface SharedData {
     name: string;
     auth: Auth;
+    features: Record<string, boolean>;
     sidebarOpen: boolean;
     [key: string]: unknown;
 }
