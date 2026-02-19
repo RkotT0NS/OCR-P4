@@ -280,7 +280,7 @@ export default function UserSpacePage({
                       DataShare
                     </h1>
                   </div>
-                  <nav className={cn("p-6")}>
+                  <nav className={cn("flex flex-col p-6 gap-4")}>
                     <a
                       href="#"
                       className={cn(
@@ -288,6 +288,14 @@ export default function UserSpacePage({
                       )}
                     >
                       Mes fichiers
+                    </a>
+                    <a
+                      href="/settings"
+                      className={cn(
+                        "block bg-white/40 text-orange-900 font-semibold p-3 rounded-xl",
+                      )}
+                    >
+                      Mes paramètres
                     </a>
                   </nav>
                   <div
