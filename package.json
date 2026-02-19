@@ -15,7 +15,8 @@
     "figma/implementation",
     "types",
     "tools",
-    "e2e"
+    "e2e",
+    "packages/pagination-cache"
   ],
   "license": "ISC",
   "author": "tetedacier",
@@ -32,6 +33,8 @@
     "build:laravel": "npm run build -w @datashare/webapp",
     "build:types": "npm run build -w @datashare/types",
     "build:tools": "npm run build -w @datashare/tools",
+    "build:pagination-cache": "npm run build -w @datashare/pagination-cache",
+    "watch:pagination-cache": "npm run watch -w @datashare/pagination-cache",
     "watch:types": "npm run watch -w @datashare/types"
   }
 }
