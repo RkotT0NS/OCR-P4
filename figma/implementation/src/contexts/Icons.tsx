@@ -8,6 +8,8 @@ import SelectTrigger from "../icons/select-trigger.svg";
 import PdfFileTypeIcon from "../icons/file-pdf-2-line.svg";
 import CalloutAlertIcon from "../icons/alert-line.svg";
 import CalloutInfoIcon from "../icons/information-line.svg";
+import MenuIcon from "../icons/menu.svg";
+import CloseMenuIcon from "../icons/close-menu-panel.svg";
 import CalloutStopIcon from "../icons/spam-2-line.svg";
 
 import DownloadCloudIcon from "./Icons/DownloadCloudIcon";
@@ -107,6 +109,8 @@ export const Icons = createContext<{
   CalloutAlertIcon: FC<SVGProps<SVGSVGElement>>;
   CalloutInfoIcon: FC<SVGProps<SVGSVGElement>>;
   CalloutStopIcon: FC<SVGProps<SVGSVGElement>>;
+  MenuIcon: FC<SVGProps<SVGSVGElement>>;
+  CloseMenuIcon: FC<SVGProps<SVGSVGElement>>;
   DownloadCloudIcon: JSX.Element;
   AlertTriangleIcon: JSX.Element;
   AlertOctagonIcon: JSX.Element;
@@ -131,6 +135,8 @@ export const Icons = createContext<{
   CalloutAlertIcon,
   CalloutInfoIcon,
   CalloutStopIcon,
+  MenuIcon,
+  CloseMenuIcon,
   DownloadCloudIcon,
   AlertOctagonIcon,
   AlertTriangleIcon,
