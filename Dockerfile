@@ -8,6 +8,11 @@ RUN apt-get update && apt-get install -y \
     npm \
     unzip \
     git \
+    libfreetype-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install pdo pdo_pgsql zip bcmath
 
 # Install required Redis and XDedug extension

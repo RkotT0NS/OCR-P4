@@ -239,7 +239,7 @@ export default function UserSpacePage({
   AvatarFallback,
 }: {
   refresher: () => void;
-  user: { name: string; avatarUrl?: string };
+  user: { name: string; avatar_url?: string };
   uploads: (number?: string) => Promise<PaginatedUploads>;
   actions: {
     logout: () => { url: string; method: "post" };
@@ -317,7 +317,7 @@ export default function UserSpacePage({
                   <span className={cn("w-full md:hidden")}>
                     <Profile
                       name={user.name}
-                      avatarUrl={user.avatarUrl}
+                      avatarUrl={user.avatar_url}
                       Avatar={Avatar}
                       AvatarFallback={AvatarFallback}
                       SidebarTrigger={SidebarTrigger}

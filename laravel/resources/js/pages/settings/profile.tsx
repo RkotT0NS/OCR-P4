@@ -50,8 +50,50 @@ export default function Profile({
                         }}
                         className="space-y-6"
                     >
-                        {({ processing, recentlySuccessful, errors }) => (
+                        {({
+                            setData,
+                            processing,
+                            recentlySuccessful,
+                            errors,
+                        }) => (
                             <>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="avatar">
+                                        Avatar (PNG, 80x80)
+                                    </Label>
+
+                                    {auth.user.avatar_url && (
+                                        <div className="mb-2">
+                                            <img
+                                                src={
+                                                    auth.user
+                                                        .avatar_url as string
+                                                }
+                                                alt="Current Avatar"
+                                                className="h-20 w-20 rounded-full object-cover border border-gray-200"
+                                            />
+                                        </div>
+                                    )}
+
+                                    <Input
+                                        id="avatar"
+                                        type="file"
+                                        name="avatar"
+                                        accept="image/png"
+                                        onChange={(e) =>
+                                            setData(
+                                                'avatar',
+                                                e.target.files?.[0] || null,
+                                            )
+                                        }
+                                    />
+
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.avatar}
+                                    />
+                                </div>
+
                                 <div className="grid gap-2">
                                     <Label htmlFor="name">Name</Label>
 

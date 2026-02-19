@@ -224,7 +224,7 @@ export const UserSpacePage: Story = {
       upload: () => ({ url: "#upload", method: "get" }),
     },
 
-    user: { name: "Marie Claire", avatarUrl: "/profile/marie.png" },
+    user: { name: "Marie Claire", avatar_url: "/profile/marie.png" },
     refresher: (...args) => {
       console.log(args);
     },
