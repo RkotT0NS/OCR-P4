@@ -1,8 +1,8 @@
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { cn, toUrl } from '@/lib/utils';
 import { useActiveUrl } from '@/hooks/use-active-url';
+import { cn, toUrl } from '@/lib/utils';
 import { edit as editAppearance } from '@/routes/appearance';
 import { edit } from '@/routes/profile';
 import { show } from '@/routes/two-factor';
@@ -26,11 +26,15 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
             href: editPassword(),
             icon: null,
         },
-        {
-            title: 'Two-Factor Auth',
-            href: show(),
-            icon: null,
-        },
+        ...(features['two-factor-authentication']
+            ? [
+                  {
+                      title: 'Two-Factor Auth',
+                      href: show(),
+                      icon: null,
+                  },
+              ]
+            : []),
         ...(features['luminosity-theme']
             ? [
                   {
@@ -57,7 +61,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
             <div className="flex flex-col lg:flex-row lg:space-x-12">
                 <aside className="w-full max-w-xl lg:w-48">
                     <nav
-                        className="flex flex-col space-x-0 space-y-1"
+                        className="flex flex-col space-y-1 space-x-0"
                         aria-label="Settings"
                     >
                         {sidebarNavItems.map((item, index) => (

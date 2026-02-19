@@ -21,5 +21,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Feature::define('luminosity-theme', false);
+        Feature::define('two-factor-authentication', false);
     }
 }
