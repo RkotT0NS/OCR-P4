@@ -14,6 +14,7 @@ services:
     volumes:
       - ./laravel:/var/www
       - ./uploads:/var/www/storage/app/public/uploads # Persistence for uploads
+      - ./docker/laravel/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini # Persistence for uploads
     depends_on:
       - db
       - redis
@@ -31,7 +32,6 @@ services:
     volumes:
       - ./laravel:/var/www
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
-      - ./uploads:/var/www/storage/app/public/uploads
     depends_on:
       - app
 
