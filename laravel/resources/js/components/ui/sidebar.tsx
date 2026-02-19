@@ -247,10 +247,19 @@ function Sidebar({
     </div>
   )
 }
-
+function StandardPanelIconography({
+    isMobile,
+    state
+}: {
+    isMobile: boolean;
+    state: string;
+}) {
+    return (isMobile || state === "collapsed" ? <PanelLeftOpenIcon /> : <PanelLeftCloseIcon />);
+}
 function SidebarTrigger({
   className,
-  onClick,
+    onClick,
+    children,
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar, isMobile, state } = useSidebar()
@@ -267,8 +276,9 @@ function SidebarTrigger({
         toggleSidebar()
       }}
       {...props}
-    >
-      {isMobile || state === "collapsed" ? <PanelLeftOpenIcon /> : <PanelLeftCloseIcon />}
+      >
+          {children ? children : <StandardPanelIconography {...{ isMobile, state }} />}
+
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )
