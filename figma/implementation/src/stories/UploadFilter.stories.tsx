@@ -1,19 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import {UploadFilter} from '../components/UploadFilter';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { UploadFilter } from "../components/UploadFilter";
 
 const meta = {
-  title: 'Example/Component/UploadFilter',
+  title: "Components/UploadFilter",
   component: UploadFilter,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     selected: {
-      control: 'radio',
-      options: ['All', 'True', 'False'],
+      control: "radio",
+      options: ["All", "True", "False"],
     },
-    onSelect: { action: 'selected' },
+    onSelect: { action: "selected" },
   },
 } satisfies Meta<typeof UploadFilter>;
 
@@ -22,18 +22,18 @@ type Story = StoryObj<typeof meta>;
 
 export const All: Story = {
   args: {
-    selected: 'All',
+    selected: "All",
   },
 };
 
 export const Active: Story = {
   args: {
-    selected: 'True',
+    selected: "True",
   },
 };
 
 export const Expired: Story = {
   args: {
-    selected: 'False',
+    selected: "False",
   },
 };

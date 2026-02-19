@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import DownloadWithPasswordFilledPage from '../pages/download-with-password-filled';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import DownloadWithPasswordFilledPage from "../pages/download-with-password-filled";
 
 const meta = {
-  title: 'Example/Page/Download',
+  title: "Pages/Download",
   component: DownloadWithPasswordFilledPage,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof DownloadWithPasswordFilledPage>;
 

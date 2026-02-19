@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import NoDownloadAvailablePage from '../pages/no-download-available';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import NoDownloadAvailablePage from "../pages/no-download-available";
 
 const meta = {
-  title: 'Example/Page/Download',
+  title: "Pages/Download",
   component: NoDownloadAvailablePage,
-  tags: ['!autodocs'],
+  tags: ["!autodocs"],
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof NoDownloadAvailablePage>;
 

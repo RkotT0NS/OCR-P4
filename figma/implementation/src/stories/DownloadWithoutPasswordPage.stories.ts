@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import DownloadWithoutPasswordPage from "../pages/download-without-password";
 
 const meta = {
-  title: "Example/Page/Download",
+  title: "Pages/Download",
   component: DownloadWithoutPasswordPage,
   tags: ["!autodocs"],
   parameters: {

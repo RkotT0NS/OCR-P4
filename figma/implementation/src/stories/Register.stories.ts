@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import Register from '../pages/register';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import Register from "../pages/register";
 
 const meta = {
-  title: 'Example/Page',
+  title: "Pages",
   component: Register,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof Register>;
 

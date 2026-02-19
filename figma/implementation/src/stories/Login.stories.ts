@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import Login from '../pages/login';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import Login from "../pages/login";
 
 const meta = {
-  title: 'Example/Page',
+  title: "Pages",
   component: Login,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof Login>;
 

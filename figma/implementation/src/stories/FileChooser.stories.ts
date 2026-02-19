@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import FileChooser from '../pages/file-chooser';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import FileChooser from "../pages/file-chooser";
 
 const meta = {
-  title: 'Example/Page/FileUpload',
+  title: "Pages/FileUpload",
   component: FileChooser,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof FileChooser>;
 

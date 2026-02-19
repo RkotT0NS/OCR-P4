@@ -3,7 +3,7 @@ import FileChoosed from "../pages/file-choosed";
 import UserInterfacePage from "../contexts/Page";
 
 const meta: Meta<typeof FileChoosed> = {
-  title: "Example/Page/FileUpload",
+  title: "Pages/FileUpload",
   component: FileChoosed,
   parameters: {
     layout: "fullscreen",

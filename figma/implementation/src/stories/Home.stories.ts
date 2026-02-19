@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import Home from '../pages/home';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import Home from "../pages/home";
 
 const meta = {
-  title: 'Example/Page',
+  title: "Pages",
   component: Home,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof Home>;
 
@@ -14,6 +14,6 @@ type Story = StoryObj<typeof meta>;
 
 export const HomePage: Story = {
   args: {
-    user: { name: 'Test User' },
+    user: { name: "Test User" },
   },
 };
