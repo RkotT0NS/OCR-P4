@@ -27,7 +27,7 @@ export function UploadFilter({
     <div
       className={twMerge(
         "bg-[#ffc19129] border border-[rgba(215,99,11,0.2)] border-solid content-stretch flex items-center overflow-clip relative rounded-3xl w-fit",
-        className
+        className,
       )}
     >
       {/* Tous / All */}
@@ -35,14 +35,14 @@ export function UploadFilter({
         className={clsx(
           baseButtonClass,
           isAll ? selectedButtonClass : unselectedButtonClass,
-          isAll && "w-[67px]"
+          isAll && "w-[33%]",
         )}
         onClick={() => onSelect?.("All")}
       >
         <p
           className={clsx(
             "font-[family-name:var(--font-sans)] font-normal leading-4 relative shrink-0 text-[16px]",
-            isAll ? "text-white" : "text-black"
+            isAll ? "text-white" : "text-black",
           )}
           style={{ fontVariationSettings: '"opsz" 14' }}
         >
@@ -55,14 +55,14 @@ export function UploadFilter({
         className={clsx(
           baseButtonClass,
           isTrue ? selectedButtonClass : unselectedButtonClass,
-          isAll && "w-[75px]"
+          isAll && "w-[33%]",
         )}
         onClick={() => onSelect?.("True")}
       >
         <p
           className={clsx(
             "font-[family-name:var(--font-sans)] font-normal leading-4 relative shrink-0 text-[16px]",
-            isTrue ? "text-white" : "text-black"
+            isTrue ? "text-white" : "text-black",
           )}
           style={{ fontVariationSettings: '"opsz" 14' }}
         >
@@ -75,14 +75,14 @@ export function UploadFilter({
         className={clsx(
           baseButtonClass,
           isFalse ? selectedButtonClass : unselectedButtonClass,
-          isAll && "w-[78px]"
+          isAll && "w-[34%]",
         )}
         onClick={() => onSelect?.("False")}
       >
         <p
           className={clsx(
             "font-[family-name:var(--font-sans)] font-normal leading-4 relative shrink-0 text-[16px]",
-            isFalse ? "text-white" : "text-black"
+            isFalse ? "text-white" : "text-black",
           )}
           style={{ fontVariationSettings: '"opsz" 14' }}
         >
