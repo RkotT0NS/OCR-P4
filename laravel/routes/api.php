@@ -27,7 +27,9 @@ Route::middleware('auth:api')->get('/user', function () {
 });
 
 Route::middleware('auth:api')->get('/uploads', [UserUploadController::class, 'index']);
+Route::middleware('auth:api')->get('/uploads/refresh', [UserUploadController::class, 'refresh']);
 Route::middleware('auth:api')->patch('/uploads/{upload}', [UserUploadController::class, 'update']);
+Route::middleware('auth:api')->post('/uploads/{upload}/delete', [UserUploadController::class, 'delete']);
 
 // TUS Upload Route
 Route::middleware('auth:api')->any('/upload/{any?}', function () {

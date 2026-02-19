@@ -18,6 +18,7 @@ class UploadResource extends JsonResource
             'uuid' => $this->uuid,
             'original_name' => $this->original_name,
             'mime_type' => $this->mime_type,
+            'updated_at' => $this->updated_at,
             'size' => $this->size,
             'expires_at' => $this->expires_at,
             'deleted_at' => $this->deleted_at,

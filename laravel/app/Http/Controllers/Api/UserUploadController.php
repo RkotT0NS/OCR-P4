@@ -19,7 +19,31 @@ class UserUploadController extends Controller
             ->uploads()
             ->withTrashed()
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
+
+        return UploadResource::collection($uploads);
+    }
+
+    /**
+     * Refresh the uploads list based on a last known date.
+     */
+    public function refresh(Request $request)
+    {
+        $request->validate([
+            'last_known_date' => 'required|integer',
+        ]);
+
+        $lastKnownDate = now()->setTimestamp($request->input('last_known_date') / 1000);
+
+        $uploads = $request->user()
+            ->uploads()
+            ->withTrashed()
+            ->where(function ($query) use ($lastKnownDate) {
+                $query->where('created_at', '>', $lastKnownDate)
+                    ->orWhere('deleted_at', '>', $lastKnownDate);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         return UploadResource::collection($uploads);
     }
@@ -43,6 +67,20 @@ class UserUploadController extends Controller
         }
 
         $upload->update($validated);
+
+        return new UploadResource($upload);
+    }
+
+    /**
+     * Delete (expire) the specified upload.
+     */
+    public function delete(Request $request, Upload $upload)
+    {
+        if ($upload->user_id !== $request->user()->id) {
+            abort(403);
+        }
+
+        $upload->update(['expires_at' => now()]);
 
         return new UploadResource($upload);
     }
