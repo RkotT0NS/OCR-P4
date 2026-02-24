@@ -17,6 +17,8 @@ class TusServiceProvider extends ServiceProvider
 
             // Set the API path (must match your route)
             $server->setApiPath('/api/upload');
+            // $server->setMaxUploadSize( env('UPLOAD_SIZE_LIMIT', 1000*1000*1000));
+            $server->setMaxUploadSize( env('UPLOAD_SIZE_LIMIT', 15*1024*1024));
 
             // Set the absolute path for uploads (mapped in docker-compose)
             $server->setUploadDir(storage_path('app/public/uploads'));
