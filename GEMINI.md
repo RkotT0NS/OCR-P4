@@ -42,7 +42,7 @@ The project uses NPM workspaces to manage dependencies and shared code:
 Start the database, redis, and web server services:
 ```bash
 # Please do not use `docker-compose up -d`, this eat the available memory for no reason and no advantage 
-docker-compose up
+docker compose up
 ```
 
 ### 2. Application Setup
@@ -54,8 +54,7 @@ The `laravel` directory contains a convenient setup script that handles:
 *   Initial build
 
 ```bash
-cd laravel
-composer setup
+docker exec laravel_app composer setup
 ```
 
 ### 3. Running the Application
@@ -70,7 +69,7 @@ The application will typically be accessible at `http://localhost:8000` (or the 
 Since the vite application is splitted into two parts, the frontend and the backend, you need to start them separately. To start the frontend, navigate to the `frontend` directory and run:
 
 ```bash
-npm run dev -w laravel
+npm run dev:laravel
 ```
 
 ### 4. UI Library Development
@@ -78,7 +77,7 @@ To work on the design system components in isolation:
 
 ```bash
 npm install # if not already installed
-npm run storybook -w figma/implementation
+npm run storybook
 ```
 
 ## Key Commands
