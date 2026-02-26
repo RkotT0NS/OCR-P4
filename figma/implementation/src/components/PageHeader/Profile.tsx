@@ -8,30 +8,29 @@ type ProfileProps = {
   SidebarTrigger: ReactElement;
   Avatar: ReactElement;
   AvatarFallback: ReactElement;
-  onMenuClick?: () => void;
 };
 
 function DesignAvatar({
   className,
   children,
   src,
-}: {
+}: Readonly<{
   children: ReactNode;
   className?: string;
   src?: string;
-}) {
+}>) {
   return (
     <div
-      className={cn("overflow-clip relative shrink-0 size-[40px]", className)}
+      className={cn("overflow-clip relative shrink-0 size-10", className)}
       data-node-id="15:435"
     >
       <div
-        className={cn("overflow-clip relative rounded-full size-[40px]")}
+        className={cn("overflow-clip relative rounded-full size-10")}
         data-node-id="15:445"
       >
         <div
           className={cn(
-            "-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[40px] top-1/2",
+            "-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-10 top-1/2",
           )}
           data-node-id="15:457"
         >
@@ -57,7 +56,7 @@ export default function Profile({
   avatarUrl,
   Avatar,
   AvatarFallback,
-}: ProfileProps) {
+}: Readonly<ProfileProps>) {
   return (
     <div
       className={cn(
@@ -68,7 +67,7 @@ export default function Profile({
     >
       <div
         className={cn(
-          "content-stretch flex gap-[10px] items-center justify-end max-w-[1280px] relative shrink-0 w-full",
+          "content-stretch flex gap-2.5 items-center justify-end max-w-7-xl relative shrink-0 w-full",
         )}
         data-node-id="27:359"
       >
@@ -92,7 +91,7 @@ export default function Profile({
         </div>
         <div
           className={cn(
-            "content-stretch flex gap-[16px] items-center relative shrink-0",
+            "content-stretch flex gap-4 items-center relative shrink-0",
           )}
           data-node-id="27:360"
         >
@@ -123,7 +122,7 @@ export default function Profile({
           )}
           <p
             className={cn(
-              "font-semibold leading-[24px] relative shrink-0 text-[16px] text-black",
+              "font-semibold leading-6 relative shrink-0 text-[16px] text-black",
             )}
             data-node-id="27:362"
             style={{

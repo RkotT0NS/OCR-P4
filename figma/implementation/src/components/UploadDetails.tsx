@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { humanFileSize } from "../lib/size-format";
 import { cn } from "../lib/utils";
 import MimeTypeIcon from "./MimeTypeIcon";
@@ -20,8 +21,6 @@ function ChevronDown({ className }: { className?: string }) {
     </div>
   );
 }
-
-import React, { useId, useState } from "react";
 
 import ReactSelect, {
   components,
@@ -141,7 +140,6 @@ export function UploadDetails({
 }) {
   const [password, setPassword] = useState("");
   const [expiresAt, setExpiresAt] = useState(1);
-  // const fileMeta=null;
   const isTooLarge = file.size > 1_000_000_000;
 
   return progress === 100 && isUploading === false ? (
@@ -251,7 +249,6 @@ export function UploadDetails({
             isTooLarge && "opacity-50 cursor-not-allowed grayscale",
           )}
           onClick={() => {
-            console.log("Uploader le fichier", { password, expiresAt });
             uploader(file, { password, expiresAt });
           }}
         >

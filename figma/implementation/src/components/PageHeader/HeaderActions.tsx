@@ -3,19 +3,19 @@ import axios from "axios";
 export function HeaderActions({
   actions,
   logoutIcon,
-}: {
+}: Readonly<{
   actions: {
     logout: () => { url: string; method: "post" };
     upload: () => { url: string; method: "get" };
   };
   logoutIcon: string;
-}) {
+}>) {
   return (
     <div className={cn("flex items-center gap-4")}>
       <button
         className={cn("bg-gray-800 text-white px-4 py-2 rounded-lg")}
         onClick={() => {
-          window.location.href = actions.upload().url;
+          globalThis.location.href = actions.upload().url;
         }}
       >
         Ajouter des fichiers
@@ -28,11 +28,11 @@ export function HeaderActions({
           axios.post(actions.logout().url).then(() => {
             window.location.href = "/";
           });
-          // There's something missing here ...
+          // Axios header with oauth is missing here
           // fetch(actions.logout().url)
           //   .then((response) => {
           //     if (response.ok) {
-          //       window.location.href = "/";
+          //       globalThis.location.href = "/";
           //     } else {
           //       throw response;
           //     }

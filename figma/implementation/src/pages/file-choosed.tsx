@@ -8,10 +8,10 @@ import { PageConsumer } from "../contexts/Page";
 export default function FileChoosed({
   fileDetails,
   fileUrl,
-}: {
+}: Readonly<{
   fileDetails: File;
   fileUrl: string;
-}) {
+}>) {
   return (
     <div
       className={cn("relative w-full h-screen")}
