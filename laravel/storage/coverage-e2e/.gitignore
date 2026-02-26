@@ -1,0 +1,4 @@
+# this folder store intermediate php cov generated for each request of
+# playwright e2e test which will be merged with coverage from unit test
+
+*.cov

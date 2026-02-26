@@ -21,10 +21,12 @@ export default defineConfig({
             },
           },
           entryFilter: (entry: any) =>
-            entry.url.includes("localhost") && !entry.url.includes("node_modules"),
+            entry.url.includes("localhost") &&
+            !entry.url.includes("node_modules"),
           sourceFilter: (sourcePath: string) =>
-            sourcePath.includes("resources/js") ||
-            sourcePath.includes("laravel/resources/js"),
+            sourcePath.includes("figma/implementation/src") ||
+            (sourcePath.includes("resources/js") &&
+              !sourcePath.includes("laravel/")),
           reports: ["v8", "console-summary", "lcovonly", "html"],
           outputDir: "./coverage",
         },
@@ -35,6 +37,21 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:8000",
     trace: "on-first-retry",
+    storageState: {
+      cookies: [
+        {
+          name: "E2E_COVERAGE",
+          value: "1",
+          domain: "localhost", // Update this to match your local Laravel domain!
+          path: "/",
+          expires: Math.trunc((Date.now() + 1000 * 60 * 60 * 24 * 365) / 1000),
+          httpOnly: false,
+          secure: false,
+          sameSite: "Lax",
+        },
+      ],
+      origins: [],
+    },
   },
   projects: [
     {
