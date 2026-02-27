@@ -1,7 +1,7 @@
-import type { SharedData, Auth } from "@datashare/webapp/types";
+import type { SharedData } from "@datashare/webapp/types";
 import { createContext } from "react";
 
-const PageContext = createContext<SharedData>({
+export default createContext<SharedData>({
   name: "",
   features: {},
   auth: {
@@ -20,20 +20,3 @@ const PageContext = createContext<SharedData>({
   },
   sidebarOpen: false,
 });
-
-export const PageConsumer = PageContext.Consumer;
-export default function UserInterfacePage({
-  auth,
-  children,
-}: Readonly<{
-  auth: Auth;
-  children: React.ReactNode;
-}>) {
-  return (
-    <PageContext.Provider
-      value={{ name: "User Interface", auth, sidebarOpen: false }}
-    >
-      {children}
-    </PageContext.Provider>
-  );
-}

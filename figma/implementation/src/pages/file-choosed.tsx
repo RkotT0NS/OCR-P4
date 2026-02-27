@@ -3,7 +3,7 @@ import { Footer } from "../components/Footer";
 import { cn } from "../lib/utils";
 import MimeTypeIcon from "../components/MimeTypeIcon";
 import { Icons } from "../contexts/Icons";
-import { PageConsumer } from "../contexts/Page";
+import PageContext from "../contexts/Page";
 
 export default function FileChoosed({
   fileDetails,
@@ -20,9 +20,9 @@ export default function FileChoosed({
           "linear-gradient(174.9deg, #FFB88C 2.29%, #DE6262 97.71%)",
       }}
     >
-      <PageConsumer>
+      <PageContext.Consumer>
         {({ auth }) => <Header login={auth.user ?? "Anonymous"} />}
-      </PageConsumer>
+      </PageContext.Consumer>
       <main
         className={cn(
           "w-full h-full flex flex-col items-center justify-center",

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import FileChoosed from "../pages/file-choosed";
-import UserInterfacePage from "../contexts/Page";
+import UserInterfacePage from "../providers/UserInterfacePage";
 
 const meta: Meta<typeof FileChoosed> = {
   title: "Pages/FileUpload",

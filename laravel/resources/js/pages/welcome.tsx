@@ -42,9 +42,17 @@ export default function Welcome() {
             setProgress(progress);
         };
 
-        const onSuccess = (file: any, response: any) => {
+        const onSuccess = (
+            file: unknown,
+            response: {
+                body?: Record<string, never> | undefined;
+                status: number;
+                bytesUploaded?: number;
+                uploadURL?: string;
+            },
+        ) => {
             const uploadUrl = response.uploadURL;
-            const uuid = uploadUrl.split('/').pop();
+            const uuid = uploadUrl?.split('/').pop();
 
             if (
                 pendingOptions.current &&
@@ -52,7 +60,7 @@ export default function Welcome() {
                     pendingOptions.current.expiresAt)
             ) {
                 const { password, expiresAt } = pendingOptions.current;
-                const payload: any = {};
+                const payload: { password?: string; expires_at?: string } = {};
                 if (password && password.trim() !== '') {
                     payload.password = password;
                 }

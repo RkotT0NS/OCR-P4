@@ -3,7 +3,7 @@ import { type PropsWithChildren } from "react";
 export default function AlertOctagonIcon({
   children,
   ...props
-}: PropsWithChildren) {
+}: PropsWithChildren<{ className?: string }>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

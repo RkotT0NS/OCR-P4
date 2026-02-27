@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import Profile from "../components/PageHeader/Profile";
 import type { ReactNode } from "react";
 

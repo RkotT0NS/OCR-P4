@@ -122,7 +122,6 @@ export const UserSpacePage: Story = {
             created_at: new Date(Date.now() - 3600000).toLocaleString(),
             url: "about:blank",
           },
-          ,
           {
             locked: true,
             uuid: "abcd-abcdef4",
@@ -135,7 +134,6 @@ export const UserSpacePage: Story = {
             created_at: new Date(Date.now() - 3600000).toLocaleString(),
             url: "about:blank",
           },
-          ,
           {
             locked: false,
             uuid: "abcd-abcdef5",
@@ -148,7 +146,6 @@ export const UserSpacePage: Story = {
             created_at: new Date(Date.now() - 3600000).toLocaleString(),
             url: "about:blank",
           },
-          ,
           {
             locked: true,
             uuid: "abcd-abcdef6",
@@ -161,7 +158,6 @@ export const UserSpacePage: Story = {
             created_at: new Date(Date.now() - 3600000).toLocaleString(),
             url: "about:blank",
           },
-          ,
           {
             locked: true,
             uuid: "abcd-abcdef7",
@@ -174,7 +170,6 @@ export const UserSpacePage: Story = {
             created_at: new Date(Date.now() - 3600000).toLocaleString(),
             url: "about:blank",
           },
-          ,
           {
             locked: true,
             uuid: "abcd-abcdef8",
@@ -187,7 +182,6 @@ export const UserSpacePage: Story = {
             created_at: new Date(Date.now() - 3600000).toLocaleString(),
             url: "about:blank",
           },
-          ,
           {
             locked: true,
             uuid: "abcd-abcdef9",
@@ -200,7 +194,6 @@ export const UserSpacePage: Story = {
             created_at: new Date(Date.now() - 3600000).toLocaleString(),
             url: "about:blank",
           },
-          ,
           {
             locked: true,
             uuid: "abcd-abcdef10",

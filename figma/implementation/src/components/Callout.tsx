@@ -21,7 +21,7 @@ export function Callout({
       {({ AlertOctagonIcon, AlertTriangleIcon, InformationIcon }) => (
         <div
           className={cn(
-            "border border-solid flex gap-[8px] items-center p-[8px] relative rounded-[8px] w-full",
+            "border border-solid flex gap-2 items-center p-2 relative rounded-2 w-full",
             isInfo && "bg-[#e2ecff] border-[#b1c9f5]",
             isAlert && "bg-[#fff5ed] border-[#e6cbb5]",
             isError && "bg-[#ffe2e2] border-[#e8a6a6]",
@@ -30,7 +30,7 @@ export function Callout({
         >
           {isInfo && (
             <>
-              <div className={cn("relative shrink-0 w-[16px] h-[16px]")}>
+              <div className={cn("relative shrink-0 w-4 h-4")}>
                 <div className={cn("absolute inset-[8.33%]")}>
                   <div className={cn("absolute inset-[-6%]")}>
                     <InformationIcon
@@ -43,7 +43,7 @@ export function Callout({
               </div>
               <p
                 className={cn(
-                  "flex-[1_0_0] font-main font-normal leading-[16px] text-[#2a3f72] text-[14px] whitespace-pre-wrap",
+                  "flex-[1_0_0] font-main font-normal leading-4 text-[#2a3f72] text-[14px] whitespace-pre-wrap",
                 )}
               >
                 {label}
@@ -52,7 +52,7 @@ export function Callout({
           )}
           {isAlert && (
             <>
-              <div className={cn("relative shrink-0 w-[16px] h-[16px]")}>
+              <div className={cn("relative shrink-0 w-4 h-4")}>
                 <div
                   className={cn("absolute inset-[12.07%_6.47%_12.5%_6.47%]")}
                 >
@@ -67,7 +67,7 @@ export function Callout({
               </div>
               <p
                 className={cn(
-                  "flex-[1_0_0] font-main font-normal leading-[16px] text-[#aa642b] text-[14px] whitespace-pre-wrap",
+                  "flex-[1_0_0] font-main font-normal leading-4 text-[#aa642b] text-[14px] whitespace-pre-wrap",
                 )}
               >
                 {label}
@@ -76,7 +76,7 @@ export function Callout({
           )}
           {isError && (
             <>
-              <div className={cn("relative shrink-0 w-[16px] h-[16px]")}>
+              <div className={cn("relative shrink-0 w-4 h-4")}>
                 <div className={cn("absolute inset-[8.33%]")}>
                   <div className={cn("absolute inset-[-6%]")}>
                     <AlertOctagonIcon
@@ -89,7 +89,7 @@ export function Callout({
               </div>
               <p
                 className={cn(
-                  "flex-[1_0_0] font-main font-normal leading-[16px] text-[#9c3333] text-[14px] whitespace-pre-wrap",
+                  "flex-[1_0_0] font-main font-normal leading-4 text-[#9c3333] text-[14px] whitespace-pre-wrap",
                 )}
               >
                 {label}

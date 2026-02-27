@@ -12,9 +12,8 @@ import { Icons } from "../contexts/Icons";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { UploadDetails } from "../components/UploadDetails";
-import FileChoosedPage from "./file-choosed";
 import inputFileSelectionChange from "../lib/file-selection-handler";
-import UserInterfacePage from "../contexts/Page";
+import UserInterfacePage from "../providers/UserInterfacePage";
 import type { User } from "@datashare/webapp/types";
 function preventDefaultDragEvents(event: Event) {
   event.preventDefault();
@@ -187,8 +186,8 @@ export default function HomePage({
               <div className={cn("p-6 bg-black/15 rounded-full")}>
                 <div className={cn("p-6 bg-[#100218] rounded-full")}>
                   <Icons.Consumer>
-                    {({ DatashareLightLogo }) => (
-                      <DatashareLightLogo
+                    {({ DataShareLightLogo }) => (
+                      <DataShareLightLogo
                         classes="w-12 h-12"
                         aria-hidden="true"
                       />
