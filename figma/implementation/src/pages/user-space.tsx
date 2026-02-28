@@ -14,6 +14,7 @@ import {
 } from "@datashare/pagination-cache";
 import ErrorBoundary from "../components/ErrorBoundary";
 import Profile from "../components/PageHeader/Profile";
+import ActiveUploadActions from "../components/ActiveUploadActions";
 
 function FileEntry({
   mimeType,
@@ -32,7 +33,7 @@ function FileEntry({
 }) {
   return (
     <Icons.Consumer>
-      {({ deleteIcon, accessIcon, lockIcon }) => (
+      {({ lockIcon }) => (
         <div
           className={cn(
             "bg-orange-50/5 border border-orange-200/50 rounded-lg flex items-center p-3 pb-7 pt-7 gap-4 w-full overflow-hidden",
@@ -70,34 +71,7 @@ function FileEntry({
               {isLocked && (
                 <img src={lockIcon} alt="lock icon" className={cn("w-4 h-4")} />
               )}
-              <button className={cn("md:hidden")}>...</button>
-              <div className={cn("hidden md:inline-flex md:gap-2")}>
-                <button
-                  className={cn(
-                    "flex items-center gap-2 p-2 border border-orange-300 rounded-md",
-                  )}
-                >
-                  <img
-                    src={deleteIcon}
-                    alt="delete icon"
-                    className={cn("w-4 h-4")}
-                  />
-                  <span>Supprimer</span>
-                </button>
-                <a
-                  href={downloadLink}
-                  className={cn(
-                    "flex items-center gap-2 p-2 border border-orange-300 rounded-md",
-                  )}
-                >
-                  <span>Accéder</span>
-                  <img
-                    src={accessIcon}
-                    alt="access icon"
-                    className={cn("w-4 h-4")}
-                  />
-                </a>
-              </div>
+              <ActiveUploadActions {...{ downloadLink, fileName }} />
             </div>
           )}
         </div>
