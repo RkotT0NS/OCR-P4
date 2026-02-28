@@ -8,6 +8,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "test": "vitest --run --coverage.enabled=true  --coverage.reporter=lcov --coverage.reportsDirectory=./stories-coverage --project=storybook",
     "chromatic": "npx chromatic"
   },
   "dependencies": {
