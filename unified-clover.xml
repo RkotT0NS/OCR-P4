@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1772121121">
-  <project timestamp="1772121121">
+<coverage generated="1772241824">
+  <project timestamp="1772241824">
     <package name="App\Actions\Fortify">
       <file name="laravel/app/Actions/Fortify/CreateNewUser.php">
         <class name="App\Actions\Fortify\CreateNewUser" namespace="App\Actions\Fortify">
