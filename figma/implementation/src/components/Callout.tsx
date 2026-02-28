@@ -21,7 +21,7 @@ export function Callout({
       {({ AlertOctagonIcon, AlertTriangleIcon, InformationIcon }) => (
         <div
           className={cn(
-            "border border-solid flex gap-2 items-center p-2 relative rounded-2 w-full",
+            "border border-solid flex gap-2 items-center p-2 relative rounded-xl w-full",
             isInfo && "bg-[#e2ecff] border-[#b1c9f5]",
             isAlert && "bg-[#fff5ed] border-[#e6cbb5]",
             isError && "bg-[#ffe2e2] border-[#e8a6a6]",

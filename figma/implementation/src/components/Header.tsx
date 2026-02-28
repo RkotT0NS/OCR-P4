@@ -36,7 +36,7 @@ export function Header({
                 }
               }}
               className={cn(
-                "bg-[#2c2c2c] flex gap-2 items-center justify-center overflow-clip p-3 relative rounded-2 shrink-0",
+                "bg-[#2c2c2c] flex gap-2 items-center justify-center overflow-clip p-3 relative rounded-xl shrink-0",
               )}
             >
               <span
