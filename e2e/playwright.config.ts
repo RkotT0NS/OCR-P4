@@ -27,7 +27,7 @@ export default defineConfig({
             sourcePath.includes("figma/implementation/src") ||
             (sourcePath.includes("resources/js") &&
               !sourcePath.includes("laravel/")),
-          reports: ["v8", "console-summary", "lcovonly", "html"],
+          reports: ["v8", "console-summary", "lcovonly", "html", "lcov"],
           outputDir: "./coverage",
         },
       },
