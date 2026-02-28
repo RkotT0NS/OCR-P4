@@ -12,14 +12,9 @@ export function HeaderActions({
 }>) {
   return (
     <div className={cn("flex items-center gap-4")}>
-      <button
-        className={cn("bg-gray-800 text-white px-4 py-2 rounded-lg")}
-        onClick={() => {
-          globalThis.location.href = actions.upload().url;
-        }}
-      >
+      <a className={cn("bg-gray-800 text-white px-4 py-2 rounded-lg")} href="/">
         Ajouter des fichiers
-      </button>
+      </a>
       <button
         className={cn(
           "flex items-center gap-2 text-orange-600 px-4 py-2 rounded-lg",
