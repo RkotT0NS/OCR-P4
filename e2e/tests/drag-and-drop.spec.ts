@@ -52,5 +52,16 @@ test("Allow drag and drop after login", async ({ page }) => {
   await page.dispatchEvent(dropZoneSelector, "drop", { dataTransfer });
 
   await expect(page.getByText("stately-ai-raisedmo.png")).toBeVisible();
+
+  page.getByText("Téléverser").click();
+
+  // /!\ message needs to updated here according to the time range selected.
+  // Default duration is one day
+  await expect(
+    page.getByText(
+      "Félicitations, ton fichier sera conservé chez nous pendant une semaine !",
+    ),
+  ).toBeVisible();
+
   await tearDownCoverage(page, test);
 });
