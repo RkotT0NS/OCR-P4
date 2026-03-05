@@ -16,19 +16,12 @@ Detailed documentation is available in the following files:
 
 1. **Start Infrastructure:**
    ```bash
-   docker-compose up
+   npm run docker
    ```
 
 2. **Initialize Application:**
    ```bash
-   cd laravel
-   composer setup
-   ```
-
-3. **Start Development Server:**
-   ```bash
-   cd laravel
-   composer run dev
+   npm run laravel:setup
    ```
 
 ## Architecture Overview

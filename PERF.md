@@ -4,7 +4,7 @@
 
 This application is designed for performance using a modern stack:
 - **Web Server:** Nginx (via Docker) serving static assets and proxying PHP requests.
-- **Backend:** Laravel 12 optimized with Octane (optional configuration) and route caching.
+- **Backend:** Laravel 12.
 - **Frontend:** React 19 with Inertia.js, utilizing code splitting and prefetching.
 
 ## Caching & Queues
@@ -31,11 +31,17 @@ Large file uploads are handled via **Tus-PHP**, enabling:
 
 ## Optimization Commands
 
-For production deployment, ensure to run the following optimization commands in the `laravel` directory:
+For production deployment, ensure to run the following optimization commands in the `laravel_app` container:
 
 ```bash
 # Cache configuration, events, and routes
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+docker exec laravel_app php artisan config:cache
+docker exec laravel_app php artisan route:cache
+docker exec laravel_app php artisan view:cache
 ```
+
+## Load testing
+
+At first [artillery](https://app.artillery.io/) will be used to benefit from existing playwright infrastructure from `@datashare/e2e` and will target local development instance.
+
+As soon as a staging environment will be in place, a grafana cloud [k6](https://k6.io/) setup will need to be done.
