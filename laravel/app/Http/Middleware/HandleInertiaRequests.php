@@ -44,6 +44,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'features' => \Laravel\Pennant\Feature::all(),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'uploadSizeLimit' => (int) env('UPLOAD_SIZE_LIMIT', 5 * 1024 * 1024),
         ];
     }
 }

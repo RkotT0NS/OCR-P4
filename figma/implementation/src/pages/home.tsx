@@ -104,6 +104,7 @@ export default function HomePage({
   uploadedFileUrl,
   onPause,
   onResume,
+  uploadSizeLimit,
 }: {
   user: User;
   uploader: (
@@ -116,6 +117,7 @@ export default function HomePage({
   uploadedFileUrl: string | null;
   onPause?: () => void;
   onResume?: () => void;
+  uploadSizeLimit?: number;
 }) {
   const [file, setFile] = useState<File | null>(null);
   const pageRef = useRef(null);
@@ -208,6 +210,7 @@ export default function HomePage({
                 onPause,
                 onResume,
                 uploadedFileUrl: uploadedFileUrl ?? "",
+                uploadSizeLimit,
               }}
             />
           )}

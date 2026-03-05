@@ -5,7 +5,11 @@ import { Header } from "../components/Header";
 import { UploadDetails } from "../components/UploadDetails";
 import { useState } from "react";
 
-export default function FileChooser() {
+export default function FileChooser({
+  uploadSizeLimit,
+}: {
+  uploadSizeLimit?: number;
+}) {
   const [file, setFile] = useState<File>(
     new File(
       [""],
@@ -27,7 +31,7 @@ export default function FileChooser() {
           "w-full h-full flex flex-col items-center justify-center",
         )}
       >
-        <UploadDetails {...{ file, setFile }} />
+        <UploadDetails {...{ file, setFile, uploadSizeLimit }} />
       </main>
       <Footer />
     </div>

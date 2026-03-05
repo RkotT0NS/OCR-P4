@@ -124,6 +124,7 @@ export function UploadDetails({
   uploadedFileUrl,
   onPause,
   onResume,
+  uploadSizeLimit = 5_000_000,
 }: {
   file: File;
   setFile: React.Dispatch<React.SetStateAction<File | null>>;
@@ -137,10 +138,11 @@ export function UploadDetails({
   uploadedFileUrl: string;
   onPause?: () => void;
   onResume?: () => void;
+  uploadSizeLimit?: number;
 }) {
   const [password, setPassword] = useState("");
   const [expiresAt, setExpiresAt] = useState(1);
-  const isTooLarge = file.size > 1_000_000_000;
+  const isTooLarge = file.size > uploadSizeLimit;
 
   return progress === 100 && isUploading === false ? (
     <FileChoosed fileDetails={file} fileUrl={uploadedFileUrl} />
