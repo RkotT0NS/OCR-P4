@@ -6,7 +6,6 @@ export function HeaderActions({
 }: Readonly<{
   actions: {
     logout: () => { url: string; method: "post" };
-    upload: () => { url: string; method: "get" };
   };
   logoutIcon: string;
 }>) {

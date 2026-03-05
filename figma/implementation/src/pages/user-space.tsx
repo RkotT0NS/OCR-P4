@@ -217,7 +217,6 @@ export default function UserSpacePage({
   uploads: (number?: string) => Promise<PaginatedUploads>;
   actions: {
     logout: () => { url: string; method: "post" };
-    upload: () => { url: string; method: "get" };
   };
   Sidebar: ReactElement;
   SidebarProvider: ReactElement;

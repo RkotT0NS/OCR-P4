@@ -5,7 +5,7 @@ import {
     SidebarProvider,
     SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { logout, upload } from '@/routes';
+import { logout } from '@/routes';
 import { type SharedData } from '@/types';
 import { PaginatedUploads } from '@datashare/types';
 import { usePage } from '@inertiajs/react';
@@ -78,7 +78,7 @@ export default function Dashboard() {
                         });
                 }}
                 uploads={listUpload(auth.token)}
-                actions={{ logout, upload }}
+                actions={{ logout }}
                 Sidebar={Sidebar}
                 user={auth.user}
                 SidebarProvider={SidebarProvider}
