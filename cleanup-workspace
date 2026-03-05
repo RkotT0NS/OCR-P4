@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+CLEAN_WORKSPACE() {
+    local CURRENT_WORKSPACE="${1:-.}"
+    rm -rf "${CURRENT_WORKSPACE}/node_modules" "${CURRENT_WORKSPACE}/package-lock.json";
+    if jq --exit-status '.workspaces|if type=="array" then true else false end' 2>&1>/dev/null < "${CURRENT_WORKSPACE}/package.json";
+    then
+        jq -r '.workspaces[]' < "${CURRENT_WORKSPACE}/package.json"| ( while read -r WORKSPACE; do
+            CLEAN_WORKSPACE "${CURRENT_WORKSPACE}/${WORKSPACE}";
+        done )
+    fi
+}
+
+CLEAN_WORKSPACE '.'

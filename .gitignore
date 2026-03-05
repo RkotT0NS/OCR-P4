@@ -2,8 +2,7 @@ uploads/*
 node_modules/
 dist
 
-# Icons sync path
-!laravel/public/ui/.gitkeep
-laravel/public/ui
-figma/implementation/build-storybook.log
-figma/implementation/debug-storybook.log
+# test artifact from playwright in `@datashare/end-to-end` workspace
+e2e-lcov.info
+# test artifact from storybook in `@datashare/ui` workspace
+stories-lcov.info

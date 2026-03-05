@@ -29,3 +29,13 @@ yarn-error.log
 /.zed
 clover.xml
 coverage
+# scribe api documentation output
+api-docs
+.scribe
+
+# coverage artifacts
+unified-clover.xml
+
+# Icons sync path
+!public/ui/.gitkeep
+public/ui
