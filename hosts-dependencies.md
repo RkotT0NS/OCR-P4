@@ -1,3 +1,7 @@
+## docker
+### Arch Linux
+`container_name` is  not correctly used  in Arch Linux, `docker ps` is showing a hash instead of the container name.
+
 ## php build dependencies
 ### re2c
 #### Arch Installation
@@ -49,7 +53,6 @@ asdf plugin-add php https://github.com/asdf-community/asdf-php.git
 npm ci
 npm run docker
 docker exec 5941d797ddbb composer setup
-docker exec 5941d797ddbb php artisan jwt:secret
 
 npm run build:internal-dependencies
 npm run build:laravel
