@@ -119,7 +119,7 @@ export default function Register() {
                             </button>
                             <button
                                 type="submit"
-                                className="w-full rounded-lg border border-[#cd5e14]/50 bg-[#ff812d]/13 p-3 text-[#ba681f]"
+                                className="flex items-center justify-center gap-2 rounded-lg border border-[#cd5e14]/50 bg-[#ff812d]/13 p-3 text-[#ba681f]"
                                 tabIndex={6}
                                 data-test="register-user-button"
                             >
