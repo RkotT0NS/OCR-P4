@@ -2,7 +2,7 @@ import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileCo
 import { send } from '@/routes/verification';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Transition } from '@headlessui/react';
-import { Form, Head, Link, usePage } from '@inertiajs/react';
+import { Form, Head, Link, useForm, usePage } from '@inertiajs/react';
 
 import DeleteUser from '@/components/delete-user';
 import HeadingSmall from '@/components/heading-small';
@@ -20,6 +20,39 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: edit().url,
     },
 ];
+function ProfileAvatarEditor() {
+    const { auth } = usePage<SharedData>().props;
+    const { setData, errors } = useForm<{
+        avatar: File | null;
+    }>({
+        avatar: null,
+    });
+    return (
+        <div className="grid gap-2">
+            <Label htmlFor="avatar">Avatar (PNG, 80x80)</Label>
+
+            {auth.user.avatar_url && (
+                <div className="mb-2">
+                    <img
+                        src={auth.user.avatar_url as string}
+                        alt="Current Avatar"
+                        className="h-20 w-20 rounded-full border border-gray-200 object-cover"
+                    />
+                </div>
+            )}
+
+            <Input
+                id="avatar"
+                type="file"
+                name="avatar"
+                accept="image/png"
+                onChange={(e) => setData('avatar', e.target.files?.[0] || null)}
+            />
+
+            <InputError className="mt-2" message={errors.avatar} />
+        </div>
+    );
+}
 
 export default function Profile({
     mustVerifyEmail,
@@ -50,50 +83,9 @@ export default function Profile({
                         }}
                         className="space-y-6"
                     >
-                        {({
-                            setData,
-                            processing,
-                            recentlySuccessful,
-                            errors,
-                        }) => (
+                        {({ processing, recentlySuccessful, errors }) => (
                             <>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="avatar">
-                                        Avatar (PNG, 80x80)
-                                    </Label>
-
-                                    {auth.user.avatar_url && (
-                                        <div className="mb-2">
-                                            <img
-                                                src={
-                                                    auth.user
-                                                        .avatar_url as string
-                                                }
-                                                alt="Current Avatar"
-                                                className="h-20 w-20 rounded-full object-cover border border-gray-200"
-                                            />
-                                        </div>
-                                    )}
-
-                                    <Input
-                                        id="avatar"
-                                        type="file"
-                                        name="avatar"
-                                        accept="image/png"
-                                        onChange={(e) =>
-                                            setData(
-                                                'avatar',
-                                                e.target.files?.[0] || null,
-                                            )
-                                        }
-                                    />
-
-                                    <InputError
-                                        className="mt-2"
-                                        message={errors.avatar}
-                                    />
-                                </div>
-
+                                <ProfileAvatarEditor />
                                 <div className="grid gap-2">
                                     <Label htmlFor="name">Name</Label>
 
@@ -136,7 +128,7 @@ export default function Profile({
                                 {mustVerifyEmail &&
                                     auth.user.email_verified_at === null && (
                                         <div>
-                                            <p className="-mt-4 text-sm text-muted-foreground">
+                                            <p className="text-muted-foreground -mt-4 text-sm">
                                                 Your email address is
                                                 unverified.{' '}
                                                 <Link
