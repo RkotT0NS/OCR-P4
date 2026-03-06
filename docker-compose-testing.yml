@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  # Application (PHP-FPM)
+  app:
+    user: "1000:1000"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: sqlite
+    container_name: laravel_app_test
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./laravel:/var/www
+      - ./e2e/laravel/index.php:/var/www/public/index.php
+      - ./e2e/laravel/uploads:/var/www/storage/app/public/uploads
+      - ./e2e/laravel/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    depends_on:
+      - redis
+    environment:
+      APP_ENV: testing
+      DB_CONNECTION: sqlite
+      DB_DATABASE: "database/testing.sqlite"
+      REDIS_HOST: redis
+
+  # Web Server (Nginx)
+  nginx:
+    image: nginx:alpine
+    container_name: laravel_nginx_test
+    restart: unless-stopped
+    ports:
+      - "8001:80"
+    volumes:
+      - ./laravel:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+
+  # Cache/Queue (Redis) - Required by Tus-PHP for state
+  redis:
+    image: redis:alpine
+    container_name: laravel_redis_test
+    restart: unless-stopped
+
+volumes:
+  # Removed db_data as we use in-memory sqlite
+  # Removed redis_data persistence for testing isolation if preferred,
+  # but kept the service for Tus-PHP compatibility.

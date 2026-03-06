@@ -7,6 +7,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: pgsql
     # image: laravel-tus-app
     container_name: laravel_app
     restart: unless-stopped
@@ -14,7 +15,6 @@ services:
     volumes:
       - ./laravel:/var/www
       - ./uploads:/var/www/storage/app/public/uploads # Persistence for uploads
-      - ./docker/laravel/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini # Persistence for uploads
     depends_on:
       - db
       - redis

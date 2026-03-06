@@ -27,6 +27,7 @@
   "scripts": {
     "lint": "npm run lint -w @datashare/ui && npm run lint -w @datashare/webapp",
     "docker": "docker compose up",
+    "docker:testing": "docker compose -f docker-compose-testing.yml up",
     "docker:stop": "docker compose down",
     "storybook": "npm run storybook -w @datashare/ui",
     "dev:laravel": "npm run dev -w @datashare/webapp",
