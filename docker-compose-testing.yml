@@ -42,8 +42,3 @@ services:
     image: redis:alpine
     container_name: laravel_redis_test
     restart: unless-stopped
-
-volumes:
-  # Removed db_data as we use in-memory sqlite
-  # Removed redis_data persistence for testing isolation if preferred,
-  # but kept the service for Tus-PHP compatibility.
