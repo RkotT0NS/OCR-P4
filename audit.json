@@ -1,22 +1,114 @@
 {
   "auditReportVersion": 2,
-  "vulnerabilities": {},
+  "vulnerabilities": {
+    "@hono/node-server": {
+      "name": "@hono/node-server",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1113974,
+          "name": "@hono/node-server",
+          "dependency": "@hono/node-server",
+          "title": "@hono/node-server has authorization bypass for protected static paths via encoded slashes in Serve Static Middleware",
+          "url": "https://github.com/advisories/GHSA-wc8c-qw6v-h7f6",
+          "severity": "high",
+          "cwe": [
+            "CWE-863"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+          },
+          "range": "<1.19.10"
+        }
+      ],
+      "effects": [],
+      "range": "<1.19.10",
+      "nodes": [
+        "node_modules/@hono/node-server"
+      ],
+      "fixAvailable": true
+    },
+    "hono": {
+      "name": "hono",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1114004,
+          "name": "hono",
+          "dependency": "hono",
+          "title": "Hono Vulnerable to Cookie Attribute Injection via Unsanitized domain and path in setCookie()",
+          "url": "https://github.com/advisories/GHSA-5pq2-9x2x-5p6w",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-113",
+            "CWE-1113"
+          ],
+          "cvss": {
+            "score": 5.4,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N"
+          },
+          "range": "<4.12.4"
+        },
+        {
+          "source": 1114005,
+          "name": "hono",
+          "dependency": "hono",
+          "title": "Hono Vulnerable to SSE Control Field Injection via CR/LF in writeSSE()",
+          "url": "https://github.com/advisories/GHSA-p6xx-57qc-3wxr",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-74"
+          ],
+          "cvss": {
+            "score": 6.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N"
+          },
+          "range": "<4.12.4"
+        },
+        {
+          "source": 1114006,
+          "name": "hono",
+          "dependency": "hono",
+          "title": "Hono vulnerable to arbitrary file access via serveStatic vulnerability ",
+          "url": "https://github.com/advisories/GHSA-q5qw-h33p-qvwr",
+          "severity": "high",
+          "cwe": [
+            "CWE-177"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+          },
+          "range": "<4.12.4"
+        }
+      ],
+      "effects": [],
+      "range": "<=4.12.3",
+      "nodes": [
+        "node_modules/hono"
+      ],
+      "fixAvailable": true
+    }
+  },
   "metadata": {
     "vulnerabilities": {
       "info": 0,
       "low": 0,
       "moderate": 0,
-      "high": 0,
+      "high": 2,
       "critical": 0,
-      "total": 0
+      "total": 2
     },
     "dependencies": {
-      "prod": 372,
-      "dev": 434,
+      "prod": 453,
+      "dev": 637,
       "optional": 73,
-      "peer": 30,
+      "peer": 33,
       "peerOptional": 0,
-      "total": 892
+      "total": 1177
     }
   }
 }
