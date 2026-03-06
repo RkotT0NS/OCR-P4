@@ -55,8 +55,6 @@ test("Allow drag and drop after login", async ({ page }) => {
 
   page.getByText("Téléverser").click();
 
-  // /!\ message needs to updated here according to the time range selected.
-  // Default duration is one day
   await expect(
     page.getByText(
       "Félicitations, ton fichier sera conservé chez nous pendant une semaine !",
