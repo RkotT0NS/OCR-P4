@@ -49,9 +49,11 @@ export default function ActiveUploadActions({
       <div className={cn("md:hidden")}>
         <Popover>
           <PopoverTrigger>
-            <button>...</button>
+            <Icons.Consumer>
+              {({ UploadActionTrigger }) => <UploadActionTrigger />}
+            </Icons.Consumer>
           </PopoverTrigger>
-          <PopoverContent>
+          <PopoverContent className={cn("bg-white")}>
             <PopoverTitle
               className={cn("w-full text-ellipsis overflow-hidden pb-2")}
             >
