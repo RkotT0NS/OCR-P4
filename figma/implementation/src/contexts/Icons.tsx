@@ -12,6 +12,7 @@ import CalloutInfoIcon from "../icons/information-line.svg";
 import MenuIcon from "../icons/menu.svg";
 import CloseMenuIcon from "../icons/close-menu-panel.svg";
 import CalloutStopIcon from "../icons/spam-2-line.svg";
+import UploadActionTrigger from "../icons/upload-action-trigger.svg";
 
 // TSX Icons
 import DataShareLightLogo from "./Icons/DataShareLightIcon";
@@ -51,6 +52,7 @@ export const Icons = createContext<{
   CalloutAlertIcon: FC<SVGProps<SVGSVGElement>>;
   CalloutInfoIcon: FC<SVGProps<SVGSVGElement>>;
   CalloutStopIcon: FC<SVGProps<SVGSVGElement>>;
+  UploadActionTrigger: FC<SVGProps<SVGSVGElement>>;
   MenuIcon: FC<SVGProps<SVGSVGElement>>;
   CloseMenuIcon: FC<SVGProps<SVGSVGElement>>;
   DownloadCloudIcon: typeof DownloadCloudIcon;
@@ -77,6 +79,7 @@ export const Icons = createContext<{
   CalloutAlertIcon,
   CalloutInfoIcon,
   CalloutStopIcon,
+  UploadActionTrigger,
   MenuIcon,
   CloseMenuIcon,
   DownloadCloudIcon,
