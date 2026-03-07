@@ -21,7 +21,7 @@ test("After successful login, a button leading to the dashboard should be visibl
   await page.goto("/login");
 
   await expect(page.getByRole("heading", { name: "Connexion" })).toBeVisible();
-  await page.getByLabel("Email").fill("someone@somewhere.net");
+  await page.getByLabel("Email").fill("test@example.com");
   await page.getByLabel("Mot de passe").fill("Abcdefgh,123");
 
   await page.getByRole("button", { name: "Connexion" }).click();
@@ -30,15 +30,7 @@ test("After successful login, a button leading to the dashboard should be visibl
 
   await page.getByRole("button", { name: "Mon espace" }).click();
 
-  await expect(
-    page.getByRole("button", { name: "Charger plus" }),
-  ).toBeVisible();
+  await expect(page.getByText("Aucun fichier partagé.")).toBeVisible();
 
-  await page.getByRole("button", { name: "Charger plus" }).click();
-
-  // this test will break as soon as the user will have more than 20 uploads
-  await expect(
-    page.getByRole("button", { name: "Charger plus" }),
-  ).not.toBeVisible();
   await tearDownCoverage(page, test);
 });

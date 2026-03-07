@@ -151,6 +151,7 @@ function UploadsJSON({
 
   return (
     <>
+      {loadedUploads.length === 0 && <p>Aucun fichier partagé.</p>}
       {loadedUploads.map((upload) => {
         const hasExpired = new Date(upload.expires_at) < new Date();
         return (
