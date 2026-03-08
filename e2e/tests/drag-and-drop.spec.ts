@@ -10,7 +10,8 @@ test("Allow drag and drop after login", async ({ page }) => {
   await page.goto("/login");
 
   await expect(page.getByRole("heading", { name: "Connexion" })).toBeVisible();
-  await page.getByLabel("Email").fill("someone@somewhere.net");
+
+  await page.getByLabel("Email").fill("test@example.com");
   await page.getByLabel("Mot de passe").fill("Abcdefgh,123");
 
   await page.getByRole("button", { name: "Connexion" }).click();
