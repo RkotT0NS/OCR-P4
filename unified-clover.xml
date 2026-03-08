@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1772548384">
-  <project timestamp="1772548384">
+<coverage generated="1772978062">
+  <project timestamp="1772978062">
     <package name="App\Actions\Fortify">
       <file name="laravel/app/Actions/Fortify/CreateNewUser.php">
         <class name="App\Actions\Fortify\CreateNewUser" namespace="App\Actions\Fortify">
@@ -74,13 +74,13 @@
         <class name="App\Http\Controllers\Api\UserUploadController" namespace="App\Http\Controllers\Api">
           <metrics complexity="7" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="34" coveredstatements="32" elements="38" coveredelements="35"/>
         </class>
-        <line num="16" type="method" name="index" visibility="public" complexity="1" crap="1" count="2"/>
-        <line num="18" type="stmt" count="2"/>
-        <line num="19" type="stmt" count="2"/>
-        <line num="20" type="stmt" count="2"/>
-        <line num="21" type="stmt" count="2"/>
-        <line num="22" type="stmt" count="2"/>
-        <line num="24" type="stmt" count="2"/>
+        <line num="16" type="method" name="index" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="18" type="stmt" count="1"/>
+        <line num="19" type="stmt" count="1"/>
+        <line num="20" type="stmt" count="1"/>
+        <line num="21" type="stmt" count="1"/>
+        <line num="22" type="stmt" count="1"/>
+        <line num="24" type="stmt" count="1"/>
         <line num="30" type="method" name="refresh" visibility="public" complexity="1" crap="1" count="2"/>
         <line num="32" type="stmt" count="2"/>
         <line num="33" type="stmt" count="2"/>
@@ -163,37 +163,34 @@
       </file>
       <file name="laravel/app/Http/Controllers/UploadController.php">
         <class name="App\Http\Controllers\UploadController" namespace="App\Http\Controllers">
-          <metrics complexity="7" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="26" coveredstatements="0" elements="28" coveredelements="0"/>
+          <metrics complexity="7" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="23" elements="25" coveredelements="25"/>
         </class>
-        <line num="16" type="method" name="show" visibility="public" complexity="2" crap="6" count="0"/>
-        <line num="18" type="stmt" count="0"/>
-        <line num="20" type="stmt" count="0"/>
-        <line num="21" type="stmt" count="0"/>
-        <line num="22" type="stmt" count="0"/>
-        <line num="23" type="stmt" count="0"/>
-        <line num="24" type="stmt" count="0"/>
-        <line num="25" type="stmt" count="0"/>
-        <line num="26" type="stmt" count="0"/>
-        <line num="27" type="stmt" count="0"/>
-        <line num="28" type="stmt" count="0"/>
-        <line num="29" type="stmt" count="0"/>
-        <line num="30" type="stmt" count="0"/>
-        <line num="31" type="stmt" count="0"/>
-        <line num="37" type="method" name="download" visibility="public" complexity="5" crap="30" count="0"/>
-        <line num="39" type="stmt" count="0"/>
-        <line num="41" type="stmt" count="0"/>
-        <line num="42" type="stmt" count="0"/>
-        <line num="43" type="stmt" count="0"/>
-        <line num="46" type="stmt" count="0"/>
-        <line num="47" type="stmt" count="0"/>
-        <line num="52" type="stmt" count="0"/>
-        <line num="53" type="stmt" count="0"/>
-        <line num="56" type="stmt" count="0"/>
-        <line num="57" type="stmt" count="0"/>
-        <line num="58" type="stmt" count="0"/>
-        <line num="59" type="stmt" count="0"/>
-        <line num="60" type="stmt" count="0"/>
-        <metrics loc="63" ncloc="56" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="26" coveredstatements="0" elements="28" coveredelements="0"/>
+        <line num="16" type="method" name="show" visibility="public" complexity="2" crap="2" count="1"/>
+        <line num="18" type="stmt" count="1"/>
+        <line num="20" type="stmt" count="1"/>
+        <line num="21" type="stmt" count="1"/>
+        <line num="22" type="stmt" count="1"/>
+        <line num="23" type="stmt" count="1"/>
+        <line num="24" type="stmt" count="1"/>
+        <line num="25" type="stmt" count="1"/>
+        <line num="26" type="stmt" count="1"/>
+        <line num="27" type="stmt" count="1"/>
+        <line num="28" type="stmt" count="1"/>
+        <line num="29" type="stmt" count="1"/>
+        <line num="30" type="stmt" count="1"/>
+        <line num="31" type="stmt" count="1"/>
+        <line num="37" type="method" name="download" visibility="public" complexity="5" crap="5" count="1"/>
+        <line num="39" type="stmt" count="1"/>
+        <line num="41" type="stmt" count="1"/>
+        <line num="42" type="stmt" count="1"/>
+        <line num="46" type="stmt" count="1"/>
+        <line num="52" type="stmt" count="1"/>
+        <line num="56" type="stmt" count="1"/>
+        <line num="57" type="stmt" count="1"/>
+        <line num="58" type="stmt" count="1"/>
+        <line num="59" type="stmt" count="1"/>
+        <line num="60" type="stmt" count="1"/>
+        <metrics loc="63" ncloc="56" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="23" elements="25" coveredelements="25"/>
       </file>
     </package>
     <package name="App\Http\Controllers\Settings">
@@ -266,29 +263,30 @@
         <class name="App\Http\Middleware\HandleAppearance" namespace="App\Http\Middleware">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
         </class>
-        <line num="17" type="method" name="handle" visibility="public" complexity="1" crap="1" count="43"/>
-        <line num="19" type="stmt" count="43"/>
-        <line num="21" type="stmt" count="43"/>
+        <line num="17" type="method" name="handle" visibility="public" complexity="1" crap="1" count="45"/>
+        <line num="19" type="stmt" count="45"/>
+        <line num="21" type="stmt" count="45"/>
         <metrics loc="24" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
       </file>
       <file name="laravel/app/Http/Middleware/HandleInertiaRequests.php">
         <class name="App\Http\Middleware\HandleInertiaRequests" namespace="App\Http\Middleware">
-          <metrics complexity="4" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="13" coveredelements="13"/>
+          <metrics complexity="4" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="14" coveredelements="14"/>
         </class>
-        <line num="24" type="method" name="version" visibility="public" complexity="1" crap="1" count="16"/>
-        <line num="26" type="stmt" count="16"/>
-        <line num="36" type="method" name="share" visibility="public" complexity="3" crap="3" count="43"/>
-        <line num="38" type="stmt" count="43"/>
-        <line num="39" type="stmt" count="43"/>
-        <line num="40" type="stmt" count="43"/>
-        <line num="41" type="stmt" count="43"/>
-        <line num="42" type="stmt" count="43"/>
-        <line num="43" type="stmt" count="43"/>
-        <line num="44" type="stmt" count="43"/>
-        <line num="45" type="stmt" count="43"/>
-        <line num="46" type="stmt" count="43"/>
-        <line num="47" type="stmt" count="43"/>
-        <metrics loc="50" ncloc="31" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="13" coveredelements="13"/>
+        <line num="24" type="method" name="version" visibility="public" complexity="1" crap="1" count="17"/>
+        <line num="26" type="stmt" count="17"/>
+        <line num="36" type="method" name="share" visibility="public" complexity="3" crap="3" count="45"/>
+        <line num="38" type="stmt" count="45"/>
+        <line num="39" type="stmt" count="45"/>
+        <line num="40" type="stmt" count="45"/>
+        <line num="41" type="stmt" count="45"/>
+        <line num="42" type="stmt" count="45"/>
+        <line num="43" type="stmt" count="45"/>
+        <line num="44" type="stmt" count="45"/>
+        <line num="45" type="stmt" count="45"/>
+        <line num="46" type="stmt" count="45"/>
+        <line num="47" type="stmt" count="45"/>
+        <line num="48" type="stmt" count="45"/>
+        <metrics loc="51" ncloc="32" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="14" coveredelements="14"/>
       </file>
     </package>
     <package name="App\Http\Requests\Settings">
@@ -353,19 +351,19 @@
         <class name="App\Http\Resources\UploadResource" namespace="App\Http\Resources">
           <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="13" coveredelements="13"/>
         </class>
-        <line num="15" type="method" name="toArray" visibility="public" complexity="2" crap="2" count="5"/>
-        <line num="17" type="stmt" count="5"/>
-        <line num="18" type="stmt" count="5"/>
-        <line num="19" type="stmt" count="5"/>
-        <line num="20" type="stmt" count="5"/>
-        <line num="21" type="stmt" count="5"/>
-        <line num="22" type="stmt" count="5"/>
-        <line num="23" type="stmt" count="5"/>
-        <line num="24" type="stmt" count="5"/>
-        <line num="25" type="stmt" count="5"/>
-        <line num="26" type="stmt" count="5"/>
-        <line num="28" type="stmt" count="5"/>
-        <line num="29" type="stmt" count="5"/>
+        <line num="15" type="method" name="toArray" visibility="public" complexity="2" crap="2" count="4"/>
+        <line num="17" type="stmt" count="4"/>
+        <line num="18" type="stmt" count="4"/>
+        <line num="19" type="stmt" count="4"/>
+        <line num="20" type="stmt" count="4"/>
+        <line num="21" type="stmt" count="4"/>
+        <line num="22" type="stmt" count="4"/>
+        <line num="23" type="stmt" count="4"/>
+        <line num="24" type="stmt" count="4"/>
+        <line num="25" type="stmt" count="4"/>
+        <line num="26" type="stmt" count="4"/>
+        <line num="28" type="stmt" count="4"/>
+        <line num="29" type="stmt" count="4"/>
         <metrics loc="32" ncloc="26" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="13" coveredelements="13"/>
       </file>
     </package>
@@ -374,10 +372,10 @@
         <class name="App\Models\Upload" namespace="App\Models">
           <metrics complexity="3" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="8" coveredelements="6"/>
         </class>
-        <line num="39" type="method" name="casts" visibility="protected" complexity="1" crap="1" count="7"/>
-        <line num="41" type="stmt" count="7"/>
-        <line num="42" type="stmt" count="7"/>
-        <line num="43" type="stmt" count="7"/>
+        <line num="39" type="method" name="casts" visibility="protected" complexity="1" crap="1" count="8"/>
+        <line num="41" type="stmt" count="8"/>
+        <line num="42" type="stmt" count="8"/>
+        <line num="43" type="stmt" count="8"/>
         <line num="51" type="method" name="getRouteKeyName" visibility="public" complexity="1" crap="1" count="3"/>
         <line num="53" type="stmt" count="3"/>
         <line num="59" type="method" name="user" visibility="public" complexity="1" crap="2" count="0"/>
@@ -388,18 +386,18 @@
         <class name="App\Models\User" namespace="App\Models">
           <metrics complexity="4" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="12" coveredelements="12"/>
         </class>
-        <line num="48" type="method" name="casts" visibility="protected" complexity="1" crap="1" count="48"/>
-        <line num="50" type="stmt" count="48"/>
-        <line num="51" type="stmt" count="48"/>
-        <line num="52" type="stmt" count="48"/>
-        <line num="53" type="stmt" count="48"/>
-        <line num="54" type="stmt" count="48"/>
-        <line num="60" type="method" name="uploads" visibility="public" complexity="1" crap="1" count="3"/>
-        <line num="62" type="stmt" count="3"/>
-        <line num="70" type="method" name="getJWTIdentifier" visibility="public" complexity="1" crap="1" count="28"/>
-        <line num="72" type="stmt" count="28"/>
-        <line num="80" type="method" name="getJWTCustomClaims" visibility="public" complexity="1" crap="1" count="28"/>
-        <line num="82" type="stmt" count="28"/>
+        <line num="48" type="method" name="casts" visibility="protected" complexity="1" crap="1" count="49"/>
+        <line num="50" type="stmt" count="49"/>
+        <line num="51" type="stmt" count="49"/>
+        <line num="52" type="stmt" count="49"/>
+        <line num="53" type="stmt" count="49"/>
+        <line num="54" type="stmt" count="49"/>
+        <line num="60" type="method" name="uploads" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="62" type="stmt" count="2"/>
+        <line num="70" type="method" name="getJWTIdentifier" visibility="public" complexity="1" crap="1" count="30"/>
+        <line num="72" type="stmt" count="30"/>
+        <line num="80" type="method" name="getJWTCustomClaims" visibility="public" complexity="1" crap="1" count="30"/>
+        <line num="82" type="stmt" count="30"/>
         <metrics loc="85" ncloc="53" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="12" coveredelements="12"/>
       </file>
     </package>
@@ -408,61 +406,61 @@
         <class name="App\Providers\AppServiceProvider" namespace="App\Providers">
           <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
         </class>
-        <line num="13" type="method" name="register" visibility="public" complexity="1" crap="1" count="58"/>
-        <line num="16" type="stmt" count="58"/>
-        <line num="21" type="method" name="boot" visibility="public" complexity="1" crap="1" count="58"/>
-        <line num="23" type="stmt" count="58"/>
-        <line num="24" type="stmt" count="58"/>
+        <line num="13" type="method" name="register" visibility="public" complexity="1" crap="1" count="59"/>
+        <line num="16" type="stmt" count="59"/>
+        <line num="21" type="method" name="boot" visibility="public" complexity="1" crap="1" count="59"/>
+        <line num="23" type="stmt" count="59"/>
+        <line num="24" type="stmt" count="59"/>
         <metrics loc="27" ncloc="20" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
       </file>
       <file name="laravel/app/Providers/FortifyServiceProvider.php">
         <class name="App\Providers\FortifyServiceProvider" namespace="App\Providers">
           <metrics complexity="5" methods="5" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="30" elements="36" coveredelements="34"/>
         </class>
-        <line num="21" type="method" name="register" visibility="public" complexity="1" crap="1" count="58"/>
-        <line num="24" type="stmt" count="58"/>
-        <line num="29" type="method" name="boot" visibility="public" complexity="1" crap="1" count="58"/>
-        <line num="31" type="stmt" count="58"/>
-        <line num="32" type="stmt" count="58"/>
-        <line num="33" type="stmt" count="58"/>
-        <line num="39" type="method" name="configureActions" visibility="private" complexity="1" crap="1" count="58"/>
-        <line num="41" type="stmt" count="58"/>
-        <line num="42" type="stmt" count="58"/>
-        <line num="48" type="method" name="configureViews" visibility="private" complexity="1" crap="1" count="58"/>
-        <line num="50" type="stmt" count="58"/>
-        <line num="51" type="stmt" count="58"/>
-        <line num="52" type="stmt" count="58"/>
-        <line num="53" type="stmt" count="58"/>
-        <line num="54" type="stmt" count="58"/>
-        <line num="56" type="stmt" count="58"/>
-        <line num="57" type="stmt" count="58"/>
-        <line num="58" type="stmt" count="58"/>
-        <line num="59" type="stmt" count="58"/>
-        <line num="61" type="stmt" count="58"/>
-        <line num="62" type="stmt" count="58"/>
-        <line num="63" type="stmt" count="58"/>
-        <line num="65" type="stmt" count="58"/>
-        <line num="66" type="stmt" count="58"/>
-        <line num="67" type="stmt" count="58"/>
-        <line num="69" type="stmt" count="58"/>
-        <line num="71" type="stmt" count="58"/>
-        <line num="73" type="stmt" count="58"/>
-        <line num="79" type="method" name="configureRateLimiting" visibility="private" complexity="1" crap="1.00" count="58"/>
-        <line num="81" type="stmt" count="58"/>
+        <line num="21" type="method" name="register" visibility="public" complexity="1" crap="1" count="59"/>
+        <line num="24" type="stmt" count="59"/>
+        <line num="29" type="method" name="boot" visibility="public" complexity="1" crap="1" count="59"/>
+        <line num="31" type="stmt" count="59"/>
+        <line num="32" type="stmt" count="59"/>
+        <line num="33" type="stmt" count="59"/>
+        <line num="39" type="method" name="configureActions" visibility="private" complexity="1" crap="1" count="59"/>
+        <line num="41" type="stmt" count="59"/>
+        <line num="42" type="stmt" count="59"/>
+        <line num="48" type="method" name="configureViews" visibility="private" complexity="1" crap="1" count="59"/>
+        <line num="50" type="stmt" count="59"/>
+        <line num="51" type="stmt" count="59"/>
+        <line num="52" type="stmt" count="59"/>
+        <line num="53" type="stmt" count="59"/>
+        <line num="54" type="stmt" count="59"/>
+        <line num="56" type="stmt" count="59"/>
+        <line num="57" type="stmt" count="59"/>
+        <line num="58" type="stmt" count="59"/>
+        <line num="59" type="stmt" count="59"/>
+        <line num="61" type="stmt" count="59"/>
+        <line num="62" type="stmt" count="59"/>
+        <line num="63" type="stmt" count="59"/>
+        <line num="65" type="stmt" count="59"/>
+        <line num="66" type="stmt" count="59"/>
+        <line num="67" type="stmt" count="59"/>
+        <line num="69" type="stmt" count="59"/>
+        <line num="71" type="stmt" count="59"/>
+        <line num="73" type="stmt" count="59"/>
+        <line num="79" type="method" name="configureRateLimiting" visibility="private" complexity="1" crap="1.00" count="59"/>
+        <line num="81" type="stmt" count="59"/>
         <line num="82" type="stmt" count="0"/>
-        <line num="83" type="stmt" count="58"/>
-        <line num="85" type="stmt" count="58"/>
+        <line num="83" type="stmt" count="59"/>
+        <line num="85" type="stmt" count="59"/>
         <line num="86" type="stmt" count="6"/>
         <line num="88" type="stmt" count="6"/>
-        <line num="89" type="stmt" count="58"/>
+        <line num="89" type="stmt" count="59"/>
         <metrics loc="92" ncloc="76" classes="1" methods="5" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="30" elements="36" coveredelements="34"/>
       </file>
       <file name="laravel/app/Providers/TusServiceProvider.php">
         <class name="App\Providers\TusServiceProvider" namespace="App\Providers">
           <metrics complexity="5" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="43" coveredstatements="41" elements="44" coveredelements="41"/>
         </class>
-        <line num="12" type="method" name="register" visibility="public" complexity="5" crap="5" count="58"/>
-        <line num="14" type="stmt" count="58"/>
+        <line num="12" type="method" name="register" visibility="public" complexity="5" crap="5" count="59"/>
+        <line num="14" type="stmt" count="59"/>
         <line num="16" type="stmt" count="2"/>
         <line num="19" type="stmt" count="2"/>
         <line num="21" type="stmt" count="2"/>
@@ -504,10 +502,10 @@
         <line num="75" type="stmt" count="1"/>
         <line num="77" type="stmt" count="2"/>
         <line num="79" type="stmt" count="2"/>
-        <line num="80" type="stmt" count="58"/>
+        <line num="80" type="stmt" count="59"/>
         <metrics loc="83" ncloc="74" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="43" coveredstatements="41" elements="44" coveredelements="41"/>
       </file>
     </package>
-    <metrics files="23" loc="1136" ncloc="890" classes="22" methods="47" coveredmethods="33" conditionals="0" coveredconditionals="0" statements="302" coveredstatements="229" elements="349" coveredelements="262"/>
+    <metrics files="23" loc="1137" ncloc="891" classes="22" methods="47" coveredmethods="35" conditionals="0" coveredconditionals="0" statements="300" coveredstatements="253" elements="347" coveredelements="288"/>
   </project>
 </coverage>

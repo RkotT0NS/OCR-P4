@@ -1,6 +1,6 @@
 {
   "name": "datashare-webapp",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "homepage": "https://github.com/RkotT0NS/OCR-P4#readme",
   "bugs": {
@@ -37,8 +37,8 @@
     "test:e2e": "npm run test -w @datashare/end-to-end",
     "test:stories": "npm run test -w @datashare/ui",
     "show:monocart": "(cd e2e && npx monocart show-report test-results/report.html)",
-    "test:laravel-phpunit": "docker exec laravel_app ./vendor/bin/phpunit --coverage-php storage/coverage-e2e/phpunit-base.cov --coverage-html ./coverage/unit",
-    "cleanup:phpunit-e2e-coverage": "rm laravel/storage/coverage-e2e/req_*.cov",
+    "test:laravel-phpunit": "docker exec laravel_app_test ./vendor/bin/phpunit --coverage-php storage/coverage-e2e/phpunit-base.cov --coverage-html ./coverage/unit",
+    "cleanup:phpunit-e2e-coverage": "rm -f laravel/storage/coverage-e2e/*.cov",
     "laravel:lint": "cd laravel && composer run lint",
     "laravel:scribe": "docker exec laravel_app php artisan scribe:generate",
     "laravel:setup": "cd laravel && composer setup",
