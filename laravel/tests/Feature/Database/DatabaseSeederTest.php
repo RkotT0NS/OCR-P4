@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Pennant\Feature;
 use Tests\TestCase;
 
 class DatabaseSeederTest extends TestCase
@@ -29,6 +30,16 @@ class DatabaseSeederTest extends TestCase
         $this->assertDatabaseHas('users', ['email' => 'new-user@example.com']);
         $this->assertDatabaseHas('users', ['email' => 'upload-user@example.com']);
         $this->assertDatabaseHas('users', ['email' => 'old-user@example.com']);
+        $this->assertDatabaseHas('users', ['email' => 'luminosity-theme-user@example.com']);
+        $this->assertDatabaseHas('users', ['email' => 'two-factor-authenticated-user@example.com']);
+
+        $themeUser = User::where('email', 'luminosity-theme-user@example.com')->first();
+        $this->assertNotNull($themeUser);
+        $this->assertTrue(Feature::for($themeUser)->active('luminosity-theme'));
+
+        $twoFactorUser = User::where('email', 'two-factor-authenticated-user@example.com')->first();
+        $this->assertNotNull($twoFactorUser);
+        $this->assertTrue(Feature::for($twoFactorUser)->active('two-factor-authentication'));
 
         $oldUser = User::where('email', 'old-user@example.com')->first();
         $this->assertNotNull($oldUser);

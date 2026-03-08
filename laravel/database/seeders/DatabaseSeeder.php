@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Laravel\Pennant\Feature;
 
 class DatabaseSeeder extends Seeder
 {
@@ -28,6 +29,20 @@ class DatabaseSeeder extends Seeder
                 'email' => 'upload-user@example.com',
                 'password' => Hash::make('Abcdefgh,123'),
             ]);
+
+            $themeUser = User::factory()->create([
+                'name' => 'Luminosity Theme User',
+                'email' => 'luminosity-theme-user@example.com',
+                'password' => Hash::make('Abcdefgh,123'),
+            ]);
+            Feature::for($themeUser)->activate('luminosity-theme');
+
+            $twoFactorUser = User::factory()->create([
+                'name' => 'Two Factor Authenticated User',
+                'email' => 'two-factor-authenticated-user@example.com',
+                'password' => Hash::make('Abcdefgh,123'),
+            ]);
+            Feature::for($twoFactorUser)->activate('two-factor-authentication');
 
             $oldUser = User::factory()->create([
                 'name' => 'Old User',
