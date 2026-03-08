@@ -45,3 +45,7 @@ docker exec laravel_app php artisan view:cache
 At first [artillery](https://app.artillery.io/) will be used to benefit from existing playwright infrastructure from `@datashare/e2e` and will target local development instance.
 
 As soon as a staging environment will be in place, a grafana cloud [k6](https://k6.io/) setup will need to be done.
+### References
+- [Artillery Documentation](https://www.artillery.io/docs)
+- [Artillery - Playwright E2E testing](https://www.artillery.io/docs/get-started/playwright-e2e)
+- [Artillery - Setup cloud reporting](https://www.artillery.io/docs/get-started/get-artillery#set-up-cloud-reporting)

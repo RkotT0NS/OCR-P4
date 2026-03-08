@@ -41,7 +41,6 @@ export default function DownloadWithoutPasswordPage({
 }: {
   fileDetails: Upload;
 }) {
-  console.log({ fileDetails });
   const [password, setPassword] = useState("");
 
   const handleDownload = async (e: React.MouseEvent) => {
@@ -59,7 +58,6 @@ export default function DownloadWithoutPasswordPage({
         if (!response.ok) {
           throw new Error("Download failed");
         }
-
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -125,6 +123,7 @@ export default function DownloadWithoutPasswordPage({
           <a
             href={fileDetails.download_url || "#"}
             onClick={handleDownload}
+            role="button"
             className={cn(
               "bg-[#ff812d]/13 border border-[#cd5e14]/50 text-[#ba681f] p-3 rounded-lg w-full flex items-center justify-center gap-2 cursor-pointer",
             )}

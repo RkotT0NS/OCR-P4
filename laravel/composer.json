@@ -60,6 +60,7 @@
     "scripts": {
         "setup:testing": [
             "rm -f database/testing.sqlite && touch database/testing.sqlite",
+            "rm -f storage/app/public/uploads/*",
             "@php artisan key:generate",
             "@php artisan migrate --force",
             "@php artisan jwt:secret",
@@ -67,6 +68,7 @@
         ],
         "reset:testing": [
             "rm -f database/testing.sqlite && touch database/testing.sqlite",
+            "rm -f storage/app/public/uploads/*",
             "@php artisan migrate --force",
             "@php artisan db:seed"
         ],

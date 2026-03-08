@@ -1,7 +1,18 @@
 # Testing Guide
 
-This project maintains high code quality through a combination of backend tests, frontend linting, e2e test, storybook vitest and visual regression testing for UI components.
+This project maintains high code and behavior quality through a combination of backend tests, frontend linting, e2e test, storybook vitest and visual regression testing for UI components.
 
+Test needs to be run against a fresh laravel testing environment.
+To get it up and running, run:
+```bash
+npm run docker:testing
+docker exec laravel_app_test composer setup:testing
+```
+
+Before running tests, make sure the testing environment is up and running. Then, refresh the setup, run:
+```bash
+docker exec laravel_app_test composer reset:testing
+```
 
 ## Backend Testing (Laravel)
 
@@ -36,7 +47,7 @@ The UI component library is located in `./figma/implementation`. It uses **Story
 
 ### Vitest 
 
-A vitest test suite is derived from existing stories in @datashar/ui:
+A [vitest test suite is derived, as described in the storybook documentation](https://storybook.js.org/docs/writing-tests/test-coverage), from existing stories in @datashar/ui:
 ```bash
 npm run test:stories
 ```
@@ -69,11 +80,14 @@ Those test will capture `@datashare/webapp` and `@datashare/ui` frontend coverag
 
 More over each request done against the laravel application will generate additional coverage for the laravel application inside './laravel/storage/coverage-e2e/' with `req_[a-f0-9]+.\d+.cov` pattern.
 
+We need to ensure [best practice, as described in the playwright documentation](https://playwright.dev/docs/next/best-practices), are followed when writing tests to avoid issues in the testing process.(https://playwright.dev/docs/next/best-practices)
+
 ## Test aggregation
 
-Before pushing to the remote, the test result coverage needs to be updated to allow sonarcloud inspection triggered by the [github build workflow](./.github/workflows/build.yml).
+Before pushing to the remote, the test result coverage needs to be updated to allow sonarcloud inspection triggered by the [github build workflow](./.github/workflows/build.yml). More details on how to configure sonarcloud can be found in the [Analyzing source code > Test coverage > PHP test coverage](https://docs.sonarsource.com/sonarqube-server/2025.1/analyzing-source-code/test-coverage/php-test-coverage) documentation section.
 
-For the backend part of the application, sonarcloud natively understand the clover xml format. To aggregate and normalize coverage from Backend unit tesst and e2e tests, we are using phpcov to merge php coverage into clover xml format and the `sed` command to normalize path
+For the backend part of the application, sonarcloud natively understand the clover xml format. 
+To aggregate and normalize coverage from Backend unit test and e2e tests, we are using phpcov to merge php coverage into clover xml format and the `sed` command to normalize path
 
 ```bash
 npm run phpunit:merge-coverage

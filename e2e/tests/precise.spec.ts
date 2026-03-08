@@ -21,7 +21,7 @@ test("After successful login, a button leading to the dashboard should be visibl
   await page.goto("/login");
 
   await expect(page.getByRole("heading", { name: "Connexion" })).toBeVisible();
-  await page.getByLabel("Email").fill("test@example.com");
+  await page.getByLabel("Email").fill("new-user@example.com");
   await page.getByLabel("Mot de passe").fill("Abcdefgh,123");
 
   await page.getByRole("button", { name: "Connexion" }).click();
