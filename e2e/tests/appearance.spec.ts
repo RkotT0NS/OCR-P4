@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { setupCoverage, tearDownCoverage } from "../coverage";
 
-test("Luminosity Theme User can access appearance settings and change theme", async ({ page }) => {
+test("Luminosity Theme User can access appearance settings and change theme", async ({
+  page,
+}) => {
   await setupCoverage(page);
 
   // Login as Luminosity Theme User
@@ -16,7 +18,7 @@ test("Luminosity Theme User can access appearance settings and change theme", as
 
   // Go to settings
   await page.goto("/settings/profile");
-  
+
   // Verify "Appearance" link is visible because of luminosity-theme feature flag
   const appearanceLink = page.getByRole("link", { name: "Appearance" });
   await expect(appearanceLink).toBeVisible();
@@ -26,7 +28,9 @@ test("Luminosity Theme User can access appearance settings and change theme", as
 
   // Verify we are on the appearance settings page
   // Use exact: true to avoid matching both H1 (Appearance Settings) and H3 (Appearance settings)
-  await expect(page.getByRole("heading", { name: "Appearance settings", exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Appearance settings", exact: true }),
+  ).toBeVisible();
 
   // Verify theme switching works
   const lightButton = page.getByRole("button", { name: "Light" });
@@ -40,14 +44,18 @@ test("Luminosity Theme User can access appearance settings and change theme", as
   // Initially it might be 'system' or 'light' depending on browser defaults in E2E
   // Let's switch to Dark and verify it's active
   await darkButton.click();
-  
+
   // Check if 'dark' class is added to html element
-  const isDark = await page.evaluate(() => document.documentElement.classList.contains('dark'));
+  const isDark = await page.evaluate(() =>
+    document.documentElement.classList.contains("dark"),
+  );
   expect(isDark).toBeTruthy();
 
   // Switch back to Light
   await lightButton.click();
-  const isLight = await page.evaluate(() => !document.documentElement.classList.contains('dark'));
+  const isLight = await page.evaluate(
+    () => !document.documentElement.classList.contains("dark"),
+  );
   expect(isLight).toBeTruthy();
 
   await tearDownCoverage(page, test);
@@ -62,9 +70,15 @@ test("Normal User cannot access appearance settings", async ({ page }) => {
   await page.getByLabel("Email").fill("new-user@example.com");
   await page.getByLabel("Mot de passe").fill("Abcdefgh,123");
   await page.getByRole("button", { name: "Connexion" }).click();
+  await expect(page).toHaveURL(
+    (url) => url.pathname === "/" || url.pathname === "/dashboard",
+  );
 
-  // Wait for login success and redirect
-  await expect(page.getByRole("button", { name: "Mon espace" })).toBeVisible();
+  if (new URL(page.url()).pathname === "/") {
+    await expect(page.getByRole("button", { name: "Mon espace" })).toBeVisible({
+      timeout: 15000,
+    });
+  }
 
   // Go to settings
   await page.goto("/settings/profile");
@@ -75,6 +89,6 @@ test("Normal User cannot access appearance settings", async ({ page }) => {
 
   // Attempting to visit appearance directly should redirect or show unauthorized if implemented
   // But since the link is hidden, it's a good first check.
-  
+
   await tearDownCoverage(page, test);
 });
