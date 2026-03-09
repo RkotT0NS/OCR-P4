@@ -7,6 +7,7 @@ use App\Models\Upload;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
+use Laravel\Pennant\Feature;
 
 class RoutesTest extends TestCase
 {
@@ -57,10 +58,17 @@ class RoutesTest extends TestCase
         $this->actingAs($user)->get(route('user-password.edit'))->assertOk();
     }
 
-    public function test_appearance_is_accessible_to_authenticated_users()
+    public function test_appearance_is_accessible_to_authenticated_users_with_luminosity_theme_feature()
     {
         $user = User::factory()->create();
+
+        Feature::for($user)->activate('luminosity-theme');
         $this->actingAs($user)->get(route('appearance.edit'))->assertOk();
+    }
+    public function test_appearance_is_not_accessible_to_authenticated_users_without_luminosity_theme_feature()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user)->get(route('appearance.edit'))->assertRedirectToRoute('profile.edit');
     }
 
     /**

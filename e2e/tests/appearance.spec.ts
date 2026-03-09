@@ -87,8 +87,12 @@ test("Normal User cannot access appearance settings", async ({ page }) => {
   const appearanceLink = page.getByRole("link", { name: "Appearance" });
   await expect(appearanceLink).not.toBeVisible();
 
-  // Attempting to visit appearance directly should redirect or show unauthorized if implemented
-  // But since the link is hidden, it's a good first check.
+  // Attempting to visit appearance directly should redirect to profile
+  await page.goto("/settings/appearance");
+  await page.waitForURL("**/settings/profile");
+  await expect(
+    page.getByRole("heading", { name: "Profile settings" }),
+  ).toBeVisible();
 
   await tearDownCoverage(page, test);
 });
