@@ -13,7 +13,7 @@ class ConfigTest extends TestCase
     {
         $this->assertEquals('testing', config('app.env'));
         $this->assertEquals('UTC', config('app.timezone'));
-        $this->assertEquals('en', config('app.locale'));
+        $this->assertEquals('fr', config('app.locale'));
         $this->assertEquals('AES-256-CBC', config('app.cipher'));
     }
 
