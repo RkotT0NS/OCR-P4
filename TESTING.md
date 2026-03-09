@@ -2,6 +2,8 @@
 
 This project maintains high code and behavior quality through a combination of backend tests, frontend linting, e2e test, storybook vitest and visual regression testing for UI components.
 
+When starting a new test, make sure previous coverage is cleaned up using `npm run cleanup:phpunit-e2e-coverage`.
+
 Test needs to be run against a fresh laravel testing environment.
 To get it up and running, run:
 ```bash
@@ -32,7 +34,6 @@ npm run laravel:lint
 ```
 
 ## Frontend Testing
-
 
 ### Linting
 We use **ESLint** to maintain JavaScript/TypeScript code quality.
@@ -73,6 +74,7 @@ Those tests are used to complete both Backend and Frontend testing.
 Before running those test a source mapped of the javascript assets must be produced using `npm run laravel:build-frontend-sourcemap`. 
 Then, we use **playwright** to test the behavior of the application according to the test suite defined in `e2e/tests`  
 ```bash
+docker exec laravel_app_test php artisan migrate:fresh --seed
 npm run test:e2e
 ```
 

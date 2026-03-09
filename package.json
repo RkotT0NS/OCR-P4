@@ -45,7 +45,7 @@
     "laravel:db-migrate": "docker exec laravel_app php artisan migrate",
     "laravel:db-rollback": "php artisan migrate:rollback",
     "laravel:db-reset": "docker exec laravel_app php artisan migrate:fresh --seed",
-    "phpunit:merge-coverage": "docker exec laravel_app ./vendor/bin/phpcov merge  --html ./coverage/unified --clover ./unified-clover.xml storage/coverage-e2e",
+    "phpunit:merge-coverage": "docker exec laravel_app_test ./vendor/bin/phpcov merge  --html ./coverage/unified --clover ./unified-clover.xml storage/coverage-e2e",
     "build:internal-dependencies": "npm run build -w @datashare/pagination-cache -w @datashare/types -w @datashare/tools",
     "build:laravel": "npm run build -w @datashare/webapp",
     "watch:laravel": "npm run dev -w @datashare/webapp",
