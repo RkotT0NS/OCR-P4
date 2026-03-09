@@ -14,10 +14,11 @@ test("Allow download of resource if provided password match", async ({
   await page.getByLabel("Mot de passe").fill("Abcdefgh,123");
 
   await page.getByRole("button", { name: "Connexion" }).click();
+  await expect(
+    page.getByRole("button", { name: "Mon espace", exact: true }),
+  ).toBeVisible();
 
-  await expect(page.getByRole("button", { name: "Mon espace" })).toBeVisible();
-
-  await page.getByRole("button", { name: "Mon espace" }).click();
+  await page.getByRole("button", { name: "Mon espace", exact: true }).click();
 
   const firstAccessLink = page
     .getByRole("link", {
@@ -40,7 +41,6 @@ test("Allow download of resource if provided password match", async ({
     name: "download icon Télécharger",
   });
   await downloadButton.click();
-  await page.screenshot({ path: "download-ready.png" });
   const download = await downloadPromise;
 
   expect(download.suggestedFilename()).toBe("stately-ai-raisedmo.png");
