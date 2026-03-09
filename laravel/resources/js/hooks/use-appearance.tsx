@@ -2,9 +2,9 @@ import { useCallback, useMemo, useSyncExternalStore } from 'react';
 
 export type ResolvedAppearance = 'light' | 'dark';
 export type Appearance = ResolvedAppearance | 'system';
-
+const defaultAppearance: Appearance = 'light';
 const listeners = new Set<() => void>();
-let currentAppearance: Appearance = 'system';
+let currentAppearance: Appearance = defaultAppearance;
 
 const prefersDark = (): boolean => {
     if (typeof window === 'undefined') return false;
@@ -19,9 +19,11 @@ const setCookie = (name: string, value: string, days = 365): void => {
 };
 
 const getStoredAppearance = (): Appearance => {
-    if (typeof window === 'undefined') return 'system';
+    if (typeof window === 'undefined') return defaultAppearance;
 
-    return (localStorage.getItem('appearance') as Appearance) || 'system';
+    return (
+        (localStorage.getItem('appearance') as Appearance) || defaultAppearance
+    );
 };
 
 const isDarkMode = (appearance: Appearance): boolean => {
@@ -60,8 +62,8 @@ export function initializeTheme(): void {
     if (typeof window === 'undefined') return;
 
     if (!localStorage.getItem('appearance')) {
-        localStorage.setItem('appearance', 'system');
-        setCookie('appearance', 'system');
+        localStorage.setItem('appearance', defaultAppearance);
+        setCookie('appearance', defaultAppearance);
     }
 
     currentAppearance = getStoredAppearance();
@@ -75,7 +77,7 @@ export function useAppearance() {
     const appearance: Appearance = useSyncExternalStore(
         subscribe,
         () => currentAppearance,
-        () => 'system',
+        () => defaultAppearance,
     );
 
     const resolvedAppearance: ResolvedAppearance = useMemo(
