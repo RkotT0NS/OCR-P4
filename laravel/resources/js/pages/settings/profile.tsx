@@ -3,6 +3,7 @@ import { send } from '@/routes/verification';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Form, Head, Link, useForm, usePage } from '@inertiajs/react';
+import { useState } from 'react';
 
 import DeleteUser from '@/components/delete-user';
 import HeadingSmall from '@/components/heading-small';
@@ -20,13 +21,61 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: edit().url,
     },
 ];
-function ProfileAvatarEditor() {
+function ProfileAvatarEditor({
+    onValidationError,
+}: {
+    onValidationError?: (hasError: boolean) => void;
+}) {
     const { auth } = usePage<SharedData>().props;
-    const { setData, errors } = useForm<{
+    const { setData, errors, clearErrors } = useForm<{
         avatar: File | null;
     }>({
         avatar: null,
     });
+    const [localError, setLocalError] = useState<string | null>(null);
+
+    const handleError = (error: string | null) => {
+        setLocalError(error);
+        if (onValidationError) {
+            onValidationError(error !== null);
+        }
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        clearErrors('avatar');
+
+        if (!file) {
+            handleError(null);
+            setData('avatar', null);
+            return;
+        }
+
+        if (file.type !== 'image/png') {
+            handleError('The avatar must be a file of type: png.');
+            setData('avatar', null);
+            return;
+        }
+
+        const img = new window.Image();
+        img.onload = () => {
+            if (img.width !== 80 || img.height !== 80) {
+                handleError('The avatar has invalid image dimensions.');
+                setData('avatar', null);
+            } else {
+                handleError(null);
+                setData('avatar', file);
+            }
+            URL.revokeObjectURL(img.src);
+        };
+        img.onerror = () => {
+            handleError('The avatar must be an image.');
+            setData('avatar', null);
+            URL.revokeObjectURL(img.src);
+        };
+        img.src = URL.createObjectURL(file);
+    };
+
     return (
         <div className="grid gap-2">
             <Label htmlFor="avatar">Avatar (PNG, 80x80)</Label>
@@ -46,10 +95,13 @@ function ProfileAvatarEditor() {
                 type="file"
                 name="avatar"
                 accept="image/png"
-                onChange={(e) => setData('avatar', e.target.files?.[0] || null)}
+                onChange={handleFileChange}
             />
 
-            <InputError className="mt-2" message={errors.avatar} />
+            <InputError
+                className="mt-2"
+                message={localError || errors.avatar}
+            />
         </div>
     );
 }
@@ -62,6 +114,7 @@ export default function Profile({
     status?: string;
 }) {
     const { auth } = usePage<SharedData>().props;
+    const [hasAvatarError, setHasAvatarError] = useState(false);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -85,7 +138,9 @@ export default function Profile({
                     >
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
-                                <ProfileAvatarEditor />
+                                <ProfileAvatarEditor
+                                    onValidationError={setHasAvatarError}
+                                />
                                 <div className="grid gap-2">
                                     <Label htmlFor="name">Name</Label>
 
@@ -128,7 +183,7 @@ export default function Profile({
                                 {mustVerifyEmail &&
                                     auth.user.email_verified_at === null && (
                                         <div>
-                                            <p className="text-muted-foreground -mt-4 text-sm">
+                                            <p className="-mt-4 text-sm text-muted-foreground">
                                                 Your email address is
                                                 unverified.{' '}
                                                 <Link
@@ -154,7 +209,7 @@ export default function Profile({
 
                                 <div className="flex items-center gap-4">
                                     <Button
-                                        disabled={processing}
+                                        disabled={processing || hasAvatarError}
                                         data-test="update-profile-button"
                                     >
                                         Save
