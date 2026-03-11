@@ -4,5 +4,6 @@ return [
     App\Providers\AppServiceProvider::class,
     App\Providers\FortifyServiceProvider::class,
     App\Providers\TusServiceProvider::class,
+    App\Providers\UploadStorageServiceProvider::class,
     Laravel\Pennant\PennantServiceProvider::class,
 ];

@@ -18,7 +18,7 @@ class TusServiceProvider extends ServiceProvider
             // Set the API path (must match your route)
             $server->setApiPath('/api/upload');
             // $server->setMaxUploadSize( env('UPLOAD_SIZE_LIMIT', 1000*1000*1000));
-            $server->setMaxUploadSize( env('UPLOAD_SIZE_LIMIT', 15*1024*1024));
+            $server->setMaxUploadSize(env('UPLOAD_SIZE_LIMIT', 15 * 1024 * 1024));
 
             // Set the absolute path for uploads (mapped in docker-compose)
             $server->setUploadDir(storage_path('app/public/uploads'));
@@ -30,8 +30,10 @@ class TusServiceProvider extends ServiceProvider
                 'database' => env('REDIS_DB', 0),
             ]);
 
+            $storageService = $app->make(\App\Services\UploadStorageService::class);
+
             // Listen for upload complete event
-            $server->event()->addListener('tus-server.upload.complete', function (UploadComplete $event) {
+            $server->event()->addListener('tus-server.upload.complete', function (UploadComplete $event) use ($storageService) {
                 $file = $event->getFile();
                 $user = auth('api')->user();
 
@@ -47,22 +49,7 @@ class TusServiceProvider extends ServiceProvider
                     $originalName = $metadata['filename'] ?? $file->getName();
                     $mimeType = $metadata['filetype'] ?? null;
 
-                    // Calculate SHA512 hash of the file
-                    $hash = hash_file('sha512', $file->getFilePath());
-                    $blobPath = 'uploads/'.$hash;
-                    $absoluteBlobPath = storage_path('app/public/'.$blobPath);
-
-                    // Ensure blobs directory exists
-                    if (! file_exists(dirname($absoluteBlobPath))) {
-                        mkdir(dirname($absoluteBlobPath), 0755, true);
-                    }
-
-                    // Move file to blobs directory if it doesn't exist, otherwise delete duplicate
-                    if (! file_exists($absoluteBlobPath)) {
-                        rename($file->getFilePath(), $absoluteBlobPath);
-                    } else {
-                        unlink($file->getFilePath());
-                    }
+                    $blobPath = $storageService->store($file->getFilePath());
 
                     Upload::create([
                         'uuid' => $file->getKey(),
