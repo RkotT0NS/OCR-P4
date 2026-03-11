@@ -11,7 +11,17 @@ import { PaginatedUploads } from '@datashare/types';
 import { usePage } from '@inertiajs/react';
 import { useContext } from 'react';
 import { Icons, UserSpacePage } from '../../../../figma/implementation/src';
-
+function deleteUpload(token: string): (uploadId: string) => Promise<boolean> {
+    return async (uploadId: string): Promise<boolean> => {
+        const requestResult = await fetch(`/api/uploads/${uploadId}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return requestResult.ok;
+    };
+}
 function listUpload(
     token: string,
 ): (page?: number) => Promise<PaginatedUploads> {
@@ -78,6 +88,7 @@ export default function Dashboard() {
                         });
                 }}
                 uploads={listUpload(auth.token)}
+                deleteUpload={deleteUpload(auth.token)}
                 actions={{ logout }}
                 Sidebar={Sidebar}
                 user={auth.user}

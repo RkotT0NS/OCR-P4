@@ -23,6 +23,7 @@ function FileEntry({
   isExpired,
   isLocked,
   downloadLink,
+  deleteUpload,
 }: {
   mimeType: string;
   fileName: string;
@@ -30,6 +31,7 @@ function FileEntry({
   isExpired?: boolean;
   isLocked?: boolean;
   downloadLink: string;
+  deleteUpload: () => Promise<boolean>;
 }) {
   return (
     <Icons.Consumer>
@@ -71,7 +73,9 @@ function FileEntry({
               {isLocked && (
                 <img src={lockIcon} alt="lock icon" className={cn("w-4 h-4")} />
               )}
-              <ActiveUploadActions {...{ downloadLink, fileName }} />
+              <ActiveUploadActions
+                {...{ downloadLink, fileName, deleteUpload }}
+              />
             </div>
           )}
         </div>
@@ -82,8 +86,10 @@ function FileEntry({
 
 function UploadsJSON({
   uploads,
+  deleteUpload,
 }: {
   uploads: (number?: number) => Promise<PaginatedUploads>;
+  deleteUpload: (uploadId: string) => Promise<boolean>;
 }) {
   const uploadPagination = paginationCache<UploadDetail>(
     "uploads-meta",
@@ -105,14 +111,6 @@ function UploadsJSON({
   console.log(
     loadedUploads
       .reduce((mostRecent, uploaded) => {
-        // console.log(uploaded);
-        // console.log({
-        //   mostRecent: mostRecent.getUTCMilliseconds(),
-        //   currentCreation: new Date(uploaded.created_at).getUTCMilliseconds(),
-        //   currentDeletion: new Date(
-        //     uploaded.deleted_at ?? 0,
-        //   ).getUTCMilliseconds(),
-        // });
         return new Date(
           Math.max(
             mostRecent.getTime(),
@@ -173,6 +171,7 @@ function UploadsJSON({
                   )}`
             }
             downloadLink={upload.url}
+            deleteUpload={async () => deleteUpload(upload.uuid)}
             isLocked={upload.locked}
           />
         );
@@ -212,6 +211,7 @@ export default function UserSpacePage({
   SidebarTrigger,
   Avatar,
   AvatarFallback,
+  deleteUpload,
 }: {
   refresher: () => void;
   user: { name: string; avatar_url?: string };
@@ -219,6 +219,7 @@ export default function UserSpacePage({
   actions: {
     logout: () => { url: string; method: "post" };
   };
+  deleteUpload: (uploadId: string) => Promise<boolean>;
   Sidebar: ReactElement;
   SidebarProvider: ReactElement;
   AppShell: ReactElement;
@@ -324,7 +325,10 @@ export default function UserSpacePage({
                   >
                     <ErrorBoundary>
                       <Suspense fallback={<div>Chargement ...</div>}>
-                        <UploadsJSON uploads={uploads} />
+                        <UploadsJSON
+                          uploads={uploads}
+                          deleteUpload={deleteUpload}
+                        />
                       </Suspense>
                     </ErrorBoundary>
                   </div>

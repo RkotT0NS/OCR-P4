@@ -8,15 +8,31 @@ import {
   PopoverTitle,
 } from "./ui/popover";
 
-function FileAction({ downloadLink }: { downloadLink: string }) {
+function doTheDelete(
+  action: () => Promise<boolean>,
+): (event: React.MouseEvent<HTMLElement>) => void {
+  return (event: React.MouseEvent<HTMLElement>) => {
+    console.log(event, action);
+    action();
+  };
+}
+
+function FileAction({
+  downloadLink,
+  deleteUpload,
+}: {
+  downloadLink: string;
+  deleteUpload: () => Promise<boolean>;
+}) {
   return (
     <Icons.Consumer>
       {({ deleteIcon, accessIcon }) => (
         <Fragment>
           <button
             className={cn(
-              "flex items-center gap-2 p-2 border border-orange-300 rounded-md",
+              "flex items-center gap-2 p-2 border border-orange-300 rounded-md cursor-pointer",
             )}
+            onClick={doTheDelete(deleteUpload)}
           >
             <img src={deleteIcon} alt="delete icon" className={cn("w-4 h-4")} />
             <span className={cn("flex-auto text-start")}>Supprimer</span>
@@ -40,9 +56,11 @@ function FileAction({ downloadLink }: { downloadLink: string }) {
 export default function ActiveUploadActions({
   downloadLink,
   fileName,
+  deleteUpload,
 }: {
   downloadLink: string;
   fileName: string;
+  deleteUpload: () => Promise<boolean>;
 }) {
   return (
     <Fragment>
@@ -66,14 +84,14 @@ export default function ActiveUploadActions({
                 {fileName}
               </span>
             </PopoverTitle>
-            <div className={cn("flex flex-col")}>
-              <FileAction {...{ downloadLink }} />
+            <div className={cn("flex flex-col gap-2")}>
+              <FileAction {...{ downloadLink, deleteUpload }} />
             </div>
           </PopoverContent>
         </Popover>
       </div>
       <div className={cn("hidden md:inline-flex md:gap-2")}>
-        <FileAction {...{ downloadLink }} />
+        <FileAction {...{ downloadLink, deleteUpload }} />
       </div>
     </Fragment>
   );
