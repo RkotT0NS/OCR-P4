@@ -25,6 +25,7 @@ function FileInfo({ fileDetails }: { fileDetails: Upload }) {
           className={cn(
             "text-base text-ellipsis overflow-hidden whitespace-nowrap font-medium",
           )}
+          title={fileDetails.original_name}
         >
           {fileDetails.original_name}
         </p>

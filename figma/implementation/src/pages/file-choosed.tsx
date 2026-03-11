@@ -4,14 +4,28 @@ import { cn } from "../lib/utils";
 import MimeTypeIcon from "../components/MimeTypeIcon";
 import { Icons } from "../contexts/Icons";
 import PageContext from "../contexts/Page";
+import expirationOptions from "../i18n/expiration";
 
 export default function FileChoosed({
   fileDetails,
   fileUrl,
+  expiresAt,
 }: Readonly<{
   fileDetails: File;
   fileUrl: string;
+  expiresAt: number;
 }>) {
+  const duration = expirationOptions.fr.reduce(
+    (durationTranslation, option) => {
+      if (expiresAt === option.value) {
+        return option.label.toLowerCase();
+      }
+      return durationTranslation;
+    },
+    "",
+  );
+
+  console.log(expiresAt);
   return (
     <div
       className={cn("relative w-full h-screen")}
@@ -71,8 +85,8 @@ export default function FileChoosed({
 
           <div className={cn("flex flex-col gap-4 items-start w-full")}>
             <p className={cn("text-base text-black")}>
-              Félicitations, ton fichier sera conservé chez nous pendant une
-              semaine !
+              Félicitations, ton fichier sera conservé chez nous pendant{" "}
+              {duration} !
             </p>
             <div
               className={cn(

@@ -58,7 +58,7 @@ test("Allow drag and drop after login", async ({ page }) => {
 
   await expect(
     page.getByText(
-      "Félicitations, ton fichier sera conservé chez nous pendant une semaine !",
+      "Félicitations, ton fichier sera conservé chez nous pendant une journée !",
     ),
   ).toBeVisible();
 

@@ -7,6 +7,13 @@ import inputFileSelectionChange from "../lib/file-selection-handler";
 import { InputField } from "./InputField";
 import { Callout } from "./Callout";
 
+import ReactSelect, {
+  components,
+  type DropdownIndicatorProps,
+} from "react-select";
+import FileChoosed from "../pages/file-choosed";
+import expirationOptions from "../i18n/expiration";
+
 function ChevronDown({ className }: { className?: string }) {
   return (
     <div className={cn(className)}>
@@ -21,23 +28,6 @@ function ChevronDown({ className }: { className?: string }) {
     </div>
   );
 }
-
-import ReactSelect, {
-  components,
-  type DropdownIndicatorProps,
-} from "react-select";
-import FileChoosed from "../pages/file-choosed";
-
-const expirationOptions = [
-  { value: 1, label: "Une journée" },
-  { value: 2, label: "2 jours" },
-  { value: 3, label: "3 jours" },
-  { value: 4, label: "4 jours" },
-  { value: 5, label: "5 jours" },
-  { value: 6, label: "6 jours" },
-  { value: 7, label: "Une semaine" },
-];
-
 function ExpirationDays({
   onChange,
   isDisabled,
@@ -46,7 +36,7 @@ function ExpirationDays({
   isDisabled?: boolean;
 }) {
   const DropdownIndicator = (
-    props: DropdownIndicatorProps<(typeof expirationOptions)[0]>,
+    props: DropdownIndicatorProps<(typeof expirationOptions.fr)[0]>,
   ) => {
     return (
       <components.DropdownIndicator {...props}>
@@ -61,8 +51,8 @@ function ExpirationDays({
     >
       <p className={cn("text-base text-gray-800")}>Expiration</p>
       <ReactSelect
-        options={expirationOptions}
-        defaultValue={expirationOptions[0]}
+        options={expirationOptions.fr}
+        defaultValue={expirationOptions.fr[0]}
         isDisabled={isDisabled}
         onChange={(option) => {
           if (option && onChange) {
@@ -143,9 +133,22 @@ export function UploadDetails({
   const [password, setPassword] = useState("");
   const [expiresAt, setExpiresAt] = useState(1);
   const isTooLarge = file.size > uploadSizeLimit;
-
+  console.log({
+    expiresAt,
+    forbiddenMimeTypes: [
+      "application/x-msi",
+      "application/x-msdownload",
+      "application/x-ms-dos-executable",
+      "application/x-ms-dos-program",
+      "application/x-ms-windows-executable",
+    ],
+  });
   return progress === 100 && isUploading === false ? (
-    <FileChoosed fileDetails={file} fileUrl={uploadedFileUrl} />
+    <FileChoosed
+      fileDetails={file}
+      fileUrl={uploadedFileUrl}
+      expiresAt={expiresAt}
+    />
   ) : (
     <div
       className={cn(
@@ -170,6 +173,7 @@ export function UploadDetails({
             className={cn(
               "text-base text-ellipsis overflow-hidden whitespace-nowrap",
             )}
+            title={file.name}
           >
             {file.name}
           </p>
@@ -211,7 +215,7 @@ export function UploadDetails({
       {isTooLarge && (
         <Callout
           type="Error"
-          label="La taille des fichiers est limitée à 1 Go"
+          label={`La taille des fichiers est limitée à ${humanFileSize(uploadSizeLimit, true, 0)}`}
           className={cn("w-full")}
         />
       )}
