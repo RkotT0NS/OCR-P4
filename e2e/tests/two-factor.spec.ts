@@ -2,31 +2,6 @@ import { test, expect } from "@playwright/test";
 import { setupCoverage, tearDownCoverage } from "../coverage";
 import * as OTPAuth from "otpauth";
 
-test("Two Factor Authentication feature is not visible in profile settings without feature flag", async ({
-  page,
-}) => {
-  await setupCoverage(page);
-
-  // Login as a user who doesn't have the feature flag (new-user)
-  const userEmail = "new-user@example.com";
-  const userPassword = "Abcdefgh,123";
-  await page.goto("/login");
-  await page.getByLabel("Email").fill(userEmail);
-  await page.getByLabel("Mot de passe").fill(userPassword);
-  await page.locator('[data-test="login-button"]').click();
-
-  await page.waitForURL((url) => url.pathname === "/");
-  await expect(page.getByRole("button", { name: "Mon espace" })).toBeVisible();
-
-  await page.goto("/settings/profile");
-
-  // The link title in SettingsLayout is 'Two-Factor Auth'
-  const twoFactorLink = page.getByRole("link", { name: "Two-Factor Auth" });
-  await expect(twoFactorLink).not.toBeVisible();
-
-  await tearDownCoverage(page, test);
-});
-
 test("Two Factor Authenticated User can activate 2FA and login with code", async ({
   page,
 }) => {
@@ -44,7 +19,7 @@ test("Two Factor Authenticated User can activate 2FA and login with code", async
   await page.waitForURL((url) => url.pathname === "/");
   await expect(page.getByRole("button", { name: "Mon espace" })).toBeVisible();
 
-  // 1. Check navigation link is not visible
+  // 1. Check navigation link is visible
   await page.goto("/settings/profile");
 
   // The link title in SettingsLayout is 'Two-Factor Auth'
@@ -55,13 +30,12 @@ test("Two Factor Authenticated User can activate 2FA and login with code", async
   await page.goto("/settings/two-factor");
 
   // It redirects to confirm-password first
-  await page.waitForLoadState("networkidle");
-
+  await page.waitForURL("**/confirm-password");
   await page.getByLabel("Password").fill(userPassword);
-  await page.getByRole("button", { name: "Confirm password" }).click();
+  await page.locator('[data-test="confirm-password-button"]').click();
 
-  // Wait for either the 2FA page or the password confirmation page
-  await page.waitForLoadState("networkidle");
+  // Wait for the 2FA page
+  await page.waitForURL("**/settings/two-factor");
 
   await expect(
     page.getByRole("heading", {
@@ -69,7 +43,6 @@ test("Two Factor Authenticated User can activate 2FA and login with code", async
       exact: true,
     }),
   ).toBeVisible();
-  // await expect(page.getByText("Disabled")).toBeVisible();
 
   // 3. Enable 2FA
   await page.getByRole("button", { name: "Enable 2FA" }).click();
@@ -148,11 +121,10 @@ test("Two Factor Authenticated User can activate 2FA and login with code", async
 
   // Should be logged in
   // After 2FA, the app should redirect to dashboard or home
-  await expect(page).toHaveURL(
+  await page.waitForURL(
     (url) => url.pathname === "/" || url.pathname === "/dashboard",
   );
 
-  // await page.screenshot({ path: "two-factor-done.png" });
   // Verify user is logged in by checking for 'Mon espace' button
   if (new URL(page.url()).pathname === "/") {
     await expect(page.getByRole("button", { name: "Mon espace" })).toBeVisible({

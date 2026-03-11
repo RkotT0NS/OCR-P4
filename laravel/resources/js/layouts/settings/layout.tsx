@@ -26,15 +26,11 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
             href: editPassword(),
             icon: null,
         },
-        ...(features['two-factor-authentication']
-            ? [
-                  {
-                      title: 'Two-Factor Auth',
-                      href: show(),
-                      icon: null,
-                  },
-              ]
-            : []),
+        {
+            title: 'Two-Factor Auth',
+            href: show(),
+            icon: null,
+        },
         ...(features['luminosity-theme']
             ? [
                   {

@@ -42,7 +42,6 @@ class DatabaseSeeder extends Seeder
                 'email' => 'two-factor-authenticated-user@example.com',
                 'password' => Hash::make('Abcdefgh,123'),
             ]);
-            Feature::for($twoFactorUser)->activate('two-factor-authentication');
 
             $oldUser = User::factory()->create([
                 'name' => 'Old User',

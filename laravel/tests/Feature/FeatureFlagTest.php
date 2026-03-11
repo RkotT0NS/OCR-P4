@@ -35,15 +35,12 @@ class FeatureFlagTest extends TestCase
     public function test_features_are_shared_with_inertia(): void
     {
         Feature::activate('luminosity-theme');
-        // Feature::activate('two-factor-authentication');
 
         $this->get('/')
             ->assertInertia(fn ($page) => $page
                 ->has('features', fn ($features) => $features
                     ->has('luminosity-theme')
-                    ->has('two-factor-authentication')
                     ->where('luminosity-theme', true)
-                    ->where('two-factor-authentication', false)
                 )
             );
     }

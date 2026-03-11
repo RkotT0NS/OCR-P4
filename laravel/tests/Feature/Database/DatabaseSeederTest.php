@@ -39,7 +39,6 @@ class DatabaseSeederTest extends TestCase
 
         $twoFactorUser = User::where('email', 'two-factor-authenticated-user@example.com')->first();
         $this->assertNotNull($twoFactorUser);
-        $this->assertTrue(Feature::for($twoFactorUser)->active('two-factor-authentication'));
 
         $oldUser = User::where('email', 'old-user@example.com')->first();
         $this->assertNotNull($oldUser);
