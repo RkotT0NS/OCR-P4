@@ -148,10 +148,10 @@ class MigrationsTest extends TestCase
         // After one rollback, the last migrations should be gone.
         // Given the filenames, the last one is avatar_url addition.
         $this->assertFalse(Schema::hasColumn('users', 'avatar_url'));
-        
+
         // Let's rollback everything
         $this->artisan('migrate:reset');
-        
+
         $this->assertFalse(Schema::hasTable('users'));
         $this->assertFalse(Schema::hasTable('uploads'));
     }

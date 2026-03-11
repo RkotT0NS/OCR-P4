@@ -2,12 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
 use App\Models\Upload;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
-use Tests\TestCase;
 use Laravel\Pennant\Feature;
+use Tests\TestCase;
 
 class RoutesTest extends TestCase
 {
@@ -65,6 +64,7 @@ class RoutesTest extends TestCase
         Feature::for($user)->activate('luminosity-theme');
         $this->actingAs($user)->get(route('appearance.edit'))->assertOk();
     }
+
     public function test_appearance_is_not_accessible_to_authenticated_users_without_luminosity_theme_feature()
     {
         $user = User::factory()->create();

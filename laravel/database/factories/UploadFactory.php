@@ -21,8 +21,8 @@ class UploadFactory extends Factory
         return [
             'uuid' => (string) Str::uuid(),
             'user_id' => User::factory(),
-            'path' => 'uploads/' . Str::random(40),
-            'original_name' => $this->faker->word() . '.' . $this->faker->fileExtension(),
+            'path' => 'uploads/'.Str::random(40),
+            'original_name' => $this->faker->word().'.'.$this->faker->fileExtension(),
             'mime_type' => $this->faker->mimeType(),
             'size' => $this->faker->numberBetween(100, 1000000),
             'expires_at' => now()->addDays(7),

@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Upload;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Pennant\Feature;
 

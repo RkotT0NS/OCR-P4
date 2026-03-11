@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Database;
 
-use App\Models\User;
 use App\Models\Upload;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -47,9 +47,9 @@ class DatabaseSeederTest extends TestCase
         // Verify uploads for old user
         $fixturePath = base_path('tests/Fixtures/old-user-upload');
         $fixtureFiles = File::files($fixturePath);
-        
-        $this->assertGreaterThan(0, count($fixtureFiles), "No fixture files found for testing.");
-        
+
+        $this->assertGreaterThan(0, count($fixtureFiles), 'No fixture files found for testing.');
+
         foreach ($fixtureFiles as $fixtureFile) {
             $hash = hash_file('sha512', $fixtureFile->getPathname());
             $blobPath = 'uploads/'.$hash;
@@ -73,7 +73,7 @@ class DatabaseSeederTest extends TestCase
 
             // Verify file exists on disk
             $this->assertTrue(File::exists($absoluteBlobPath), "File was not copied to '{$absoluteBlobPath}'");
-            
+
             // Verify file content matches
             $this->assertEquals(
                 hash_file('sha512', $fixtureFile->getPathname()),

@@ -3,10 +3,8 @@
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\Settings\TwoFactorAuthenticationController;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Laravel\Fortify\Features;
 use Laravel\Pennant\Feature;
 
 Route::middleware(['auth'])->group(function () {

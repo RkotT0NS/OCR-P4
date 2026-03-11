@@ -14,7 +14,7 @@ class UserUploadTest extends TestCase
     public function test_user_can_refresh_uploads_list()
     {
         $user = User::factory()->create();
-        
+
         // Create an old upload
         $oldUpload = Upload::factory()->create([
             'user_id' => $user->id,
@@ -41,7 +41,7 @@ class UserUploadTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJsonCount(2, 'data');
-        
+
         $uuids = collect($response->json('data'))->pluck('uuid');
         $this->assertTrue($uuids->contains($newUpload->uuid));
         $this->assertTrue($uuids->contains($deletedUpload->uuid));
@@ -53,7 +53,7 @@ class UserUploadTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($user, 'api')
-            ->getJson("/api/uploads/refresh");
+            ->getJson('/api/uploads/refresh');
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(['last_known_date']);
@@ -71,7 +71,7 @@ class UserUploadTest extends TestCase
             ->postJson("/api/uploads/{$upload->uuid}/delete");
 
         $response->assertStatus(200);
-        
+
         $upload->refresh();
         $this->assertTrue($upload->expires_at->isPast() || $upload->expires_at->isNow());
     }

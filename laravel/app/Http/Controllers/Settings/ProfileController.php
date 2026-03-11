@@ -36,16 +36,16 @@ class ProfileController extends Controller
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             $file = $request->file('avatar');
             $hash = hash_file('sha512', $file->getRealPath());
-            $filename = $hash . '.png';
+            $filename = $hash.'.png';
 
             // Ensure the directory exists
             $directory = public_path('profile');
-            if (!file_exists($directory)) {
+            if (! file_exists($directory)) {
                 mkdir($directory, 0755, true);
             }
 
             $file->move($directory, $filename);
-            $user->avatar_url = asset('profile/' . $filename);
+            $user->avatar_url = asset('profile/'.$filename);
         }
 
         if ($user->isDirty('email')) {
