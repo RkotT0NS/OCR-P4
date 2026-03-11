@@ -91,7 +91,7 @@ export default function Profile({
         </div>
         <div
           className={cn(
-            "content-stretch flex gap-4 items-center relative shrink-0",
+            "content-stretch flex gap-4 items-center relative shrink-0 max-w-2xs",
           )}
           data-node-id="27:360"
         >
@@ -130,6 +130,7 @@ export default function Profile({
               fontVariationSettings: "'opsz' 14",
               fontFeatureSettings: "'liga' 0",
             }}
+            title={name}
           >
             {name}
           </p>
