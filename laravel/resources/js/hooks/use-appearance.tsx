@@ -7,9 +7,11 @@ const listeners = new Set<() => void>();
 let currentAppearance: Appearance = defaultAppearance;
 
 const prefersDark = (): boolean => {
-    if (typeof window === 'undefined') return false;
+    console.log('here i am');
+    return false;
+    // if (typeof window === 'undefined') return false;
 
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // return window.matchMedia('(prefers-color-scheme: dark)').matches;
 };
 
 const setCookie = (name: string, value: string, days = 365): void => {

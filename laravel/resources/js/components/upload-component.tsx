@@ -1,11 +1,11 @@
+import { SharedData } from '@/types';
+import { usePage } from '@inertiajs/react';
 import {
     Dashboard,
     Tus,
     Uppy,
 } from 'https://releases.transloadit.com/uppy/v3.15.0/uppy.min.mjs';
 import { useEffect } from 'react';
-import { usePage } from '@inertiajs/react';
-import { SharedData } from '@/types';
 
 import '@uppy/core/css/style.min.css';
 import '@uppy/dashboard/css/style.min.css';
@@ -24,7 +24,7 @@ export default function UploadComponent() {
                     Authorization: `Bearer ${auth.token}`,
                 },
             });
-        
+
         return () => {
             uppy.close();
         };

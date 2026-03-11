@@ -6,7 +6,9 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { HomePage, Icons } from '../../../../figma/implementation/src';
 
 export default function Welcome() {
-    const { auth, uploadSizeLimit } = usePage<SharedData & { uploadSizeLimit: number }>().props;
+    const { auth, uploadSizeLimit } = usePage<
+        SharedData & { uploadSizeLimit: number }
+    >().props;
     const initialIcons = useContext(Icons);
     const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null);
     const [progress, setProgress] = useState(0);
