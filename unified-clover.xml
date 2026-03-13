@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1773247170">
-  <project timestamp="1773247170">
+<coverage generated="1773414771">
+  <project timestamp="1773414771">
     <package name="App\Actions\Fortify">
       <file name="laravel/app/Actions/Fortify/CreateNewUser.php">
         <class name="App\Actions\Fortify\CreateNewUser" namespace="App\Actions\Fortify">
@@ -397,10 +397,10 @@
         <line num="54" type="stmt" count="72"/>
         <line num="60" type="method" name="uploads" visibility="public" complexity="1" crap="1" count="2"/>
         <line num="62" type="stmt" count="2"/>
-        <line num="70" type="method" name="getJWTIdentifier" visibility="public" complexity="1" crap="1" count="46"/>
-        <line num="72" type="stmt" count="46"/>
-        <line num="80" type="method" name="getJWTCustomClaims" visibility="public" complexity="1" crap="1" count="46"/>
-        <line num="82" type="stmt" count="46"/>
+        <line num="70" type="method" name="getJWTIdentifier" visibility="public" complexity="1" crap="1" count="45"/>
+        <line num="72" type="stmt" count="45"/>
+        <line num="80" type="method" name="getJWTCustomClaims" visibility="public" complexity="1" crap="1" count="45"/>
+        <line num="82" type="stmt" count="45"/>
         <metrics loc="85" ncloc="53" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="12" coveredelements="12"/>
       </file>
     </package>
