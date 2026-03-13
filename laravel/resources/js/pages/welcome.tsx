@@ -1,139 +1,25 @@
 import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
-import Uppy from '@uppy/core';
-import Tus from '@uppy/tus';
-import { useContext, useEffect, useRef, useState } from 'react';
+
+import { useContext } from 'react';
 import { HomePage, Icons } from '../../../../figma/implementation/src';
+
+import { usePageUpload } from '@datashare/upload';
 
 export default function Welcome() {
     const { auth, uploadSizeLimit } = usePage<
         SharedData & { uploadSizeLimit: number }
     >().props;
+    const {
+        uploadedFileUrl,
+        progress,
+        isPaused,
+        isUploading,
+        handleUpload,
+        onPause,
+        onResume,
+    } = usePageUpload(auth.token);
     const initialIcons = useContext(Icons);
-    const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null);
-    const [progress, setProgress] = useState(0);
-    const [isPaused, setIsPaused] = useState(false);
-    const [isUploading, setIsUploading] = useState(false);
-
-    const pendingOptions = useRef<{
-        password?: string;
-        expiresAt?: number;
-    } | null>(null);
-
-    const [uppy] = useState(
-        () =>
-            new Uppy({
-                autoProceed: false,
-                restrictions: { maxNumberOfFiles: 1 },
-            }),
-    );
-
-    useEffect(() => {
-        if (!uppy.getPlugin('Tus')) {
-            uppy.use(Tus, {
-                id: 'Tus',
-                endpoint: '/api/upload',
-                chunkSize: 5000 * 1024,
-                headers: {
-                    Authorization: `Bearer ${auth.token}`,
-                },
-            });
-        }
-
-        const onProgress = (progress: number) => {
-            setProgress(progress);
-        };
-
-        const onSuccess = (
-            file: unknown,
-            response: {
-                body?: Record<string, never> | undefined;
-                status: number;
-                bytesUploaded?: number;
-                uploadURL?: string;
-            },
-        ) => {
-            const uploadUrl = response.uploadURL;
-            const uuid = uploadUrl?.split('/').pop();
-
-            if (
-                pendingOptions.current &&
-                (pendingOptions.current.password ||
-                    pendingOptions.current.expiresAt)
-            ) {
-                const { password, expiresAt } = pendingOptions.current;
-                const payload: { password?: string; expires_at?: string } = {};
-                if (password && password.trim() !== '') {
-                    payload.password = password;
-                }
-                if (expiresAt) {
-                    const date = new Date();
-                    date.setDate(date.getDate() + expiresAt);
-                    payload.expires_at = date.toISOString();
-                }
-
-                if (Object.keys(payload).length > 0) {
-                    fetch(`/api/uploads/${uuid}`, {
-                        method: 'PATCH',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${auth.token}`,
-                            'X-Requested-With': 'XMLHttpRequest',
-                        },
-                        body: JSON.stringify(payload),
-                    })
-                        .then((res) => {
-                            if (!res.ok) {
-                                console.error(
-                                    'Failed to patch upload metadata',
-                                );
-                            }
-                            return res.json().then((jsonResponse) => {
-                                setUploadedFileUrl(jsonResponse.data.url);
-                            });
-                        })
-                        .catch((err) => {
-                            console.error(
-                                'Error patching upload metadata:',
-                                err,
-                            );
-                        });
-                }
-            }
-
-            setProgress(100);
-            setIsUploading(false);
-            pendingOptions.current = null;
-        };
-
-        uppy.on('progress', onProgress);
-        uppy.on('upload-success', onSuccess);
-
-        return () => {
-            uppy.off('progress', onProgress);
-            uppy.off('upload-success', onSuccess);
-        };
-    }, [uppy, auth.token]);
-
-    const handleUpload = (
-        file: File,
-        options?: { password?: string; expiresAt?: number },
-    ) => {
-        uppy.cancelAll();
-        pendingOptions.current = options || null;
-        try {
-            uppy.addFile({
-                name: file.name,
-                type: file.type,
-                data: file,
-            });
-            uppy.upload();
-            setIsUploading(true);
-            setIsPaused(false);
-        } catch (err) {
-            console.error('Error adding file to Uppy:', err);
-        }
-    };
 
     return (
         <Icons.Provider
@@ -155,14 +41,7 @@ export default function Welcome() {
                 progress={progress}
                 isPaused={isPaused}
                 isUploading={isUploading}
-                onPause={() => {
-                    uppy.pauseAll();
-                    setIsPaused(true);
-                }}
-                onResume={() => {
-                    uppy.resumeAll();
-                    setIsPaused(false);
-                }}
+                {...{ onPause, onResume }}
                 uploadSizeLimit={uploadSizeLimit}
             />
         </Icons.Provider>
