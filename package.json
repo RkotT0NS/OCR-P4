@@ -16,7 +16,9 @@
     "types",
     "tools",
     "e2e",
-    "packages/pagination-cache"
+    "packages/pagination-cache",
+    "packages/upload",
+    "packages/theme"
   ],
   "license": "ISC",
   "author": "tetedacier",
