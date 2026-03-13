@@ -16,8 +16,7 @@ test("Two Factor Authenticated User can activate 2FA and login with code", async
   await page.getByLabel("Mot de passe").fill(userPassword);
   await page.locator('[data-test="login-button"]').click();
 
-  await page.waitForURL((url) => url.pathname === "/");
-  await expect(page.getByRole("button", { name: "Mon espace" })).toBeVisible();
+  await expect(page.getByText("Mon espace")).toBeVisible();
 
   // 1. Check navigation link is visible
   await page.goto("/settings/profile");

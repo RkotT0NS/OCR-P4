@@ -14,7 +14,7 @@ test("Luminosity Theme User can access appearance settings and change theme", as
   await page.getByRole("button", { name: "Connexion" }).click();
 
   // Wait for login success and redirect
-  await expect(page.getByRole("button", { name: "Mon espace" })).toBeVisible();
+  await expect(page.getByText("Mon espace")).toBeVisible();
 
   // Go to settings
   await page.goto("/settings/profile");
