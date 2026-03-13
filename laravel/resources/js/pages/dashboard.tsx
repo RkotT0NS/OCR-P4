@@ -11,6 +11,7 @@ import { PaginatedUploads } from '@datashare/types';
 import { usePage } from '@inertiajs/react';
 import { useContext } from 'react';
 import { Icons, UserSpacePage } from '../../../../figma/implementation/src';
+
 function deleteUpload(token: string): (uploadId: string) => Promise<boolean> {
     return async (uploadId: string): Promise<boolean> => {
         const requestResult = await fetch(`/api/uploads/${uploadId}`, {
@@ -20,6 +21,24 @@ function deleteUpload(token: string): (uploadId: string) => Promise<boolean> {
             },
         });
         return requestResult.ok;
+    };
+}
+function refreshUploads(
+    token: string,
+): (latest: number) => Promise<PaginatedUploads> {
+    return async (latest: number): Promise<PaginatedUploads> => {
+        const requestResult = await fetch(
+            '/api/uploads/refresh' + `?last_known_date=${latest.toString()}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+        if (!requestResult.ok) {
+            throw new Error('Failed to refresh uploads');
+        }
+        return requestResult.json() as unknown as Promise<PaginatedUploads>;
     };
 }
 function listUpload(
@@ -61,32 +80,7 @@ export default function Dashboard() {
             }}
         >
             <UserSpacePage
-                refresher={() => {
-                    fetch(
-                        '/api/uploads/refresh?last_known_date=1770814660000',
-                        {
-                            headers: {
-                                Authorization: `Bearer ${auth.token}`,
-                            },
-                        },
-                    )
-                        .then((response) => {
-                            if (response.ok) {
-                                return response.json();
-                            }
-                            return Promise.reject(
-                                new Error('response is not ok', {
-                                    cause: response,
-                                }),
-                            );
-                        })
-                        .then((jsonResult) => {
-                            console.log(jsonResult);
-                        })
-                        .catch((error) => {
-                            console.error(error);
-                        });
-                }}
+                refresher={refreshUploads(auth.token)}
                 uploads={listUpload(auth.token)}
                 deleteUpload={deleteUpload(auth.token)}
                 actions={{ logout }}

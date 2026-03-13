@@ -41,6 +41,11 @@ async function ensureDBAndStore(storeName: string): Promise<IDBPDatabase> {
 
   return db as IDBPDatabase;
 }
+interface UpdateRange {
+  lastModificationDate: Date;
+  oldestCreationDate: Date;
+}
+
 export interface PaginationPayload<T> {
   records: T[];
   nextPage: number | null;
@@ -61,9 +66,40 @@ function appendPageToCache(
     console.log({ expectedFromAppendEmptyCache: [item] });
   }
 }
+
+function getLastKnownDate(
+  currentAssets: {
+    created_at: string;
+    expired_at: string;
+    deleted_at: string;
+  }[],
+): UpdateRange {
+  return currentAssets.reduce(
+    (refresherOptions, uploaded) => ({
+      lastModificationDate: new Date(
+        Math.max(
+          refresherOptions.lastModificationDate.getTime(),
+          new Date(uploaded.created_at).getTime(),
+          new Date(uploaded.deleted_at).getTime(),
+        ),
+      ),
+      oldestCreationDate: new Date(
+        Math.min(
+          refresherOptions.lastModificationDate.getTime(),
+          new Date(uploaded.created_at).getTime(),
+        ),
+      ),
+    }),
+    { lastModificationDate: new Date(0), oldestCreationDate: new Date() },
+  );
+}
+
 export function paginationCache<ResourceType>(
   resourceName: string,
   fetchPromise: (page?: number) => Promise<ResourcePagination<ResourceType>>,
+  refresher: (
+    options: UpdateRange,
+  ) => Promise<ResourcePagination<ResourceType>>,
 ) {
   return {
     read(

@@ -87,13 +87,16 @@ function FileEntry({
 function UploadsJSON({
   uploads,
   deleteUpload,
+  refresher,
 }: {
   uploads: (number?: number) => Promise<PaginatedUploads>;
+  refresher: (lastKnownDate: number) => Promise<PaginatedUploads>;
   deleteUpload: (uploadId: string) => Promise<boolean>;
 }) {
   const uploadPagination = paginationCache<UploadDetail>(
     "uploads-meta",
     uploads,
+    refresher,
   );
   const resolved = uploadPagination.read();
 
@@ -108,19 +111,7 @@ function UploadsJSON({
   );
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  console.log(
-    loadedUploads
-      .reduce((mostRecent, uploaded) => {
-        return new Date(
-          Math.max(
-            mostRecent.getTime(),
-            new Date(uploaded.created_at).getTime(),
-            new Date(uploaded.deleted_at).getTime(),
-          ),
-        );
-      }, new Date(0))
-      .getTime(),
-  );
+
   const handleLoadMore = async () => {
     console.log(nextPage);
     if (!nextPage) return;
@@ -213,7 +204,7 @@ export default function UserSpacePage({
   AvatarFallback,
   deleteUpload,
 }: {
-  refresher: () => void;
+  refresher: (lastKnownDate: number) => Promise<PaginatedUploads>;
   user: { name: string; avatar_url?: string };
   uploads: (number?: string) => Promise<PaginatedUploads>;
   actions: {
@@ -311,13 +302,6 @@ export default function UserSpacePage({
                     Mes fichiers
                   </h2>
                   <UploadFilter className={cn("w-full md:w-fit")} />
-                  <button
-                    onClick={() => {
-                      refresher();
-                    }}
-                  >
-                    refresh
-                  </button>
                   <div
                     className={cn(
                       "flex flex-col gap-4 overflow-y-auto overflow-x-hidden pr-3.5 w-[calc(100%+var(--spacing)*3.5)]",
@@ -327,6 +311,7 @@ export default function UserSpacePage({
                       <Suspense fallback={<div>Chargement ...</div>}>
                         <UploadsJSON
                           uploads={uploads}
+                          refresher={refresher}
                           deleteUpload={deleteUpload}
                         />
                       </Suspense>
