@@ -1,5 +1,5 @@
 import { Icons } from "../contexts/Icons";
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 import { Copyright } from "../components/Copyright";
 import { HeaderActions } from "../components/PageHeader/HeaderActions";
 import { Suspense, useState, type ReactElement } from "react";

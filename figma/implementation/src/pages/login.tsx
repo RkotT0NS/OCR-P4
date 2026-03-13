@@ -1,7 +1,7 @@
 // import type React from 'react';
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 import type { ReactNode } from "react";
 
 function InputField({

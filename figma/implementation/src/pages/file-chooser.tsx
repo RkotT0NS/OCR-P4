@@ -1,4 +1,4 @@
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";

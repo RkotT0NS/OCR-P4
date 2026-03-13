@@ -1,6 +1,6 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 import { Callout } from "../components/Callout";
 import { Icons } from "../contexts/Icons";
 import MimeTypeIcon from "../components/MimeTypeIcon";

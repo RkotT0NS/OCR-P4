@@ -1,4 +1,4 @@
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 
 export function Copyright({ classes = "" }: { classes?: string }) {
   return (

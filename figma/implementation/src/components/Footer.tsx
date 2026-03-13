@@ -1,4 +1,4 @@
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 import { Copyright } from "./Copyright";
 
 export function Footer() {

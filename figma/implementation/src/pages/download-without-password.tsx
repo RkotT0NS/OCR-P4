@@ -4,7 +4,7 @@ import type { Upload } from "@datashare/types";
 import MimeTypeIcon from "../components/MimeTypeIcon";
 import { formatDistance } from "date-fns";
 import { fr } from "date-fns/locale";
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 import { humanFileSize } from "../lib/size-format";
 import { Callout } from "../components/Callout";
 import { Icons } from "../contexts/Icons";

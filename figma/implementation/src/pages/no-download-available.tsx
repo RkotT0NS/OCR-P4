@@ -1,7 +1,7 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Callout } from "../components/Callout";
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 
 export default function NoDownloadAvailablePage() {
   return (
@@ -13,8 +13,16 @@ export default function NoDownloadAvailablePage() {
       }}
     >
       <Header />
-      <main className={cn("w-full h-full flex flex-col items-center justify-center")}>
-        <div className={cn("bg-white flex flex-col gap-6 items-center max-w-xl w-full p-8 rounded-2xl shadow-lg")}>
+      <main
+        className={cn(
+          "w-full h-full flex flex-col items-center justify-center",
+        )}
+      >
+        <div
+          className={cn(
+            "bg-white flex flex-col gap-6 items-center max-w-xl w-full p-8 rounded-2xl shadow-lg",
+          )}
+        >
           <h2 className={cn("text-3xl font-bold text-black text-center")}>
             Télécharger un fichier
           </h2>

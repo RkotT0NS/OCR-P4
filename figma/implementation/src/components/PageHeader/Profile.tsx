@@ -1,5 +1,5 @@
 import { type ReactElement, type ReactNode } from "react";
-import { cn } from "../../lib/utils";
+import { cn } from "@datashare/theme";
 import { Icons } from "../../contexts/Icons";
 type ProfileProps = {
   className?: string;

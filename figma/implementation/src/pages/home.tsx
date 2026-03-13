@@ -7,7 +7,7 @@ import {
   type Dispatch,
   type SetStateAction,
 } from "react";
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 import { Icons } from "../contexts/Icons";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";

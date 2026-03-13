@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@datashare/theme';
 import { type HTMLAttributes } from 'react';
 
 export default function InputError({

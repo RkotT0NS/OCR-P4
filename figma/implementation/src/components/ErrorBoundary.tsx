@@ -1,5 +1,5 @@
 import { Component, type ReactNode } from "react";
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 interface AcceptedError {
   message: string;
   reason: unknown;

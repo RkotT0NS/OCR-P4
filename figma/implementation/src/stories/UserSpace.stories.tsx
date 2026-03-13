@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import UserSpace from "../pages/user-space";
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 import type { ReactNode, CSSProperties } from "react";
 
 const meta = {

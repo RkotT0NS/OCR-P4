@@ -1,5 +1,5 @@
 import { Icons } from "../contexts/Icons";
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 
 type CalloutProps = {
   className?: string;

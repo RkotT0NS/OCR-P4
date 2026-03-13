@@ -1,4 +1,4 @@
-import { cn } from "../../lib/utils";
+import { cn } from "@datashare/theme";
 import axios from "axios";
 export function HeaderActions({
   actions,

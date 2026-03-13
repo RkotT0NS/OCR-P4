@@ -1,7 +1,7 @@
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Icons } from "../contexts/Icons";
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 import { Callout } from "../components/Callout";
 import MimeTypeIcon from "../components/MimeTypeIcon";
 

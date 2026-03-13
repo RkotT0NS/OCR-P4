@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { humanFileSize } from "../lib/size-format";
-import { cn } from "../lib/utils";
+import { cn } from "@datashare/theme";
 import MimeTypeIcon from "./MimeTypeIcon";
 import { Icons } from "../contexts/Icons";
 import inputFileSelectionChange from "../lib/file-selection-handler";

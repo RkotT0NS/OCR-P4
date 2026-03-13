@@ -5,8 +5,6 @@ export { Callout } from "./components/Callout.tsx";
 
 export { Icons } from "./contexts/Icons.tsx";
 
-export { cn } from "./lib/utils.ts";
-
 export { default as RegisterPage } from "./pages/register.tsx";
 export { default as UserSpacePage } from "./pages/user-space.tsx";
 export { default as DownloadWithoutPasswordPage } from "./pages/download-without-password.tsx";
