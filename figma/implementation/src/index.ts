@@ -14,5 +14,4 @@ export { default as FileChooserPage } from "./pages/file-chooser.tsx";
 export { default as DownloadWithPasswordEmptyPage } from "./pages/download-with-password-empty.tsx";
 export { default as LoginPage } from "./pages/login.tsx";
 export { default as FileChoosedPage } from "./pages/file-choosed.tsx";
-export { default as MobileUserSpacePage } from "./pages/mobile-user-space.tsx";
 export { default as HomePage } from "./pages/home.tsx";
